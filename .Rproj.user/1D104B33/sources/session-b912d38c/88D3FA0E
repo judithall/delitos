@@ -1,0 +1,28 @@
+{
+    "id": "88D3FA0E",
+    "path": "~/GitHub/delitos/capitulos/Introduccion.qmd",
+    "project_path": "capitulos/Introduccion.qmd",
+    "type": "quarto_markdown",
+    "hash": "4109335002",
+    "contents": "",
+    "dirty": false,
+    "created": 1792770564253.0,
+    "source_on_save": true,
+    "relative_order": 5,
+    "properties": {
+        "rmdVisualMode": "true",
+        "rmdVisualWrapConfigured": "true",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "5,18",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1792770756,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1792770756268,
+    "read_only": false,
+    "read_only_alternatives": []
+}
