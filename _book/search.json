@@ -2,21 +2,101 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Economía del delito",
+    "title": "Inseguridad dentro de las cárceles del Ecuador",
     "section": "",
-    "text": "Preface\nThis is a Quarto book.\nTo learn more about Quarto books visit https://quarto.org/docs/books.\n\n1 + 1\n\n[1] 2",
+    "text": "Resumen\nEste avance propone un modelo de inseguridad dentro de las cárceles ecuatorianas construido únicamente con los tabulados del Censo Penitenciario 2022. Desde la gobernanza criminal carcelaria (Skarbek, 2014) y la economía de la protección privada (Gambetta, 1993), la inseguridad se interpreta como síntoma de un orden estatal fallido: cuando el Estado no garantiza el orden, los presos demandan protección a grupos criminales, algo más probable en centros grandes y entre quienes carecen de apoyo externo. La unidad de análisis es el centro de privación de libertad (N = r nrow(datos) centros con al menos 50 personas) y la variable dependiente es la proporción de presos que se sienten inseguros. Se estima un logit fraccional con errores robustos, con el tamaño del centro (H1) y la proporción de presos sin visitas (H2) como variables de interés, y con la proporción inscrita en talleres productivos y la de procesados como controles. En los modelos ponderados, la proporción sin visitas se asocia positivamente con la inseguridad (r fmt_p(coef_p(res, \"M1\", \"sin_visitas\"))), mientras que el tamaño del centro solo alcanza significancia marginal (r fmt_p(coef_p(res, \"M1\", \"ln_tam\"))); sin ponderar, ninguna de las dos es significativa al 5 %. La participación en talleres muestra un signo contrario al esperado. Con apenas r nrow(datos) centros, los resultados se leen como asociaciones y no como relaciones causales.\nPalabras clave: gobernanza criminal, cárceles, inseguridad, Censo Penitenciario 2022, Ecuador, logit fraccional",
     "crumbs": [
-      "Preface"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Resumen</span>"
     ]
   },
   {
-    "objectID": "capitulos/Introduccion.html",
-    "href": "capitulos/Introduccion.html",
-    "title": "1  Introduccion",
-    "section": "",
-    "text": "Mi primer proyecto",
+    "objectID": "index.html#estructura-del-documento",
+    "href": "index.html#estructura-del-documento",
+    "title": "Inseguridad dentro de las cárceles del Ecuador",
+    "section": "Estructura del documento",
+    "text": "Estructura del documento\n\nIntroducción: problema, pregunta y objetivos.\nMarco teórico: gobernanza criminal carcelaria, protección privada e hipótesis.\n\n\n\n\n\nGambetta, D. (1993). The Sicilian mafia: The business of private protection. Harvard University Press.\n\n\nSkarbek, D. (2014). The social order of the underworld: How prison gangs govern the American penal system. Oxford University Press.",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduccion</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Resumen</span>"
+    ]
+  },
+  {
+    "objectID": "01_introduccion.html",
+    "href": "01_introduccion.html",
+    "title": "01_introduccion",
+    "section": "",
+    "text": "Introducción\nLa seguridad dentro de una cárcel es una condición básica del orden que debe garantizar el Estado. Cuando esa garantía se debilita, la violencia deja de ser un hecho aislado y pasa a organizar la vida cotidiana de quienes están privados de libertad. En 2022, el Instituto Nacional de Estadística y Censos [INEC] levantó el Censo Penitenciario 2022 entre el 22 de agosto y el 10 de diciembre en todos los centros de privación de libertad del país y entrevistó directamente a 31 321 personas (Instituto Nacional de Estadística y Censos, 2022). Ese operativo permite, por primera vez, comparar la percepción de inseguridad entre centros con una misma pregunta y un mismo instrumento.\nEste documento presenta un avance de investigación que usa solo ese censo para responder una pregunta concreta: ¿qué características de un centro y de su población se asocian con una mayor proporción de presos que se sienten inseguros?",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>01_introduccion</span>"
+    ]
+  },
+  {
+    "objectID": "01_introduccion.html#objetivo-general",
+    "href": "01_introduccion.html#objetivo-general",
+    "title": "01_introduccion",
+    "section": "Objetivo general",
+    "text": "Objetivo general\nEstimar un modelo de inseguridad intracarcelaria a nivel de centro, usando exclusivamente los tabulados del Censo Penitenciario 2022.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>01_introduccion</span>"
+    ]
+  },
+  {
+    "objectID": "01_introduccion.html#objetivos-específicos",
+    "href": "01_introduccion.html#objetivos-específicos",
+    "title": "01_introduccion",
+    "section": "Objetivos específicos",
+    "text": "Objetivos específicos\n\nDescribir la distribución de la inseguridad percibida entre los centros de privación de libertad.\nContrastar si el tamaño del centro (H1) y la proporción de presos sin visitas (H2) se asocian con una mayor inseguridad.\nEvaluar la robustez de esas asociaciones a la ponderación y a la exclusión de un caso extremo.\n\n\n\n\n\nInstituto Nacional de Estadística y Censos. (2022). Censo Penitenciario 2022 [Conjunto de datos]. https://www.ecuadorencifras.gob.ec/censo-penitenciario-2022/",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>01_introduccion</span>"
+    ]
+  },
+  {
+    "objectID": "02_marco_teorico.html",
+    "href": "02_marco_teorico.html",
+    "title": "02_marco_teorico",
+    "section": "",
+    "text": "Marco teórico",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>02_marco_teorico</span>"
+    ]
+  },
+  {
+    "objectID": "02_marco_teorico.html#gobernanza-criminal-carcelaria",
+    "href": "02_marco_teorico.html#gobernanza-criminal-carcelaria",
+    "title": "02_marco_teorico",
+    "section": "Gobernanza criminal carcelaria",
+    "text": "Gobernanza criminal carcelaria\nLa gobernanza criminal se entiende como la imposición de reglas y restricciones de conducta por parte de organizaciones criminales sobre otros actores (Lessing, 2021). En las cárceles, el trabajo de Skarbek sobre las prisiones de California sostiene que las pandillas carcelarias proveen reglas, resolución de disputas y protección cuando el Estado no logra garantizar el orden, y que el crecimiento y la rotación de la población debilitan los mecanismos informales basados en la reputación, lo que favorece la gobernanza de grupos organizados (Skarbek, 2011, 2014). Bajo este enfoque, la inseguridad que declaran los presos no es solo violencia observada: es el síntoma de un orden estatal que falló y de un orden paralelo que lo reemplaza.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>02_marco_teorico</span>"
+    ]
+  },
+  {
+    "objectID": "02_marco_teorico.html#protección-privada-y-demanda-de-orden",
+    "href": "02_marco_teorico.html#protección-privada-y-demanda-de-orden",
+    "title": "02_marco_teorico",
+    "section": "Protección privada y demanda de orden",
+    "text": "Protección privada y demanda de orden\nGambetta (1993) analiza la mafia como una industria de protección privada que prospera donde la confianza es escasa y el Estado no garantiza los derechos de propiedad ni el cumplimiento de los acuerdos. Trasladado a la cárcel, el preso que carece de una red externa que lo respalde tiene más razones para depender de la protección que ofrece un grupo criminal, y esa dependencia es más probable en centros donde el Estado controla menos a una población numerosa.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>02_marco_teorico</span>"
+    ]
+  },
+  {
+    "objectID": "02_marco_teorico.html#hipótesis",
+    "href": "02_marco_teorico.html#hipótesis",
+    "title": "02_marco_teorico",
+    "section": "Hipótesis",
+    "text": "Hipótesis\nH1. A mayor tamaño del centro, mayor proporción de presos que se sienten inseguros, porque hay más población que el Estado no puede controlar y eso favorece el orden paralelo.\nH2. A mayor proporción de presos sin visitas, mayor inseguridad, porque quien no tiene red externa depende más de la protección privada.\nEl modelo incluye dos controles: la proporción de presos inscritos en talleres o actividades productivas, que aproxima la oferta estatal y cuyo signo esperado es negativo, y la proporción de procesados sin sentencia, que aproxima la rotación de la población.\n\n\n\n\nGambetta, D. (1993). The Sicilian mafia: The business of private protection. Harvard University Press.\n\n\nLessing, B. (2021). Conceptualizing criminal governance. Perspectives on Politics, 19(3), 854-873. https://doi.org/10.1017/S1537592720001243\n\n\nSkarbek, D. (2011). Governance and prison gangs. American Political Science Review, 105(4), 702-716. https://doi.org/10.1017/S0003055411000335\n\n\nSkarbek, D. (2014). The social order of the underworld: How prison gangs govern the American penal system. Oxford University Press.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>02_marco_teorico</span>"
+    ]
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "Gambetta, D. (1993). The Sicilian mafia: The business\nof private protection. Harvard University Press.\n\n\nInstituto Nacional de Estadística y Censos. (2022). Censo\nPenitenciario 2022 [Conjunto de datos]. https://www.ecuadorencifras.gob.ec/censo-penitenciario-2022/\n\n\nLessing, B. (2021). Conceptualizing criminal governance.\nPerspectives on Politics, 19(3), 854–873. https://doi.org/10.1017/S1537592720001243\n\n\nSkarbek, D. (2011). Governance and prison gangs. American Political\nScience Review, 105(4), 702–716. https://doi.org/10.1017/S0003055411000335\n\n\nSkarbek, D. (2014). The social order of the underworld: How prison\ngangs govern the American penal system. Oxford\nUniversity Press.",
+    "crumbs": [
+      "References"
     ]
   }
 ]

@@ -1,9 +1,16 @@
-# Preface {.unnumbered}
+---
+title: "Resumen"
+bibliography: references.bib
+csl: apa.csl
+---
 
-This is a Quarto book.
+# Resumen {.unnumbered}
 
-To learn more about Quarto books visit <https://quarto.org/docs/books>.
+Este avance propone un modelo de inseguridad dentro de las cárceles ecuatorianas construido únicamente con los tabulados del Censo Penitenciario 2022. Desde la gobernanza criminal carcelaria [@skarbek2014] y la economía de la protección privada [@gambetta1993], la inseguridad se interpreta como síntoma de un orden estatal fallido: cuando el Estado no garantiza el orden, los presos demandan protección a grupos criminales, algo más probable en centros grandes y entre quienes carecen de apoyo externo. La unidad de análisis es el centro de privación de libertad (*N* = `r nrow(datos)` centros con al menos 50 personas) y la variable dependiente es la proporción de presos que se sienten inseguros. Se estima un logit fraccional con errores robustos, con el tamaño del centro (H1) y la proporción de presos sin visitas (H2) como variables de interés, y con la proporción inscrita en talleres productivos y la de procesados como controles. En los modelos ponderados, la proporción sin visitas se asocia positivamente con la inseguridad (`r fmt_p(coef_p(res, "M1", "sin_visitas"))`), mientras que el tamaño del centro solo alcanza significancia marginal (`r fmt_p(coef_p(res, "M1", "ln_tam"))`); sin ponderar, ninguna de las dos es significativa al 5 %. La participación en talleres muestra un signo contrario al esperado. Con apenas `r nrow(datos)` centros, los resultados se leen como asociaciones y no como relaciones causales.
 
-```{r}
-1 + 1
-```
+*Palabras clave:* gobernanza criminal, cárceles, inseguridad, Censo Penitenciario 2022, Ecuador, logit fraccional
+
+## Estructura del documento {.unnumbered}
+
+1. [Introducción](01_introduccion.qmd): problema, pregunta y objetivos.
+2. [Marco teórico](02_marco_teorico.qmd): gobernanza criminal carcelaria, protección privada e hipótesis.

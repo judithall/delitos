@@ -1,0 +1,22 @@
+---
+title: "02_marco_teorico"
+format: html
+---
+
+# Marco teórico
+
+## Gobernanza criminal carcelaria
+
+La gobernanza criminal se entiende como la imposición de reglas y restricciones de conducta por parte de organizaciones criminales sobre otros actores [@lessing2021]. En las cárceles, el trabajo de Skarbek sobre las prisiones de California sostiene que las pandillas carcelarias proveen reglas, resolución de disputas y protección cuando el Estado no logra garantizar el orden, y que el crecimiento y la rotación de la población debilitan los mecanismos informales basados en la reputación, lo que favorece la gobernanza de grupos organizados [@skarbek2011; @skarbek2014]. Bajo este enfoque, la inseguridad que declaran los presos no es solo violencia observada: es el síntoma de un orden estatal que falló y de un orden paralelo que lo reemplaza.
+
+## Protección privada y demanda de orden
+
+@gambetta1993 analiza la mafia como una industria de protección privada que prospera donde la confianza es escasa y el Estado no garantiza los derechos de propiedad ni el cumplimiento de los acuerdos. Trasladado a la cárcel, el preso que carece de una red externa que lo respalde tiene más razones para depender de la protección que ofrece un grupo criminal, y esa dependencia es más probable en centros donde el Estado controla menos a una población numerosa.
+
+## Hipótesis
+
+**H1.** A mayor tamaño del centro, mayor proporción de presos que se sienten inseguros, porque hay más población que el Estado no puede controlar y eso favorece el orden paralelo.
+
+**H2.** A mayor proporción de presos sin visitas, mayor inseguridad, porque quien no tiene red externa depende más de la protección privada.
+
+El modelo incluye dos controles: la proporción de presos inscritos en talleres o actividades productivas, que aproxima la oferta estatal y cuyo signo esperado es negativo, y la proporción de procesados sin sentencia, que aproxima la rotación de la población.

@@ -7,5 +7,20 @@
   },
   "references.qmd": {
     "references.html": "a2502e6a"
+  },
+  "01_introduccion.qmd": {
+    "01_introduccion.html": "834ffe51"
+  },
+  "02_marco_teorico.qmd": {
+    "02_marco_teorico.html": "6806e8d5"
+  },
+  "capitulos/01_introduccion.qmd": {
+    "01_introduccion.html": "51b83d7a"
+  },
+  "intro.qmd": {
+    "intro.html": "a4281b4e"
+  },
+  "summary.qmd": {
+    "summary.html": "dfad075c"
   }
 }

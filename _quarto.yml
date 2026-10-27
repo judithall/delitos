@@ -1,24 +1,26 @@
 project:
   type: book
+  output-dir: _book
 
 book:
-  title: "Economía del delito"
-  author: "Judith Luna"
-  date: "23/10/2026"
+  title: "Inseguridad dentro de las cárceles del Ecuador"
+  subtitle: "Un modelo de gobernanza criminal con datos del Censo Penitenciario 2022. Avance de investigación"
+  author: "Zury Jiménez, Judith Luna"
+  date: "2026-10-26"
   chapters:
     - index.qmd
-    - capitulos/Introduccion.qmd
+    - 01_introduccion.qmd
+    - 02_marco_teorico.qmd
     - references.qmd
 
+# APA 7.ª edición
 bibliography: references.bib
+csl: apa.csl
+lang: es
+number-sections: false
 
 format:
   html:
-    theme:
-      - cosmo
-      - brand
-  pdf:
-    documentclass: scrreprt
-
-editor: visual
-
+    theme: cosmo
+    toc: true
+    toc-depth: 3

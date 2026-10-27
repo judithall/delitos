@@ -1,0 +1,21 @@
+---
+bibliography: references.bib
+csl: apa.csl
+format: html
+---
+
+# Introducción
+
+La seguridad dentro de una cárcel es una condición básica del orden que debe garantizar el Estado. Cuando esa garantía se debilita, la violencia deja de ser un hecho aislado y pasa a organizar la vida cotidiana de quienes están privados de libertad. En 2022, el Instituto Nacional de Estadística y Censos \[INEC\] levantó el Censo Penitenciario 2022 entre el 22 de agosto y el 10 de diciembre en todos los centros de privación de libertad del país y entrevistó directamente a 31 321 personas [@inec2022]. Ese operativo permite, por primera vez, comparar la percepción de inseguridad entre centros con una misma pregunta y un mismo instrumento.
+
+Mediante ésta investigación buscaremos responder una pregunta concreta: ¿qué características de un centro y de su población se asocian con una mayor proporción de presos que se sienten inseguros?
+
+## Objetivo general
+
+Estimar un modelo de inseguridad intracarcelaria a nivel de centro, usando exclusivamente los tabulados del Censo Penitenciario 2022.
+
+## Objetivos específicos
+
+1.  Describir la distribución de la inseguridad percibida entre los centros de privación de libertad.
+2.  Contrastar si el tamaño del centro (H1) y la proporción de presos sin visitas (H2) se asocian con una mayor inseguridad.
+3.  Evaluar la robustez de esas asociaciones a la ponderación y a la exclusión de un caso extremo.
