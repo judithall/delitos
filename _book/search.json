@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Inseguridad dentro de las cárceles del Ecuador",
     "section": "",
-    "text": "Resumen\nEste avance propone un modelo de inseguridad dentro de las cárceles ecuatorianas construido únicamente con los tabulados del Censo Penitenciario 2022. Desde la gobernanza criminal carcelaria (Skarbek, 2014) y la economía de la protección privada (Gambetta, 1993), la inseguridad se interpreta como síntoma de un orden estatal fallido: cuando el Estado no garantiza el orden, los presos demandan protección a grupos criminales, algo más probable en centros grandes y entre quienes carecen de apoyo externo. La unidad de análisis es el centro de privación de libertad (N = r nrow(datos) centros con al menos 50 personas) y la variable dependiente es la proporción de presos que se sienten inseguros. Se estima un logit fraccional con errores robustos, con el tamaño del centro (H1) y la proporción de presos sin visitas (H2) como variables de interés, y con la proporción inscrita en talleres productivos y la de procesados como controles. En los modelos ponderados, la proporción sin visitas se asocia positivamente con la inseguridad (r fmt_p(coef_p(res, \"M1\", \"sin_visitas\"))), mientras que el tamaño del centro solo alcanza significancia marginal (r fmt_p(coef_p(res, \"M1\", \"ln_tam\"))); sin ponderar, ninguna de las dos es significativa al 5 %. La participación en talleres muestra un signo contrario al esperado. Con apenas r nrow(datos) centros, los resultados se leen como asociaciones y no como relaciones causales.\nPalabras clave: gobernanza criminal, cárceles, inseguridad, Censo Penitenciario 2022, Ecuador, logit fraccional",
+    "text": "Resumen\nEste avance propone un modelo de inseguridad dentro de las cárceles ecuatorianas construido únicamente con los tabulados del Censo Penitenciario 2022. Desde la gobernanza criminal carcelaria (Skarbek, 2014) y la economía de la protección privada (Gambetta, 1993), la inseguridad se interpreta como síntoma de un orden estatal fallido: cuando el Estado no garantiza el orden, los presos demandan protección a grupos criminales, algo más probable en centros grandes, entre quienes carecen de apoyo externo y entre quienes reportan discriminación o maltrato. La unidad de análisis es el centro de privación de libertad (N = r nrow(datos) centros con al menos 50 personas) y la variable dependiente es la proporción de presos que se sienten inseguros. Primero se calculan correlaciones de Pearson y de Spearman entre la inseguridad y ocho variables derivadas de la revisión de literatura, con ajuste de Holm y análisis de sensibilidad. Luego se estima un logit fraccional con errores robustos, con el tamaño del centro (H1) y la proporción de presos sin visitas (H2) como variables de interés, y con la proporción inscrita en talleres productivos y la de procesados como controles. En los modelos ponderados, la proporción sin visitas se asocia positivamente con la inseguridad (r fmt_p(coef_p(res, \"M1\", \"sin_visitas\"))), mientras que el tamaño del centro solo alcanza significancia marginal (r fmt_p(coef_p(res, \"M1\", \"ln_tam\"))); sin ponderar, ninguna de las dos es significativa al 5 %. La participación en talleres muestra un signo contrario al esperado. Con apenas r nrow(datos) centros, los resultados se leen como asociaciones y no como relaciones causales.\nPalabras clave: gobernanza criminal, cárceles, inseguridad, Censo Penitenciario 2022, Ecuador, logit fraccional",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Resumen</span>"
     ]
@@ -14,7 +14,7 @@
     "href": "index.html#estructura-del-documento",
     "title": "Inseguridad dentro de las cárceles del Ecuador",
     "section": "Estructura del documento",
-    "text": "Estructura del documento\n\nIntroducción: problema, pregunta y objetivos.\nMarco teórico: gobernanza criminal carcelaria, protección privada e hipótesis.\n\n\n\n\n\nGambetta, D. (1993). The Sicilian mafia: The business of private protection. Harvard University Press.\n\n\nSkarbek, D. (2014). The social order of the underworld: How prison gangs govern the American penal system. Oxford University Press.",
+    "text": "Estructura del documento\n\nIntroducción: problema, pregunta y objetivos.\nMarco teórico: revisión de literatura en seis ejes, vacíos e hipótesis.\nMetodología: análisis de correlación, comparaciones múltiples y sensibilidad.\n\n\n\n\n\nGambetta, D. (1993). The Sicilian mafia: The business of private protection. Harvard University Press.\n\n\nSkarbek, D. (2014). The social order of the underworld: How prison gangs govern the American penal system. Oxford University Press.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Resumen</span>"
     ]
@@ -22,81 +22,121 @@
   {
     "objectID": "01_introduccion.html",
     "href": "01_introduccion.html",
-    "title": "01_introduccion",
+    "title": "Introducción",
     "section": "",
-    "text": "Introducción\nLa seguridad dentro de una cárcel es una condición básica del orden que debe garantizar el Estado. Cuando esa garantía se debilita, la violencia deja de ser un hecho aislado y pasa a organizar la vida cotidiana de quienes están privados de libertad. En 2022, el Instituto Nacional de Estadística y Censos [INEC] levantó el Censo Penitenciario 2022 entre el 22 de agosto y el 10 de diciembre en todos los centros de privación de libertad del país y entrevistó directamente a 31 321 personas (Instituto Nacional de Estadística y Censos, 2022). Ese operativo permite, por primera vez, comparar la percepción de inseguridad entre centros con una misma pregunta y un mismo instrumento.\nEste documento presenta un avance de investigación que usa solo ese censo para responder una pregunta concreta: ¿qué características de un centro y de su población se asocian con una mayor proporción de presos que se sienten inseguros?",
+    "text": "Objetivo general\nLa seguridad dentro de una cárcel es una condición básica del orden que debe garantizar el Estado. Cuando esa garantía se debilita, la violencia deja de ser un hecho aislado y pasa a organizar la vida cotidiana de quienes están privados de libertad. En 2022, el Instituto Nacional de Estadística y Censos [INEC] levantó el Censo Penitenciario 2022 entre el 22 de agosto y el 10 de diciembre en todos los centros de privación de libertad del país y entrevistó directamente a 31 321 personas (Instituto Nacional de Estadística y Censos, 2022). Ese operativo permite, por primera vez, comparar la percepción de inseguridad entre centros con una misma pregunta y un mismo instrumento.\nEste documento presenta un avance de investigación que usa solo ese censo para responder una pregunta concreta: ¿qué características de un centro y de su población se asocian con una mayor proporción de presos que se sienten inseguros?\nEstimar un modelo de inseguridad intracarcelaria a nivel de centro, usando exclusivamente los tabulados del Censo Penitenciario 2022.",
     "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>01_introduccion</span>"
-    ]
-  },
-  {
-    "objectID": "01_introduccion.html#objetivo-general",
-    "href": "01_introduccion.html#objetivo-general",
-    "title": "01_introduccion",
-    "section": "Objetivo general",
-    "text": "Objetivo general\nEstimar un modelo de inseguridad intracarcelaria a nivel de centro, usando exclusivamente los tabulados del Censo Penitenciario 2022.",
-    "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>01_introduccion</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introducción</span>"
     ]
   },
   {
     "objectID": "01_introduccion.html#objetivos-específicos",
     "href": "01_introduccion.html#objetivos-específicos",
-    "title": "01_introduccion",
+    "title": "Introducción",
     "section": "Objetivos específicos",
     "text": "Objetivos específicos\n\nDescribir la distribución de la inseguridad percibida entre los centros de privación de libertad.\nContrastar si el tamaño del centro (H1) y la proporción de presos sin visitas (H2) se asocian con una mayor inseguridad.\nEvaluar la robustez de esas asociaciones a la ponderación y a la exclusión de un caso extremo.\n\n\n\n\n\nInstituto Nacional de Estadística y Censos. (2022). Censo Penitenciario 2022 [Conjunto de datos]. https://www.ecuadorencifras.gob.ec/censo-penitenciario-2022/",
     "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>01_introduccion</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introducción</span>"
     ]
   },
   {
     "objectID": "02_marco_teorico.html",
     "href": "02_marco_teorico.html",
-    "title": "02_marco_teorico",
+    "title": "Marco teórico",
     "section": "",
-    "text": "Marco teórico",
-    "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>02_marco_teorico</span>"
-    ]
-  },
-  {
-    "objectID": "02_marco_teorico.html#gobernanza-criminal-carcelaria",
-    "href": "02_marco_teorico.html#gobernanza-criminal-carcelaria",
-    "title": "02_marco_teorico",
-    "section": "Gobernanza criminal carcelaria",
     "text": "Gobernanza criminal carcelaria\nLa gobernanza criminal se entiende como la imposición de reglas y restricciones de conducta por parte de organizaciones criminales sobre otros actores (Lessing, 2021). En las cárceles, el trabajo de Skarbek sobre las prisiones de California sostiene que las pandillas carcelarias proveen reglas, resolución de disputas y protección cuando el Estado no logra garantizar el orden, y que el crecimiento y la rotación de la población debilitan los mecanismos informales basados en la reputación, lo que favorece la gobernanza de grupos organizados (Skarbek, 2011, 2014). Bajo este enfoque, la inseguridad que declaran los presos no es solo violencia observada: es el síntoma de un orden estatal que falló y de un orden paralelo que lo reemplaza.",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>02_marco_teorico</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Marco teórico</span>"
     ]
   },
   {
     "objectID": "02_marco_teorico.html#protección-privada-y-demanda-de-orden",
     "href": "02_marco_teorico.html#protección-privada-y-demanda-de-orden",
-    "title": "02_marco_teorico",
+    "title": "Marco teórico",
     "section": "Protección privada y demanda de orden",
     "text": "Protección privada y demanda de orden\nGambetta (1993) analiza la mafia como una industria de protección privada que prospera donde la confianza es escasa y el Estado no garantiza los derechos de propiedad ni el cumplimiento de los acuerdos. Trasladado a la cárcel, el preso que carece de una red externa que lo respalde tiene más razones para depender de la protección que ofrece un grupo criminal, y esa dependencia es más probable en centros donde el Estado controla menos a una población numerosa.",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>02_marco_teorico</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Marco teórico</span>"
     ]
   },
   {
     "objectID": "02_marco_teorico.html#hipótesis",
     "href": "02_marco_teorico.html#hipótesis",
-    "title": "02_marco_teorico",
+    "title": "Marco teórico",
     "section": "Hipótesis",
     "text": "Hipótesis\nH1. A mayor tamaño del centro, mayor proporción de presos que se sienten inseguros, porque hay más población que el Estado no puede controlar y eso favorece el orden paralelo.\nH2. A mayor proporción de presos sin visitas, mayor inseguridad, porque quien no tiene red externa depende más de la protección privada.\nEl modelo incluye dos controles: la proporción de presos inscritos en talleres o actividades productivas, que aproxima la oferta estatal y cuyo signo esperado es negativo, y la proporción de procesados sin sentencia, que aproxima la rotación de la población.\n\n\n\n\nGambetta, D. (1993). The Sicilian mafia: The business of private protection. Harvard University Press.\n\n\nLessing, B. (2021). Conceptualizing criminal governance. Perspectives on Politics, 19(3), 854-873. https://doi.org/10.1017/S1537592720001243\n\n\nSkarbek, D. (2011). Governance and prison gangs. American Political Science Review, 105(4), 702-716. https://doi.org/10.1017/S0003055411000335\n\n\nSkarbek, D. (2014). The social order of the underworld: How prison gangs govern the American penal system. Oxford University Press.",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>02_marco_teorico</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Marco teórico</span>"
     ]
   },
   {
     "objectID": "references.html",
     "href": "references.html",
-    "title": "References",
+    "title": "Referencias",
     "section": "",
-    "text": "Gambetta, D. (1993). The Sicilian mafia: The business\nof private protection. Harvard University Press.\n\n\nInstituto Nacional de Estadística y Censos. (2022). Censo\nPenitenciario 2022 [Conjunto de datos]. https://www.ecuadorencifras.gob.ec/censo-penitenciario-2022/\n\n\nLessing, B. (2021). Conceptualizing criminal governance.\nPerspectives on Politics, 19(3), 854–873. https://doi.org/10.1017/S1537592720001243\n\n\nSkarbek, D. (2011). Governance and prison gangs. American Political\nScience Review, 105(4), 702–716. https://doi.org/10.1017/S0003055411000335\n\n\nSkarbek, D. (2014). The social order of the underworld: How prison\ngangs govern the American penal system. Oxford\nUniversity Press.",
+    "text": "Adams, K. (1992). Adjusting to prison life. Crime and Justice,\n16, 275–359. https://doi.org/10.1086/449208\n\n\nArlot, S., & Celisse, A. (2010). A survey of cross-validation\nprocedures for model selection. Statistics Surveys, 4,\n40–79. https://doi.org/10.1214/09-SS054\n\n\nBales, W. D., & Mears, D. P. (2008). Inmate social ties and the\ntransition to society: Does visitation reduce recidivism? Journal of\nResearch in Crime and Delinquency, 45(3), 287–321. https://doi.org/10.1177/0022427808317574\n\n\nBayer, P., Hjalmarsson, R., & Pozen, D. (2009). Building criminal\ncapital behind bars: Peer effects in juvenile corrections. The\nQuarterly Journal of Economics, 124(1), 105–147. https://doi.org/10.1162/qjec.2009.124.1.105\n\n\nBecker, G. S. (1968). Crime and punishment: An economic approach.\nJournal of Political Economy, 76(2), 169–217. https://www.jstor.org/stable/1830482\n\n\nBlattman, C., Duncan, G., Lessing, B., & Tobón, S. (2025). Gang\nrule: Understanding and countering criminal governance. The Review\nof Economic Studies, 92(3), 1497–1531. https://doi.org/10.1093/restud/rdae079\n\n\nBonett, D. G., & Wright, T. A. (2000). Sample size requirements for\nestimating Pearson, Kendall and\nSpearman correlations. Psychometrika,\n65(1), 23–28. https://doi.org/10.1007/BF02294183\n\n\nCochran, J. C. (2012). The ties that bind or the ties that break:\nExamining the relationship between visitation and prisoner misconduct.\nJournal of Criminal Justice, 40(5), 433–440. https://doi.org/10.1016/j.jcrimjus.2012.06.001\n\n\nCochran, J. C. (2014). Breaches in the wall: Imprisonment, social\nsupport, and recidivism. Journal of Research in Crime and\nDelinquency, 51(2), 200–229. https://doi.org/10.1177/0022427813497963\n\n\nCochran, J. C., & Mears, D. P. (2013). Social isolation and inmate\nbehavior: A conceptual framework for theorizing prison visitation and\nguiding and assessing research. Journal of Criminal Justice,\n41(4), 252–261. https://doi.org/10.1016/j.jcrimjus.2013.05.001\n\n\nDarke, S. (2013). Inmate governance in brazilian prisons. The Howard\nJournal of Criminal Justice, 52(3), 272–284. https://doi.org/10.1111/hojo.12010\n\n\nDooley, B. D., Seals, A., & Skarbek, D. (2014). The effect of prison\ngang membership on recidivism. Journal of Criminal Justice,\n42(3), 267–275. https://doi.org/10.1016/j.jcrimjus.2014.01.002\n\n\nDrago, F., Galbiati, R., & Vertova, P. (2009). The deterrent effects\nof prison: Evidence from a natural experiment. Journal of Political\nEconomy, 117(2), 257–280. https://doi.org/10.1086/599286\n\n\nDuwe, G., & Clark, V. (2013). Blessed be the social tie that binds:\nThe effects of prison visitation on offender recidivism. Criminal\nJustice Policy Review, 24(3), 271–296. https://doi.org/10.1177/0887403411429724\n\n\nEllison, J. M., Steiner, B., & Wright, E. M. (2018). Examining the\nsources of violent victimization among jail inmates. Criminal\nJustice and Behavior, 45(11), 1723–1741. https://doi.org/10.1177/0093854818788590\n\n\nFisher, R. A. (1921). On the \"probable error\" of a coefficient of\ncorrelation deduced from a small sample. Metron, 1,\n3–32.\n\n\nGambetta, D. (1993). The Sicilian mafia: The business\nof private protection. Harvard University Press.\n\n\nHolm, S. (1979). A simple sequentially rejective multiple test\nprocedure. Scandinavian Journal of Statistics, 6(2),\n65–70. https://www.jstor.org/stable/4615733\n\n\nImbens, G. W., & Kolesár, M. (2016). Robust standard errors in small\nsamples: Some practical advice. The Review of Economics and\nStatistics, 98(4), 701–712. https://doi.org/10.1162/REST_a_00552\n\n\nInstituto Nacional de Estadística y Censos. (2022). Censo\nPenitenciario 2022 [Conjunto de datos]. https://www.ecuadorencifras.gob.ec/censo-penitenciario-2022/\n\n\nIrwin, J., & Cressey, D. R. (1962). Thieves, convicts and the inmate\nculture. Social Problems, 10(2), 142–155. https://doi.org/10.2307/799047\n\n\nJiang, S., & Fisher-Giorlando, M. (2002). Inmate misconduct: A test\nof the deprivation, importation, and situational models. The Prison\nJournal, 82(3), 335–358. https://doi.org/10.1177/003288550208200303\n\n\nKing, R. D., & Valensia, B. (2014). Power, control, and symbiosis in\nbrazilian prisons. South Atlantic Quarterly, 113(3),\n503–528. https://doi.org/10.1215/00382876-2692164\n\n\nLahm, K. F. (2008). Inmate-inmate assault: A multi-level examination of\nprison violence. Criminal Justice and Behavior, 35(2),\n120–137. https://doi.org/10.1177/0093854807308730\n\n\nLessing, B. (2021). Conceptualizing criminal governance.\nPerspectives on Politics, 19(3), 854–873. https://doi.org/10.1017/S1537592720001243\n\n\nLessing, B., & Willis, G. D. (2019). Legitimacy in criminal\ngovernance: Managing a drug empire from behind bars. American\nPolitical Science Review, 113(2), 584–606. https://doi.org/10.1017/S0003055418000928\n\n\nLevitt, S. D. (1996). The effect of prison population size on crime\nrates: Evidence from prison overcrowding litigation. The Quarterly\nJournal of Economics, 111(2), 319–351. https://doi.org/10.2307/2946681\n\n\nLong, J. S., & Ervin, L. H. (2000). Using heteroscedasticity\nconsistent standard errors in the linear regression model. The\nAmerican Statistician, 54(3), 217–224. https://doi.org/10.1080/00031305.2000.10474549\n\n\nMacKinnon, J. G., & White, H. (1985). Some\nheteroskedasticity-consistent covariance matrix estimators with improved\nfinite sample properties. Journal of Econometrics,\n29(3), 305–325. https://doi.org/10.1016/0304-4076(85\n\n\nMcNeeley, S. (2022). Reaffirming the relationship between routine\nactivities and violent victimization in prison. Journal of Criminal\nJustice, 78. https://doi.org/10.1016/j.jcrimjus.2022.101883\n\n\nMears, D. P., Cochran, J. C., Siennick, S. E., & Bales, W. D.\n(2012). Prison visitation and recidivism. Justice Quarterly,\n29(6), 888–918. https://doi.org/10.1080/07418825.2011.583932\n\n\nPapke, L. E., & Wooldridge, J. M. (1996). Econometric methods for\nfractional response variables with an application to 401(k) plan\nparticipation rates. Journal of Applied Econometrics,\n11(6), 619–632. https://doi.org/10.1002/(SICI)1099-1255(199611)11:6&lt;619::AID-JAE418&gt;3.0.CO;2-1\n\n\nRobinson, W. S. (1950). Ecological correlations and the behavior of\nindividuals. American Sociological Review, 15(3),\n351–357. https://doi.org/10.2307/2087176\n\n\nSkarbek, D. (2012). Prison gangs, norms, and organizations. Journal\nof Economic Behavior & Organization, 82(1), 96–109. https://doi.org/10.1016/j.jebo.2012.01.002\n\n\nSkarbek, D. (2016). Covenants without the sword? Comparing prison\nself-governance globally. American Political Science Review,\n110(4), 845–862. https://doi.org/10.1017/S0003055416000563\n\n\nSkarbek, D. (2011). Governance and prison gangs. American Political\nScience Review, 105(4), 702–716. https://doi.org/10.1017/S0003055411000335\n\n\nSkarbek, D. (2014). The social order of the underworld: How prison\ngangs govern the American penal system. Oxford\nUniversity Press.\n\n\nSteiner, B. (2009). Assessing static and dynamic influences on inmate\nviolence levels. Crime & Delinquency, 55(1),\n134–161. https://doi.org/10.1177/0011128707307218\n\n\nSteiner, B., Butler, H. D., & Ellison, J. M. (2014). Causes and\ncorrelates of prison inmate misconduct: A systematic review of the\nevidence. Journal of Criminal Justice, 42(6), 462–470.\nhttps://doi.org/10.1016/j.jcrimjus.2014.08.001\n\n\nSteiner, B., Ellison, J. M., Butler, H. D., & Cain, C. M. (2017).\nThe impact of inmate and prison characteristics on prisoner\nvictimization. Trauma, Violence, & Abuse, 18(1),\n17–36. https://doi.org/10.1177/1524838015588503\n\n\nSteiner, B., & Wooldredge, J. (2008). Inmate versus environmental\neffects on prison rule violations. Criminal Justice and\nBehavior, 35(4), 438–456. https://doi.org/10.1177/0093854807312787\n\n\nSteiner, B., & Wooldredge, J. (2009a). Individual and environmental\neffects on assaults and nonviolent rule breaking by women in prison.\nJournal of Research in Crime and Delinquency, 46(4),\n437–467. https://doi.org/10.1177/0022427809341936\n\n\nSteiner, B., & Wooldredge, J. (2009b). Rethinking the link between\ninstitutional crowding and inmate misconduct. The Prison\nJournal, 89(2), 205–233. https://doi.org/10.1177/0032885509334804\n\n\nSteiner, B., & Wooldredge, J. (2009c). The relevance of inmate\nrace/ethnicity versus population composition for understanding prison\nrule violations. Punishment & Society, 11(4),\n459–489. https://doi.org/10.1177/1462474509341143\n\n\nSteiner, B., & Wooldredge, J. (2013). Implications of different\noutcome measures for an understanding of inmate misconduct. Crime\n& Delinquency, 59(8), 1234–1262. https://doi.org/10.1177/0011128709335151\n\n\nWooldredge, J., & Steiner, B. (2012). Race group differences in\nprison victimization experiences. Journal of Criminal Justice,\n40(5), 358–369. https://doi.org/10.1016/j.jcrimjus.2012.06.011\n\n\nWooldredge, J., & Steiner, B. (2014). A bi-level framework for\nunderstanding prisoner victimization. Journal of Quantitative\nCriminology, 30(1), 141–162. https://doi.org/10.1007/s10940-013-9197-y\n\n\nWooldredge, J., & Steiner, B. (2015). Macro-level perspective on\nprison inmate deviance. Punishment & Society,\n17(2), 230–257. https://doi.org/10.1177/1462474515577151\n\n\nWooldredge, J., & Steiner, B. (2016). Assessing the need for\ngender-specific explanations of prisoner victimization. Justice\nQuarterly, 33(2), 209–238. https://doi.org/10.1080/07418825.2014.897364",
     "crumbs": [
-      "References"
+      "Referencias"
+    ]
+  },
+  {
+    "objectID": "03_metodologia.html",
+    "href": "03_metodologia.html",
+    "title": "Metodología del análisis de correlación",
+    "section": "",
+    "text": "Diseño y unidad de análisis\nEl análisis de correlación es de corte transversal y usa como unidad de análisis el centro de privación de libertad (CPL). La fuente es el Censo Penitenciario 2022 del Instituto Nacional de Estadística y Censos (INEC), en su versión depurada de microdatos por persona, que se resume por centro. Se incluyen los centros con 50 o más personas entrevistadas, lo que deja 29 centros. Como cada observación es un centro, los coeficientes describen asociaciones entre establecimientos y no relaciones entre individuos (Robinson, 1950).",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Metodología del análisis de correlación</span>"
+    ]
+  },
+  {
+    "objectID": "03_metodologia.html#variables",
+    "href": "03_metodologia.html#variables",
+    "title": "Metodología del análisis de correlación",
+    "section": "Variables",
+    "text": "Variables\nLa variable dependiente es la proporción de personas que declaran sentirse inseguras en su centro. Las variables explicativas se derivan de la revisión de literatura y se agrupan según el eje que las sustenta: la debilidad de los vínculos externos (visitas), la capacidad del Estado para ordenar la vida del centro (tamaño, rotación y oferta de talleres) y la discriminación o el maltrato que reportan los propios internos. El signo esperado se fijó antes de calcular los coeficientes. Los talleres, que aproximan la oferta del Estado, tienen signo esperado negativo, y las variables de composición no tienen signo esperado porque representan la explicación rival por importación (Tabla 4.1).\n\n\n\n\nTabla 4.1: Variables del análisis de correlación, fuente y signo esperado\n\n\n\n\n\n\n\n\n\n\n\n\n\nVariable\nDefinición\nVariable del censo\nEje de la revisión\nSigno esperado\n\n\n\n\nInseguridad\nProporción de presos que se sienten inseguros en el centro, entre quienes responden\nF1_S5P48 (ind_inseguro_cpl)\nVictimización y percepción de seguridad\nDependiente\n\n\nSin visitas\nProporción que no ha recibido visitas de familiares o amigos\nF1_S5P42 (ind_recibe_visitas)\nLazos sociales y visitas\n+\n\n\nln(Tamaño)\nLogaritmo natural de la población del centro\nPersonas entrevistadas por centro (cpl_cod)\nGobernanza criminal y protección privada (tamaño)\n+\n\n\nProcesados\nProporción de personas sin sentencia (medida de rotación)\nF1_S4P12 (ind_sin_sentencia)\nGobernanza criminal y protección privada (rotación)\n+\n\n\nDiscriminación\nMotivos de discriminación o maltrato reportados, divididos entre la población\nF1_S6P02 (motivos marcados)\nEconomía del crimen y de la prisión (demanda de protección)\n+\n\n\nTalleres\nProporción inscrita en talleres o actividades productivas\nF1_S5P1501 a F1_S5P1504 (ind_actividad_ocup)\nControl (capacidad estatal: oferta de talleres)\n−\n\n\nMinoría étnica\nProporción que se identifica como indígena, afroecuatoriana, negra, mulata o montubia\nF1_S2_P11 (categorías 1 a 5)\nPrivación, importación y entorno (composición)\nSin signo\n\n\nDelito sexual\nProporción de sentenciados por abuso o violación sexual\nF1_S4P16 (categorías 11 y 12)\nPrivación, importación y entorno (composición)\nSin signo\n\n\nDiscapacidad\nPromedio, en seis dominios, de la proporción con alguna dificultad\nF1_S2_P0701 a F1_S2_P0706\nPrivación, importación y entorno (composición)\nSin signo",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Metodología del análisis de correlación</span>"
+    ]
+  },
+  {
+    "objectID": "03_metodologia.html#coeficientes-e-inferencia",
+    "href": "03_metodologia.html#coeficientes-e-inferencia",
+    "title": "Metodología del análisis de correlación",
+    "section": "Coeficientes e inferencia",
+    "text": "Coeficientes e inferencia\nPara cada par de variables se calculan dos coeficientes:\n\nr de Pearson, que mide la asociación lineal.\nrho de Spearman, que mide la asociación monótona a partir de los rangos y es menos sensible a centros extremos, como las cárceles de mayor población.\n\nLas pruebas son bilaterales con nivel de significancia de 0,05. Los intervalos de confianza del 95 % se obtienen con la transformación z de Fisher (Fisher, 1921); para Spearman se usa el error estándar corregido de Bonett y Wright (Bonett & Wright, 2000), \\(\\sqrt{(1 + \\rho^2/2)/(n - 3)}\\).",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Metodología del análisis de correlación</span>"
+    ]
+  },
+  {
+    "objectID": "03_metodologia.html#comparaciones-múltiples-y-sensibilidad",
+    "href": "03_metodologia.html#comparaciones-múltiples-y-sensibilidad",
+    "title": "Metodología del análisis de correlación",
+    "section": "Comparaciones múltiples y sensibilidad",
+    "text": "Comparaciones múltiples y sensibilidad\n\nComparaciones múltiples. Las ocho correlaciones con la variable dependiente forman una familia de pruebas confirmatorias, cuyos p-valores se ajustan con el método de Holm (Holm, 1979). Las demás correlaciones de la matriz, 28 pares entre variables explicativas, se reportan sin ajuste y como exploratorias.\nSensibilidad. Cada correlación con la variable dependiente se recalcula sin el CPL Loja N.° 1 y excluyendo cada centro de uno en uno (jackknife), para reportar el rango en que se mueve el coeficiente.\nPotencia. Con 29 centros, una correlación necesita un valor absoluto cercano a 0,37 para ser significativa al 0,05. Por eso se interpreta el tamaño del coeficiente y su intervalo, y no solo el p-valor.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Metodología del análisis de correlación</span>"
+    ]
+  },
+  {
+    "objectID": "03_metodologia.html#presentación-de-los-resultados",
+    "href": "03_metodologia.html#presentación-de-los-resultados",
+    "title": "Metodología del análisis de correlación",
+    "section": "Presentación de los resultados",
+    "text": "Presentación de los resultados\nLas correlaciones se presentan en una tabla (Tabla 4.2) y en una gráfica (Figura 4.1). En ambas, los coeficientes de Pearson ocupan la parte inferior de la diagonal y los de Spearman la parte superior. La tabla incluye la media y la desviación estándar de cada variable y marca con asteriscos la significancia sin ajuste. La interpretación se desarrolla en el capítulo de resultados.\n\n\n\n\nTabla 4.2: Matriz de correlaciones entre los centros de privación de libertad (N = 29)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nVariable\nMedia\nDE\nInseguridad\nSin visitas\nln(Tamaño)\nProcesados\nDiscriminación\nTalleres\nMinoría étnica\nDelito sexual\nDiscapacidad\n\n\n\n\nInseguridad\n0,35\n0,18\n—\n,33\n,37*\n−,02\n,03\n−,06\n−,03\n−,16\n,17\n\n\nSin visitas\n0,37\n0,12\n,36\n—\n,67***\n,04\n,35\n−,41*\n,27\n−,27\n−,13\n\n\nln(Tamaño)\n6,32\n1,21\n,28\n,66***\n—\n−,22\n,25\n−,52**\n,03\n−,10\n−,11\n\n\nProcesados\n0,19\n0,10\n,00\n,01\n−,28\n—\n,35\n−,30\n,34\n−,60***\n−,37*\n\n\nDiscriminación\n0,33\n0,09\n−,14\n,35\n,31\n,31\n—\n−,52**\n,21\n−,15\n−,36\n\n\nTalleres\n0,54\n0,16\n,03\n−,41*\n−,48**\n−,27\n−,53**\n—\n−,41*\n,34\n,18\n\n\nMinoría étnica\n0,33\n0,12\n,03\n,22\n−,06\n,29\n,06\n−,21\n—\n−,20\n−,29\n\n\nDelito sexual\n0,20\n0,12\n−,17\n−,28\n−,13\n−,50**\n−,20\n,42*\n−,23\n—\n,49**\n\n\nDiscapacidad\n0,09\n0,04\n,22\n−,11\n−,16\n−,34\n−,28\n,23\n−,27\n,49**\n—\n\n\n\n\n\n\n\n\nNota. Pearson bajo la diagonal y Spearman sobre la diagonal. * p &lt; 0,05; ** p &lt; 0,01; *** p &lt; 0,001, sin ajuste por comparaciones múltiples. Fuente: INEC, Censo Penitenciario 2022.\n\n\n\n\n\n\n\n\nFigura 4.1: Matriz de correlaciones: Pearson bajo la diagonal y Spearman sobre la diagonal",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Metodología del análisis de correlación</span>"
+    ]
+  },
+  {
+    "objectID": "03_metodologia.html#alcance-y-limitaciones",
+    "href": "03_metodologia.html#alcance-y-limitaciones",
+    "title": "Metodología del análisis de correlación",
+    "section": "Alcance y limitaciones",
+    "text": "Alcance y limitaciones\n\nEl diseño es transversal y de pocas unidades: las correlaciones indican asociación y no permiten establecer causalidad.\nLos coeficientes se calculan entre centros y no se trasladan al comportamiento de las personas (Robinson, 1950).\nUna correlación bivariada no equivale al efecto de una variable dentro de un modelo multivariado, donde otras variables pueden cambiar su peso.\nLa inseguridad y la discriminación son percepciones de las mismas personas, por lo que su asociación puede reflejar una retroalimentación.\nLos signos esperados son hipótesis y no hallazgos establecidos. La literatura sobre visitas y victimización estudia sobre todo la mala conducta, las agresiones y la reincidencia, no la sensación de inseguridad, y las fuentes revisadas no incluyen estudios del sistema penitenciario ecuatoriano.\nLa composición de la población se trata como explicación rival: si los centros difieren en inseguridad porque reciben a personas distintas, una asociación con el tamaño o con las visitas puede ser aparente.\n\n\n\n\n\nBonett, D. G., & Wright, T. A. (2000). Sample size requirements for estimating Pearson, Kendall and Spearman correlations. Psychometrika, 65(1), 23-28. https://doi.org/10.1007/BF02294183\n\n\nFisher, R. A. (1921). On the \"probable error\" of a coefficient of correlation deduced from a small sample. Metron, 1, 3-32.\n\n\nHolm, S. (1979). A simple sequentially rejective multiple test procedure. Scandinavian Journal of Statistics, 6(2), 65-70. https://www.jstor.org/stable/4615733\n\n\nRobinson, W. S. (1950). Ecological correlations and the behavior of individuals. American Sociological Review, 15(3), 351-357. https://doi.org/10.2307/2087176",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Metodología del análisis de correlación</span>"
     ]
   }
 ]

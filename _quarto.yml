@@ -6,11 +6,12 @@ book:
   title: "Inseguridad dentro de las cárceles del Ecuador"
   subtitle: "Un modelo de gobernanza criminal con datos del Censo Penitenciario 2022. Avance de investigación"
   author: "Zury Jiménez, Judith Luna"
-  date: "2026-10-26"
+  date: "2026-11-04"
   chapters:
     - index.qmd
     - 01_introduccion.qmd
     - 02_marco_teorico.qmd
+    - 03_metodologia.qmd
     - references.qmd
 
 # APA 7.ª edición
@@ -18,6 +19,12 @@ bibliography: references.bib
 csl: apa.csl
 lang: es
 number-sections: false
+
+# Los capítulos muestran resultados, no código
+execute:
+  echo: false
+  warning: false
+  message: false
 
 format:
   html:

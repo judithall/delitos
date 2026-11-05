@@ -1,0 +1,9 @@
+Bitácora de limpieza - 2026-11-04 21:57:34.14432
+1. Base importada: 31321 filas x 409 columnas.
+2. Llave única = INTERVIEW__ID (0 duplicados). F1_S1_CPPL NO es llave: tiene 26008 repetidos.
+3. Entrevistas no completas excluidas: 48 (quedan 31273).
+4. Códigos NS/NR convertidos a NA en 141 variables (61095 celdas).
+5. Columnas 100% vacías eliminadas: 2 | textos abiertos separados: 31.
+6. Variables derivadas y etiquetas creadas.
+8. (Opcional) Coloque poblacion_provincial_2022.csv para calcular tasas por 100 000 hab.
+10. Validaciones superadas. Base limpia: 31273 filas x 430 columnas.

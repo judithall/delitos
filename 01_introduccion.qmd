@@ -1,17 +1,21 @@
----
-title: "01_introduccion"
-format: html
----
-
 # Introducción
 
 La seguridad dentro de una cárcel es una condición básica del orden que debe garantizar el Estado. Cuando esa garantía se debilita, la violencia deja de ser un hecho aislado y pasa a organizar la vida cotidiana de quienes están privados de libertad. En 2022, el Instituto Nacional de Estadística y Censos \[INEC\] levantó el Censo Penitenciario 2022 entre el 22 de agosto y el 10 de diciembre en todos los centros de privación de libertad del país y entrevistó directamente a 31 321 personas [@inec2022]. Ese operativo permite, por primera vez, comparar la percepción de inseguridad entre centros con una misma pregunta y un mismo instrumento.
 
-Este documento presenta un avance de investigación que usa solo ese censo para responder una pregunta concreta: ¿qué características de un centro y de su población se asocian con una mayor proporción de presos que se sienten inseguros?
+La literatura sobre orden carcelario es amplia, pero se concentra en Estados Unidos y Brasil, estudia sobre todo la mala conducta, la victimización reportada y la reincidencia, y ha prestado menos atención a la inseguridad percibida como variable dependiente. Las fuentes revisadas tampoco incluyen estudios del sistema penitenciario ecuatoriano (véase el @sec-marco).
+
+Este documento presenta un avance de investigación que usa solo ese censo para responder una pregunta concreta: ¿qué características de un centro y de su población se asocian con una mayor proporción de presos que se sienten inseguros? Se examinan tres elementos: la debilidad de los vínculos externos de los internos, la capacidad del Estado para ordenar la vida carcelaria y la discriminación o el maltrato que los propios internos reportan.
 
 ## Objetivo general
 
 Estimar un modelo de inseguridad intracarcelaria a nivel de centro, usando exclusivamente los tabulados del Censo Penitenciario 2022.
+
+## Objetivos específicos
+
+1.  Describir la distribución de la inseguridad percibida entre los centros de privación de libertad.
+2.  Medir la asociación entre la inseguridad y ocho variables derivadas de la revisión de literatura mediante correlaciones de Pearson y de Spearman, con ajuste de Holm para las pruebas confirmatorias (@sec-met-correlacion).
+3.  Contrastar si el tamaño del centro (H1), la proporción de presos sin visitas (H2) y la discriminación reportada (H3) se asocian con una mayor inseguridad.
+4.  Evaluar la robustez de esas asociaciones a la ponderación y a la exclusión de un caso extremo.
 
 ## Objetivos específicos
 

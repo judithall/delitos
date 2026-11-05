@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Judith Luna">
+<meta name="author" content="Zury Jiménez, Judith Luna">
 
 <title>Inseguridad dentro de las cárceles del Ecuador</title>
 <style>
@@ -140,18 +140,23 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01_introduccion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">01_introduccion</span></a>
+  <a href="./01_introduccion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introducción</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_marco_teorico.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">02_marco_teorico</span></a>
+  <a href="./02_marco_teorico.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Marco teórico</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_metodologia.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Metodología del análisis de correlación</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">References</span></a>
+ <span class="menu-text">Referencias</span></a>
   </div>
 </li>
     </ul>
@@ -187,14 +192,14 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Autor/a</div>
     <div class="quarto-title-meta-contents">
-             <p>Judith Luna </p>
+             <p>Zury Jiménez, Judith Luna </p>
           </div>
   </div>
     
     <div>
     <div class="quarto-title-meta-heading">Fecha de publicación</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">26 de octubre de 2026</p>
+      <p class="date">4 de noviembre de 2026</p>
     </div>
   </div>
   
@@ -208,13 +213,14 @@ div.csl-indent {
 
 <section id="resumen" class="level1 unnumbered">
 <h1 class="unnumbered">Resumen</h1>
-<p>Este avance propone un modelo de inseguridad dentro de las cárceles ecuatorianas construido únicamente con los tabulados del Censo Penitenciario 2022. Desde la gobernanza criminal carcelaria <span class="citation" data-cites="skarbek2014">(<a href="references.html#ref-skarbek2014" role="doc-biblioref">Skarbek, 2014</a>)</span> y la economía de la protección privada <span class="citation" data-cites="gambetta1993">(<a href="references.html#ref-gambetta1993" role="doc-biblioref">Gambetta, 1993</a>)</span>, la inseguridad se interpreta como síntoma de un orden estatal fallido: cuando el Estado no garantiza el orden, los presos demandan protección a grupos criminales, algo más probable en centros grandes y entre quienes carecen de apoyo externo. La unidad de análisis es el centro de privación de libertad (<em>N</em> = <code>r nrow(datos)</code> centros con al menos 50 personas) y la variable dependiente es la proporción de presos que se sienten inseguros. Se estima un logit fraccional con errores robustos, con el tamaño del centro (H1) y la proporción de presos sin visitas (H2) como variables de interés, y con la proporción inscrita en talleres productivos y la de procesados como controles. En los modelos ponderados, la proporción sin visitas se asocia positivamente con la inseguridad (<code>r fmt_p(coef_p(res, "M1", "sin_visitas"))</code>), mientras que el tamaño del centro solo alcanza significancia marginal (<code>r fmt_p(coef_p(res, "M1", "ln_tam"))</code>); sin ponderar, ninguna de las dos es significativa al 5 %. La participación en talleres muestra un signo contrario al esperado. Con apenas <code>r nrow(datos)</code> centros, los resultados se leen como asociaciones y no como relaciones causales.</p>
+<p>Este avance propone un modelo de inseguridad dentro de las cárceles ecuatorianas construido únicamente con los tabulados del Censo Penitenciario 2022. Desde la gobernanza criminal carcelaria <span class="citation" data-cites="skarbek2014">(<a href="references.html#ref-skarbek2014" role="doc-biblioref">Skarbek, 2014</a>)</span> y la economía de la protección privada <span class="citation" data-cites="gambetta1993">(<a href="references.html#ref-gambetta1993" role="doc-biblioref">Gambetta, 1993</a>)</span>, la inseguridad se interpreta como síntoma de un orden estatal fallido: cuando el Estado no garantiza el orden, los presos demandan protección a grupos criminales, algo más probable en centros grandes, entre quienes carecen de apoyo externo y entre quienes reportan discriminación o maltrato. La unidad de análisis es el centro de privación de libertad (<em>N</em> = <code>r nrow(datos)</code> centros con al menos 50 personas) y la variable dependiente es la proporción de presos que se sienten inseguros. Primero se calculan correlaciones de Pearson y de Spearman entre la inseguridad y ocho variables derivadas de la revisión de literatura, con ajuste de Holm y análisis de sensibilidad. Luego se estima un logit fraccional con errores robustos, con el tamaño del centro (H1) y la proporción de presos sin visitas (H2) como variables de interés, y con la proporción inscrita en talleres productivos y la de procesados como controles. En los modelos ponderados, la proporción sin visitas se asocia positivamente con la inseguridad (<code>r fmt_p(coef_p(res, "M1", "sin_visitas"))</code>), mientras que el tamaño del centro solo alcanza significancia marginal (<code>r fmt_p(coef_p(res, "M1", "ln_tam"))</code>); sin ponderar, ninguna de las dos es significativa al 5 %. La participación en talleres muestra un signo contrario al esperado. Con apenas <code>r nrow(datos)</code> centros, los resultados se leen como asociaciones y no como relaciones causales.</p>
 <p><em>Palabras clave:</em> gobernanza criminal, cárceles, inseguridad, Censo Penitenciario 2022, Ecuador, logit fraccional</p>
 <section id="estructura-del-documento" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="estructura-del-documento">Estructura del documento</h2>
 <ol type="1">
 <li><a href="./01_introduccion.html">Introducción</a>: problema, pregunta y objetivos.</li>
-<li><a href="./02_marco_teorico.html">Marco teórico</a>: gobernanza criminal carcelaria, protección privada e hipótesis.</li>
+<li><a href="./02_marco_teorico.html">Marco teórico</a>: revisión de literatura en seis ejes, vacíos e hipótesis.</li>
+<li><a href="./03_metodologia.html">Metodología</a>: análisis de correlación, comparaciones múltiples y sensibilidad.</li>
 </ol>
 
 
@@ -634,8 +640,8 @@ Skarbek, D. (2014). <em>The social order of the underworld: How prison gangs gov
   <div class="nav-page nav-page-previous">
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./01_introduccion.html" class="pagination-link" aria-label="01_introduccion">
-        <span class="nav-page-text"><span class="chapter-title">01_introduccion</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./01_introduccion.html" class="pagination-link" aria-label="Introducción">
+        <span class="nav-page-text"><span class="chapter-title">Introducción</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

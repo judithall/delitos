@@ -1,5 +1,1364 @@
 {
-    "sources": [],
+    "sources": [
+        {
+            "author": [
+                {
+                    "family": "Gambetta",
+                    "given": "Diego"
+                }
+            ],
+            "id": "gambetta1993",
+            "issued": {
+                "date-parts": [
+                    [
+                        1993
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "publisher": "Harvard University Press",
+            "title": "The Sicilian mafia: The business of private protection",
+            "title-short": "The Sicilian mafia",
+            "type": "book"
+        },
+        {
+            "URL": "https://www.ecuadorencifras.gob.ec/censo-penitenciario-2022/",
+            "author": [
+                {
+                    "literal": "Instituto Nacional de Estadística y Censos"
+                }
+            ],
+            "genre": "Conjunto de datos",
+            "id": "inec2022",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022
+                    ]
+                ]
+            },
+            "language": "es-ES",
+            "title": "Censo Penitenciario 2022",
+            "type": ""
+        },
+        {
+            "DOI": "10.1017/S1537592720001243",
+            "author": [
+                {
+                    "family": "Lessing",
+                    "given": "Benjamin"
+                }
+            ],
+            "container-title": "Perspectives on Politics",
+            "id": "lessing2021",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "854-873",
+            "title": "Conceptualizing criminal governance",
+            "type": "article-journal",
+            "volume": "19"
+        },
+        {
+            "DOI": "10.1002/(SICI)1099-1255(199611)11:6<619::AID-JAE418>3.0.CO;2-1",
+            "author": [
+                {
+                    "family": "Papke",
+                    "given": "Leslie E."
+                },
+                {
+                    "family": "Wooldridge",
+                    "given": "Jeffrey M."
+                }
+            ],
+            "container-title": "Journal of Applied Econometrics",
+            "id": "papke1996",
+            "issue": "6",
+            "issued": {
+                "date-parts": [
+                    [
+                        1996
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "619-632",
+            "title": "Econometric methods for fractional response variables with an application to 401(k) plan participation rates",
+            "type": "article-journal",
+            "volume": "11"
+        },
+        {
+            "URL": "https://www.R-project.org/",
+            "author": [
+                {
+                    "literal": "R Core Team"
+                }
+            ],
+            "id": "rcore2026",
+            "issued": {
+                "date-parts": [
+                    [
+                        2026
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "publisher": "R Foundation for Statistical Computing",
+            "title": "R: A language and environment for statistical computing",
+            "title-short": "R",
+            "type": "book"
+        },
+        {
+            "DOI": "10.1017/S0003055411000335",
+            "author": [
+                {
+                    "family": "Skarbek",
+                    "given": "David"
+                }
+            ],
+            "container-title": "American Political Science Review",
+            "id": "skarbek2011",
+            "issue": "4",
+            "issued": {
+                "date-parts": [
+                    [
+                        2011
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "702-716",
+            "title": "Governance and prison gangs",
+            "type": "article-journal",
+            "volume": "105"
+        },
+        {
+            "author": [
+                {
+                    "family": "Skarbek",
+                    "given": "David"
+                }
+            ],
+            "id": "skarbek2014",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "publisher": "Oxford University Press",
+            "title": "The social order of the underworld: How prison gangs govern the American penal system",
+            "title-short": "The social order of the underworld",
+            "type": "book"
+        },
+        {
+            "DOI": "10.1086/449208",
+            "author": [
+                {
+                    "family": "Adams",
+                    "given": "K."
+                }
+            ],
+            "container-title": "Crime and Justice",
+            "id": "adams1992",
+            "issued": {
+                "date-parts": [
+                    [
+                        1992
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "275-359",
+            "title": "Adjusting to prison life",
+            "type": "article-journal",
+            "volume": "16"
+        },
+        {
+            "DOI": "10.1214/09-SS054",
+            "author": [
+                {
+                    "family": "Arlot",
+                    "given": "S."
+                },
+                {
+                    "family": "Celisse",
+                    "given": "A."
+                }
+            ],
+            "container-title": "Statistics Surveys",
+            "id": "arlot2010",
+            "issued": {
+                "date-parts": [
+                    [
+                        2010
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "40-79",
+            "title": "A survey of cross-validation procedures for model selection",
+            "type": "article-journal",
+            "volume": "4"
+        },
+        {
+            "DOI": "10.1177/0022427808317574",
+            "author": [
+                {
+                    "family": "Bales",
+                    "given": "W. D."
+                },
+                {
+                    "family": "Mears",
+                    "given": "D. P."
+                }
+            ],
+            "container-title": "Journal of Research in Crime and Delinquency",
+            "id": "bales2008",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2008
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "287-321",
+            "title": "Inmate social ties and the transition to society: Does visitation reduce recidivism?",
+            "title-short": "Inmate social ties and the transition to society",
+            "type": "article-journal",
+            "volume": "45"
+        },
+        {
+            "DOI": "10.1162/qjec.2009.124.1.105",
+            "author": [
+                {
+                    "family": "Bayer",
+                    "given": "P."
+                },
+                {
+                    "family": "Hjalmarsson",
+                    "given": "R."
+                },
+                {
+                    "family": "Pozen",
+                    "given": "D."
+                }
+            ],
+            "container-title": "The Quarterly Journal of Economics",
+            "id": "bayer2009",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2009
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "105-147",
+            "title": "Building criminal capital behind bars: Peer effects in juvenile corrections",
+            "title-short": "Building criminal capital behind bars",
+            "type": "article-journal",
+            "volume": "124"
+        },
+        {
+            "URL": "https://www.jstor.org/stable/1830482",
+            "author": [
+                {
+                    "family": "Becker",
+                    "given": "G. S."
+                }
+            ],
+            "container-title": "Journal of Political Economy",
+            "id": "becker1968",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        1968
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "169-217",
+            "title": "Crime and punishment: An economic approach",
+            "title-short": "Crime and punishment",
+            "type": "article-journal",
+            "volume": "76"
+        },
+        {
+            "DOI": "10.1093/restud/rdae079",
+            "author": [
+                {
+                    "family": "Blattman",
+                    "given": "C."
+                },
+                {
+                    "family": "Duncan",
+                    "given": "G."
+                },
+                {
+                    "family": "Lessing",
+                    "given": "B."
+                },
+                {
+                    "family": "Tobón",
+                    "given": "S."
+                }
+            ],
+            "container-title": "The Review of Economic Studies",
+            "id": "blattman2025",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2025
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "1497-1531",
+            "title": "Gang rule: Understanding and countering criminal governance",
+            "title-short": "Gang rule",
+            "type": "article-journal",
+            "volume": "92"
+        },
+        {
+            "DOI": "10.1016/j.jcrimjus.2012.06.001",
+            "author": [
+                {
+                    "family": "Cochran",
+                    "given": "J. C."
+                }
+            ],
+            "container-title": "Journal of Criminal Justice",
+            "id": "cochran2012",
+            "issue": "5",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "433-440",
+            "title": "The ties that bind or the ties that break: Examining the relationship between visitation and prisoner misconduct",
+            "title-short": "The ties that bind or the ties that break",
+            "type": "article-journal",
+            "volume": "40"
+        },
+        {
+            "DOI": "10.1177/0022427813497963",
+            "author": [
+                {
+                    "family": "Cochran",
+                    "given": "J. C."
+                }
+            ],
+            "container-title": "Journal of Research in Crime and Delinquency",
+            "id": "cochran2014",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "200-229",
+            "title": "Breaches in the wall: Imprisonment, social support, and recidivism",
+            "title-short": "Breaches in the wall",
+            "type": "article-journal",
+            "volume": "51"
+        },
+        {
+            "DOI": "10.1016/j.jcrimjus.2013.05.001",
+            "author": [
+                {
+                    "family": "Cochran",
+                    "given": "J. C."
+                },
+                {
+                    "family": "Mears",
+                    "given": "D. P."
+                }
+            ],
+            "container-title": "Journal of Criminal Justice",
+            "id": "cochranmears2013",
+            "issue": "4",
+            "issued": {
+                "date-parts": [
+                    [
+                        2013
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "252-261",
+            "title": "Social isolation and inmate behavior: A conceptual framework for theorizing prison visitation and guiding and assessing research",
+            "title-short": "Social isolation and inmate behavior",
+            "type": "article-journal",
+            "volume": "41"
+        },
+        {
+            "DOI": "10.1111/hojo.12010",
+            "author": [
+                {
+                    "family": "Darke",
+                    "given": "S."
+                }
+            ],
+            "container-title": "The Howard Journal of Criminal Justice",
+            "id": "darke2013",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2013
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "272-284",
+            "title": "Inmate governance in brazilian prisons",
+            "type": "article-journal",
+            "volume": "52"
+        },
+        {
+            "DOI": "10.1016/j.jcrimjus.2014.01.002",
+            "author": [
+                {
+                    "family": "Dooley",
+                    "given": "B. D."
+                },
+                {
+                    "family": "Seals",
+                    "given": "A."
+                },
+                {
+                    "family": "Skarbek",
+                    "given": "D."
+                }
+            ],
+            "container-title": "Journal of Criminal Justice",
+            "id": "dooley2014",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "267-275",
+            "title": "The effect of prison gang membership on recidivism",
+            "type": "article-journal",
+            "volume": "42"
+        },
+        {
+            "DOI": "10.1086/599286",
+            "author": [
+                {
+                    "family": "Drago",
+                    "given": "F."
+                },
+                {
+                    "family": "Galbiati",
+                    "given": "R."
+                },
+                {
+                    "family": "Vertova",
+                    "given": "P."
+                }
+            ],
+            "container-title": "Journal of Political Economy",
+            "id": "drago2009",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2009
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "257-280",
+            "title": "The deterrent effects of prison: Evidence from a natural experiment",
+            "title-short": "The deterrent effects of prison",
+            "type": "article-journal",
+            "volume": "117"
+        },
+        {
+            "DOI": "10.1177/0887403411429724",
+            "author": [
+                {
+                    "family": "Duwe",
+                    "given": "G."
+                },
+                {
+                    "family": "Clark",
+                    "given": "V."
+                }
+            ],
+            "container-title": "Criminal Justice Policy Review",
+            "id": "duwe2013",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2013
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "271-296",
+            "title": "Blessed be the social tie that binds: The effects of prison visitation on offender recidivism",
+            "title-short": "Blessed be the social tie that binds",
+            "type": "article-journal",
+            "volume": "24"
+        },
+        {
+            "DOI": "10.1177/0093854818788590",
+            "author": [
+                {
+                    "family": "Ellison",
+                    "given": "J. M."
+                },
+                {
+                    "family": "Steiner",
+                    "given": "B."
+                },
+                {
+                    "family": "Wright",
+                    "given": "E. M."
+                }
+            ],
+            "container-title": "Criminal Justice and Behavior",
+            "id": "ellison2018",
+            "issue": "11",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "1723-1741",
+            "title": "Examining the sources of violent victimization among jail inmates",
+            "type": "article-journal",
+            "volume": "45"
+        },
+        {
+            "DOI": "10.1162/REST_a_00552",
+            "author": [
+                {
+                    "family": "Imbens",
+                    "given": "G. W."
+                },
+                {
+                    "family": "Kolesár",
+                    "given": "M."
+                }
+            ],
+            "container-title": "The Review of Economics and Statistics",
+            "id": "imbens2016",
+            "issue": "4",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "701-712",
+            "title": "Robust standard errors in small samples: Some practical advice",
+            "title-short": "Robust standard errors in small samples",
+            "type": "article-journal",
+            "volume": "98"
+        },
+        {
+            "DOI": "10.2307/799047",
+            "author": [
+                {
+                    "family": "Irwin",
+                    "given": "J."
+                },
+                {
+                    "family": "Cressey",
+                    "given": "D. R."
+                }
+            ],
+            "container-title": "Social Problems",
+            "id": "irwin1962",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        1962
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "142-155",
+            "title": "Thieves, convicts and the inmate culture",
+            "type": "article-journal",
+            "volume": "10"
+        },
+        {
+            "DOI": "10.1177/003288550208200303",
+            "author": [
+                {
+                    "family": "Jiang",
+                    "given": "S."
+                },
+                {
+                    "family": "Fisher-Giorlando",
+                    "given": "M."
+                }
+            ],
+            "container-title": "The Prison Journal",
+            "id": "jiang2002",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2002
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "335-358",
+            "title": "Inmate misconduct: A test of the deprivation, importation, and situational models",
+            "title-short": "Inmate misconduct",
+            "type": "article-journal",
+            "volume": "82"
+        },
+        {
+            "DOI": "10.1215/00382876-2692164",
+            "author": [
+                {
+                    "family": "King",
+                    "given": "R. D."
+                },
+                {
+                    "family": "Valensia",
+                    "given": "B."
+                }
+            ],
+            "container-title": "South Atlantic Quarterly",
+            "id": "king2014",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "503-528",
+            "title": "Power, control, and symbiosis in brazilian prisons",
+            "type": "article-journal",
+            "volume": "113"
+        },
+        {
+            "DOI": "10.1177/0093854807308730",
+            "author": [
+                {
+                    "family": "Lahm",
+                    "given": "K. F."
+                }
+            ],
+            "container-title": "Criminal Justice and Behavior",
+            "id": "lahm2008",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2008
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "120-137",
+            "title": "Inmate-inmate assault: A multi-level examination of prison violence",
+            "title-short": "Inmate-inmate assault",
+            "type": "article-journal",
+            "volume": "35"
+        },
+        {
+            "DOI": "10.1017/S0003055418000928",
+            "author": [
+                {
+                    "family": "Lessing",
+                    "given": "B."
+                },
+                {
+                    "family": "Willis",
+                    "given": "G. D."
+                }
+            ],
+            "container-title": "American Political Science Review",
+            "id": "lessing2019",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "584-606",
+            "title": "Legitimacy in criminal governance: Managing a drug empire from behind bars",
+            "title-short": "Legitimacy in criminal governance",
+            "type": "article-journal",
+            "volume": "113"
+        },
+        {
+            "DOI": "10.2307/2946681",
+            "author": [
+                {
+                    "family": "Levitt",
+                    "given": "S. D."
+                }
+            ],
+            "container-title": "The Quarterly Journal of Economics",
+            "id": "levitt1996",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        1996
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "319-351",
+            "title": "The effect of prison population size on crime rates: Evidence from prison overcrowding litigation",
+            "title-short": "The effect of prison population size on crime rates",
+            "type": "article-journal",
+            "volume": "111"
+        },
+        {
+            "DOI": "10.1080/00031305.2000.10474549",
+            "author": [
+                {
+                    "family": "Long",
+                    "given": "J. S."
+                },
+                {
+                    "family": "Ervin",
+                    "given": "L. H."
+                }
+            ],
+            "container-title": "The American Statistician",
+            "id": "long2000",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2000
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "217-224",
+            "title": "Using heteroscedasticity consistent standard errors in the linear regression model",
+            "type": "article-journal",
+            "volume": "54"
+        },
+        {
+            "DOI": "10.1016/0304-4076(85",
+            "author": [
+                {
+                    "family": "MacKinnon",
+                    "given": "J. G."
+                },
+                {
+                    "family": "White",
+                    "given": "H."
+                }
+            ],
+            "container-title": "Journal of Econometrics",
+            "id": "mackinnon1985",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        1985
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "305-325",
+            "title": "Some heteroskedasticity-consistent covariance matrix estimators with improved finite sample properties",
+            "type": "article-journal",
+            "volume": "29"
+        },
+        {
+            "DOI": "10.1016/j.jcrimjus.2022.101883",
+            "author": [
+                {
+                    "family": "McNeeley",
+                    "given": "S."
+                }
+            ],
+            "container-title": "Journal of Criminal Justice",
+            "id": "mcneeley2022",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "note": "Artículo 101883",
+            "title": "Reaffirming the relationship between routine activities and violent victimization in prison",
+            "type": "article-journal",
+            "volume": "78"
+        },
+        {
+            "DOI": "10.1080/07418825.2011.583932",
+            "author": [
+                {
+                    "family": "Mears",
+                    "given": "D. P."
+                },
+                {
+                    "family": "Cochran",
+                    "given": "J. C."
+                },
+                {
+                    "family": "Siennick",
+                    "given": "S. E."
+                },
+                {
+                    "family": "Bales",
+                    "given": "W. D."
+                }
+            ],
+            "container-title": "Justice Quarterly",
+            "id": "mears2012",
+            "issue": "6",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "888-918",
+            "title": "Prison visitation and recidivism",
+            "type": "article-journal",
+            "volume": "29"
+        },
+        {
+            "DOI": "10.2307/2087176",
+            "author": [
+                {
+                    "family": "Robinson",
+                    "given": "W. S."
+                }
+            ],
+            "container-title": "American Sociological Review",
+            "id": "robinson1950",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        1950
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "351-357",
+            "title": "Ecological correlations and the behavior of individuals",
+            "type": "article-journal",
+            "volume": "15"
+        },
+        {
+            "DOI": "10.1016/j.jebo.2012.01.002",
+            "author": [
+                {
+                    "family": "Skarbek",
+                    "given": "D."
+                }
+            ],
+            "container-title": "Journal of Economic Behavior & Organization",
+            "id": "skarbek2012",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "96-109",
+            "title": "Prison gangs, norms, and organizations",
+            "type": "article-journal",
+            "volume": "82"
+        },
+        {
+            "DOI": "10.1017/S0003055416000563",
+            "author": [
+                {
+                    "family": "Skarbek",
+                    "given": "D."
+                }
+            ],
+            "container-title": "American Political Science Review",
+            "id": "skarbek2016",
+            "issue": "4",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "845-862",
+            "title": "Covenants without the sword? Comparing prison self-governance globally",
+            "type": "article-journal",
+            "volume": "110"
+        },
+        {
+            "DOI": "10.1177/0011128707307218",
+            "author": [
+                {
+                    "family": "Steiner",
+                    "given": "B."
+                }
+            ],
+            "container-title": "Crime & Delinquency",
+            "id": "steiner2009",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2009
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "134-161",
+            "title": "Assessing static and dynamic influences on inmate violence levels",
+            "type": "article-journal",
+            "volume": "55"
+        },
+        {
+            "DOI": "10.1016/j.jcrimjus.2014.08.001",
+            "author": [
+                {
+                    "family": "Steiner",
+                    "given": "B."
+                },
+                {
+                    "family": "Butler",
+                    "given": "H. D."
+                },
+                {
+                    "family": "Ellison",
+                    "given": "J. M."
+                }
+            ],
+            "container-title": "Journal of Criminal Justice",
+            "id": "steiner2014",
+            "issue": "6",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "462-470",
+            "title": "Causes and correlates of prison inmate misconduct: A systematic review of the evidence",
+            "title-short": "Causes and correlates of prison inmate misconduct",
+            "type": "article-journal",
+            "volume": "42"
+        },
+        {
+            "DOI": "10.1177/1524838015588503",
+            "author": [
+                {
+                    "family": "Steiner",
+                    "given": "B."
+                },
+                {
+                    "family": "Ellison",
+                    "given": "J. M."
+                },
+                {
+                    "family": "Butler",
+                    "given": "H. D."
+                },
+                {
+                    "family": "Cain",
+                    "given": "C. M."
+                }
+            ],
+            "container-title": "Trauma, Violence, & Abuse",
+            "id": "steiner2017",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "17-36",
+            "title": "The impact of inmate and prison characteristics on prisoner victimization",
+            "type": "article-journal",
+            "volume": "18"
+        },
+        {
+            "DOI": "10.1177/0093854807312787",
+            "author": [
+                {
+                    "family": "Steiner",
+                    "given": "B."
+                },
+                {
+                    "family": "Wooldredge",
+                    "given": "J."
+                }
+            ],
+            "container-title": "Criminal Justice and Behavior",
+            "id": "steinerwooldredge2008",
+            "issue": "4",
+            "issued": {
+                "date-parts": [
+                    [
+                        2008
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "438-456",
+            "title": "Inmate versus environmental effects on prison rule violations",
+            "type": "article-journal",
+            "volume": "35"
+        },
+        {
+            "DOI": "10.1177/0022427809341936",
+            "author": [
+                {
+                    "family": "Steiner",
+                    "given": "B."
+                },
+                {
+                    "family": "Wooldredge",
+                    "given": "J."
+                }
+            ],
+            "container-title": "Journal of Research in Crime and Delinquency",
+            "id": "steinerwooldredge2009a",
+            "issue": "4",
+            "issued": {
+                "date-parts": [
+                    [
+                        2009
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "437-467",
+            "title": "Individual and environmental effects on assaults and nonviolent rule breaking by women in prison",
+            "type": "article-journal",
+            "volume": "46"
+        },
+        {
+            "DOI": "10.1177/1462474509341143",
+            "author": [
+                {
+                    "family": "Steiner",
+                    "given": "B."
+                },
+                {
+                    "family": "Wooldredge",
+                    "given": "J."
+                }
+            ],
+            "container-title": "Punishment & Society",
+            "id": "steinerwooldredge2009b",
+            "issue": "4",
+            "issued": {
+                "date-parts": [
+                    [
+                        2009
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "459-489",
+            "title": "The relevance of inmate race/ethnicity versus population composition for understanding prison rule violations",
+            "type": "article-journal",
+            "volume": "11"
+        },
+        {
+            "DOI": "10.1177/0032885509334804",
+            "author": [
+                {
+                    "family": "Steiner",
+                    "given": "B."
+                },
+                {
+                    "family": "Wooldredge",
+                    "given": "J."
+                }
+            ],
+            "container-title": "The Prison Journal",
+            "id": "steinerwooldredge2009c",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2009
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "205-233",
+            "title": "Rethinking the link between institutional crowding and inmate misconduct",
+            "type": "article-journal",
+            "volume": "89"
+        },
+        {
+            "DOI": "10.1177/0011128709335151",
+            "author": [
+                {
+                    "family": "Steiner",
+                    "given": "B."
+                },
+                {
+                    "family": "Wooldredge",
+                    "given": "J."
+                }
+            ],
+            "container-title": "Crime & Delinquency",
+            "id": "steinerwooldredge2013",
+            "issue": "8",
+            "issued": {
+                "date-parts": [
+                    [
+                        2013
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "1234-1262",
+            "title": "Implications of different outcome measures for an understanding of inmate misconduct",
+            "type": "article-journal",
+            "volume": "59"
+        },
+        {
+            "DOI": "10.1016/j.jcrimjus.2012.06.011",
+            "author": [
+                {
+                    "family": "Wooldredge",
+                    "given": "J."
+                },
+                {
+                    "family": "Steiner",
+                    "given": "B."
+                }
+            ],
+            "container-title": "Journal of Criminal Justice",
+            "id": "wooldredge2012",
+            "issue": "5",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "358-369",
+            "title": "Race group differences in prison victimization experiences",
+            "type": "article-journal",
+            "volume": "40"
+        },
+        {
+            "DOI": "10.1007/s10940-013-9197-y",
+            "author": [
+                {
+                    "family": "Wooldredge",
+                    "given": "J."
+                },
+                {
+                    "family": "Steiner",
+                    "given": "B."
+                }
+            ],
+            "container-title": "Journal of Quantitative Criminology",
+            "id": "wooldredge2014",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "141-162",
+            "title": "A bi-level framework for understanding prisoner victimization",
+            "type": "article-journal",
+            "volume": "30"
+        },
+        {
+            "DOI": "10.1177/1462474515577151",
+            "author": [
+                {
+                    "family": "Wooldredge",
+                    "given": "J."
+                },
+                {
+                    "family": "Steiner",
+                    "given": "B."
+                }
+            ],
+            "container-title": "Punishment & Society",
+            "id": "wooldredge2015",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "230-257",
+            "title": "Macro-level perspective on prison inmate deviance",
+            "type": "article-journal",
+            "volume": "17"
+        },
+        {
+            "DOI": "10.1080/07418825.2014.897364",
+            "author": [
+                {
+                    "family": "Wooldredge",
+                    "given": "J."
+                },
+                {
+                    "family": "Steiner",
+                    "given": "B."
+                }
+            ],
+            "container-title": "Justice Quarterly",
+            "id": "wooldredge2016",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "209-238",
+            "title": "Assessing the need for gender-specific explanations of prisoner victimization",
+            "type": "article-journal",
+            "volume": "33"
+        },
+        {
+            "DOI": "10.1007/BF02294183",
+            "author": [
+                {
+                    "family": "Bonett",
+                    "given": "D. G."
+                },
+                {
+                    "family": "Wright",
+                    "given": "T. A."
+                }
+            ],
+            "container-title": "Psychometrika",
+            "id": "bonett2000",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2000
+                    ]
+                ]
+            },
+            "page": "23-28",
+            "title": "Sample size requirements for estimating Pearson, Kendall and Spearman correlations",
+            "type": "article-journal",
+            "volume": "65"
+        },
+        {
+            "author": [
+                {
+                    "family": "Fisher",
+                    "given": "R. A."
+                }
+            ],
+            "container-title": "Metron",
+            "id": "fisher1921",
+            "issued": {
+                "date-parts": [
+                    [
+                        1921
+                    ]
+                ]
+            },
+            "page": "3-32",
+            "title": "On the \"probable error\" of a coefficient of correlation deduced from a small sample",
+            "type": "article-journal",
+            "volume": "1"
+        },
+        {
+            "URL": "https://www.jstor.org/stable/4615733",
+            "author": [
+                {
+                    "family": "Holm",
+                    "given": "S."
+                }
+            ],
+            "container-title": "Scandinavian Journal of Statistics",
+            "id": "holm1979",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        1979
+                    ]
+                ]
+            },
+            "page": "65-70",
+            "title": "A simple sequentially rejective multiple test procedure",
+            "type": "article-journal",
+            "volume": "6"
+        }
+    ],
     "project_biblios": [
         "references.bib"
     ]

@@ -1,22 +1,98 @@
----
-title: "02_marco_teorico"
-format: html
----
+# Marco teórico {#sec-marco}
 
-# Marco teórico
+La inseguridad que declaran sentir las personas privadas de la libertad es una medida directa de qué tan bien cumple un centro su función elemental de custodiar sin exponer a quienes custodia. Cuando esa percepción varía de forma marcada entre centros de un mismo país, la explicación no puede limitarse a rasgos individuales: apunta a diferencias en la manera en que se organiza la vida dentro de cada establecimiento. Este marco teórico, construido como revisión de literatura, sustenta un estudio que busca explicar esas diferencias entre los centros de privación de libertad del Ecuador a partir de tres elementos: la debilidad de los vínculos externos de los internos, la capacidad del Estado para ordenar la vida carcelaria y la discriminación o el maltrato que los propios internos reportan.
 
-## Gobernanza criminal carcelaria
+Integra 45 fuentes y se organiza en seis ejes. Los dos primeros recogen las teorías que sostienen el modelo: la gobernanza criminal y la protección privada, y la economía del crimen y de la prisión. El tercero presenta la explicación rival más influyente de la criminología penitenciaria, la que enfrenta la privación con la importación. El cuarto y el quinto reúnen la evidencia sobre victimización y sobre lazos sociales y visitas, que corresponden a la variable dependiente y a una de las variables explicativas centrales. El sexto discute las referencias metodológicas que justifican la estimación con pocos centros. La revisión cierra con una síntesis de los aportes y de los vacíos que el estudio pretende atender.
 
-La gobernanza criminal se entiende como la imposición de reglas y restricciones de conducta por parte de organizaciones criminales sobre otros actores [@lessing2021]. En las cárceles, el trabajo de Skarbek sobre las prisiones de California sostiene que las pandillas carcelarias proveen reglas, resolución de disputas y protección cuando el Estado no logra garantizar el orden, y que el crecimiento y la rotación de la población debilitan los mecanismos informales basados en la reputación, lo que favorece la gobernanza de grupos organizados [@skarbek2011; @skarbek2014]. Bajo este enfoque, la inseguridad que declaran los presos no es solo violencia observada: es el síntoma de un orden estatal que falló y de un orden paralelo que lo reemplaza.
+## Gobernanza criminal y protección privada
 
-## Protección privada y demanda de orden
+### El origen del argumento: la protección como mercancía
 
-@gambetta1993 analiza la mafia como una industria de protección privada que prospera donde la confianza es escasa y el Estado no garantiza los derechos de propiedad ni el cumplimiento de los acuerdos. Trasladado a la cárcel, el preso que carece de una red externa que lo respalde tiene más razones para depender de la protección que ofrece un grupo criminal, y esa dependencia es más probable en centros donde el Estado controla menos a una población numerosa.
+La literatura sobre gobernanza criminal parte de una pregunta acerca de lo que ocurre donde el Estado no logra hacer cumplir las reglas. @gambetta1993 sostuvo que la mafia siciliana debe entenderse como una industria de protección privada: surge donde la confianza entre las partes es escasa y el Estado no garantiza de manera creíble los derechos de propiedad ni el cumplimiento de los acuerdos, de modo que la protección se ofrece y se compra como un servicio. Esta idea resulta especialmente fértil para la prisión, un espacio donde el Estado conserva formalmente el monopolio de la fuerza, pero donde con frecuencia carece de personal y de recursos para ordenar la vida cotidiana.
 
-## Hipótesis
+### La gobernanza de las pandillas carcelarias
 
-**H1.** A mayor tamaño del centro, mayor proporción de presos que se sienten inseguros, porque hay más población que el Estado no puede controlar y eso favorece el orden paralelo.
+@skarbek2011 trasladó este argumento a las cárceles de California. Su planteamiento es que, cuando la población penal crece, los internos ya no pueden conocer la reputación de todos aquellos con quienes interactúan, y los mecanismos informales de cooperación dejan de funcionar. En ese contexto, las pandillas carcelarias aparecen como instituciones que proveen reglas, resolución de disputas y protección para los intercambios ilícitos. El autor desarrolló el argumento en su análisis de las normas y las estructuras organizativas de estos grupos [@skarbek2012] y, de forma más extensa, en un libro que muestra cómo las pandillas gobiernan a la población penal del sistema estadounidense [@skarbek2014]. En ese libro se observa además que las divisiones raciales ordenan la pertenencia a las pandillas, lo que vincula la gobernanza con la discriminación entre internos. Posteriormente, @skarbek2016 amplió el análisis a una comparación global de la autogobernanza carcelaria, que permite distinguir formas diversas de orden interno y las condiciones bajo las cuales aparecen.
 
-**H2.** A mayor proporción de presos sin visitas, mayor inseguridad, porque quien no tiene red externa depende más de la protección privada.
+El énfasis en el tamaño y en la rotación de la población tiene una implicación directa para el modelo del presente estudio. Si la gobernanza informal reemplaza a la reputación cuando los centros crecen y su población cambia con rapidez, cabe esperar que los centros más grandes y con mayor proporción de personas sin sentencia sean aquellos donde el orden depende menos del Estado y más de actores informales.
 
-El modelo incluye dos controles: la proporción de presos inscritos en talleres o actividades productivas, que aproxima la oferta estatal y cuyo signo esperado es negativo, y la proporción de procesados sin sentencia, que aproxima la rotación de la población.
+### Evidencia latinoamericana y desarrollos conceptuales
+
+En América Latina, la discusión se ha centrado sobre todo en Brasil. @lessing2019 analizaron el Primeiro Comando da Capital y mostraron que una organización criminal puede dirigir una empresa de drogas desde las cárceles y sostener su autoridad no solo mediante la coerción, sino también mediante la legitimidad que logra frente a quienes viven bajo su mando. @darke2013 describió, para las cárceles brasileñas, un orden cotidiano en el que los propios internos asumen funciones de gobierno ante la escasez de personal y la precariedad de la infraestructura. @king2014, por su parte, examinaron las relaciones de poder, control y simbiosis entre las autoridades y los liderazgos de los internos en el mismo país. En conjunto, estos trabajos sugieren que el orden carcelario latinoamericano suele resultar de una coproducción entre el Estado y los internos, y no de la sola ausencia del primero.
+
+Dos trabajos recientes ordenan el campo. @lessing2021 propuso una conceptualización de la gobernanza criminal como la imposición de reglas y restricciones sobre una población por parte de una organización criminal, lo que permite distinguirla de otras formas de violencia y de simple actividad delictiva. @blattman2025 llevaron la discusión a los barrios de Medellín y estudiaron por qué las pandillas gobiernan, qué obtienen de ello y qué estrategias permiten contrarrestar ese dominio. Por último, @dooley2014 examinaron la relación entre pertenecer a una pandilla carcelaria y reincidir, lo que muestra que la gobernanza dentro de los muros tiene consecuencias que se extienden más allá de ellos.
+
+## Economía del crimen, la disuasión y la prisión
+
+El segundo eje aporta el marco de decisión que subyace a la demanda de protección. @becker1968 formuló el enfoque económico del delito, según el cual las personas comparan los beneficios esperados de una conducta con sus costos y su probabilidad de sanción. El presente estudio extiende esa lógica de costo y beneficio a la demanda de protección dentro de la prisión: quienes carecen de recursos económicos o de redes externas enfrentan un costo más alto para protegerse y quedan, por tanto, más expuestos. Esta extensión es una propuesta del estudio y no un resultado de las fuentes citadas, que proporcionan el marco, pero no la prueba.
+
+Otros trabajos de este eje examinan qué efecto tiene la prisión sobre el delito. @levitt1996 aprovechó los litigios por hacinamiento carcelario en Estados Unidos para estimar el efecto del tamaño de la población penitenciaria sobre las tasas de criminalidad, y con ello vinculó la discusión económica con una variable que también aparece en la literatura penitenciaria: el tamaño y la saturación de los establecimientos. @drago2009 estudiaron el efecto disuasivo de la prisión con un experimento natural, el indulto colectivo concedido en Italia, y compararon el comportamiento posterior de las personas liberadas según la pena que les restaba por cumplir. @bayer2009, a su vez, mostraron en centros juveniles que la convivencia con pares que han cometido determinado tipo de delito aumenta la probabilidad de cometer ese mismo delito después de la liberación, un proceso que los autores describen como formación de capital criminal dentro de la prisión. Este último resultado es relevante porque indica que las interacciones entre internos tienen consecuencias duraderas y no son un simple telón de fondo de la vida carcelaria.
+
+## Privación, importación y condiciones de la vida en prisión
+
+### Los modelos clásicos y su contraste
+
+La explicación más influyente sobre el comportamiento y la experiencia de los internos opone dos hipótesis. La de privación sostiene que las condiciones del encierro, con sus carencias y presiones, producen las conductas observadas. La de importación sostiene que los internos llevan consigo a la cárcel los rasgos y las culturas de su vida previa. @irwin1962 cuestionaron que la cultura carcelaria fuera solo una respuesta a las privaciones del encierro y subrayaron el peso de las orientaciones que los internos traen desde el exterior. @adams1992 sintetizó la investigación sobre el ajuste a la vida en prisión, incluidas la conducta, la victimización y la adaptación psicológica. @jiang2002 pusieron a prueba de manera simultánea los modelos de privación, importación y situacional para explicar la mala conducta de los internos.
+
+### Del individuo al entorno: el enfoque multinivel
+
+Una parte sustancial de la literatura reciente, desarrollada en gran medida por Steiner y Wooldredge, separa los efectos de las características de los internos de los efectos del entorno en que viven. @steinerwooldredge2008 compararon la contribución de ambos tipos de factores a las infracciones de reglas, y @steinerwooldredge2009a replicaron el planteamiento para las mujeres privadas de la libertad, con atención a las agresiones y a las infracciones no violentas. @steinerwooldredge2009b examinaron si el origen racial o étnico de cada interno importa más que la composición de la población del centro, una distinción que conecta con la discusión sobre discriminación. @steinerwooldredge2009c reexaminaron el vínculo entre el hacinamiento y la mala conducta, y @steinerwooldredge2013 mostraron que el tipo de medida del desenlace puede alterar las conclusiones sobre los efectos de las variables predictoras, de modo que la forma de medir condiciona lo que se concluye.
+
+@lahm2008 aplicó un enfoque multinivel a las agresiones entre internos, y @steiner2009 estudió los determinantes de los niveles de violencia entre numerosas prisiones estatales, con atención a factores estáticos y dinámicos de cada establecimiento y a la heterogeneidad de su población. Este último trabajo es especialmente cercano al diseño del presente estudio, porque toma al establecimiento como unidad de análisis. @wooldredge2015 defendieron de manera explícita una perspectiva macro sobre la desviación de los internos, es decir, una que atribuye peso a las características de los centros y no solo a las de las personas. La revisión sistemática de @steiner2014 sintetiza la evidencia sobre las causas y los correlatos de la mala conducta en prisión y constituye el punto de referencia más completo de este eje.
+
+Para el estudio, la discusión entre privación e importación tiene una función específica: la composición de la población se incorpora como explicación rival, no como variable central. Si la inseguridad percibida difiere entre centros solo porque los centros reciben a personas distintas, el efecto del orden carcelario sería aparente. Por esa razón el modelo controla por características de la población y distingue lo que corresponde al entorno de lo que corresponde a quienes ingresan.
+
+## Victimización y percepción de seguridad
+
+El cuarto eje se ocupa de la variable que el estudio busca explicar. Una advertencia es necesaria desde el inicio: la mayor parte de esta literatura mide la victimización efectivamente reportada o las agresiones, y no la sensación de inseguridad. Por ello, la relación entre ambas se asume plausible, pero no se da por demostrada, y constituye uno de los vacíos que se señalan en la última sección.
+
+@wooldredge2012 analizaron las diferencias entre grupos raciales en las experiencias de victimización en prisión, y mostraron que los factores de riesgo pueden no ser los mismos para todos los grupos. @wooldredge2014 propusieron un marco de dos niveles que integra las características individuales y las del centro para explicar la victimización de los internos. @wooldredge2016 evaluaron si se requieren explicaciones específicas por género, y @ellison2018 estudiaron las fuentes de la victimización violenta entre personas recluidas en cárceles locales. @steiner2017 sintetizaron la evidencia sobre el impacto de las características de los internos y de las prisiones sobre la victimización, y @mcneeley2022 reafirmó la relación entre las actividades rutinarias y la victimización violenta en prisión. En conjunto, estos trabajos respaldan que la exposición al riesgo depende tanto de quién es la persona como del tipo de establecimiento donde se encuentra, lo que justifica incluir en el modelo variables de ambos tipos.
+
+## Lazos sociales y visitas
+
+El quinto eje sustenta la variable que mide la proporción de personas que no han recibido visitas. @cochranmears2013 propusieron un marco conceptual para teorizar la visita carcelaria y para orientar su investigación, en el que el aislamiento social y la pérdida de apoyo constituyen el mecanismo central. Desde ese marco, @cochran2012 examinó la relación entre las visitas y la mala conducta de los internos, y planteó la pregunta de si los lazos externos funcionan como un factor de contención o, por el contrario, de tensión.
+
+La evidencia empírica más abundante se refiere a la reincidencia. @bales2008 preguntaron si la visita reduce la reincidencia, y @mears2012, @duwe2013 y @cochran2014 volvieron sobre el tema con datos de distintos sistemas penitenciarios y con diferentes medidas de la visita. En términos generales, estos estudios asocian el contacto con familiares y allegados con mejores resultados posteriores a la liberación, aunque conviene leer cada resultado en su contexto y según la medida de visita utilizada. @adams1992 había señalado ya la importancia del apoyo externo para el ajuste a la vida en prisión.
+
+Un límite de este eje debe señalarse con claridad. Los estudios mencionados evalúan la mala conducta y la reincidencia, no la sensación de inseguridad. Que la ausencia de visitas incremente la inseguridad percibida es una hipótesis coherente con el marco del apoyo social y con la lógica de la protección privada, pues quien no tiene redes externas dispone de menos recursos para protegerse, pero no es un hallazgo establecido por esta literatura.
+
+## Consideraciones metodológicas
+
+El sexto eje justifica las decisiones de estimación, que están condicionadas por el pequeño número de centros analizados. @papke1996 desarrollaron métodos de cuasiverosimilitud para variables de respuesta fraccionaria, como las proporciones, que resultan apropiados cuando la variable dependiente es la proporción de personas que se sienten inseguras. Con pocas unidades, los errores estándar convencionales tienden a subestimar la incertidumbre. @mackinnon1985 propusieron estimadores de la matriz de covarianza consistentes con la heterocedasticidad y con mejores propiedades en muestras finitas. @long2000 compararon esas alternativas y recomendaron la variante conocida como HC3 cuando la muestra es pequeña. @imbens2016 ofrecieron consejos prácticos sobre errores estándar robustos en muestras pequeñas, que incluyen ajustes en los grados de libertad de las pruebas.
+
+Dos referencias adicionales protegen la interpretación de los resultados. @arlot2010 presentaron una revisión de los procedimientos de validación cruzada para la selección de modelos, entre ellos el esquema que deja una observación fuera, que resulta natural cuando cada observación es un centro. @robinson1950, por último, advirtió que las correlaciones calculadas con datos agregados no pueden trasladarse sin más al comportamiento de los individuos. Esta advertencia obliga a interpretar los resultados por centro como asociaciones entre establecimientos y no como mecanismos que operan en cada persona.
+
+## Síntesis y vacíos en la literatura
+
+La @tbl-ejes resume la contribución de cada eje y su conexión con las variables del modelo. La revisión permite sostener tres ideas. Primero, existe un cuerpo sólido de trabajo, sobre todo cualitativo y de estudios de caso, que explica por qué el orden carcelario puede pasar a manos de actores informales cuando el Estado es débil y los centros son grandes y rotativos [@lessing2019; @skarbek2011; @skarbek2016]. Segundo, la criminología penitenciaria ofrece instrumentos para separar los efectos del entorno de los efectos de la composición de la población [@steinerwooldredge2008; @steinerwooldredge2009b; @wooldredge2015]. Tercero, la evidencia sobre victimización y sobre visitas es amplia, pero se concentra en la conducta de los internos y en la reincidencia.
+
+| Eje | Aporte principal | Conexión con el modelo |
+|:---------------|:-------------------------------|:---------------|
+| Gobernanza criminal y protección privada | Las pandillas y otros actores proveen reglas y protección cuando el Estado no ordena la vida interna; el fenómeno se asocia con centros grandes y de alta rotación. | Tamaño del centro; proporción de procesados |
+| Economía del crimen y de la prisión | Marco de costo y beneficio; efectos de la prisión sobre el delito y sobre la formación de capital criminal entre pares. | Demanda de protección; discriminación |
+| Privación, importación y entorno | Contraste entre las características de los internos y las del establecimiento; enfoques multinivel y macro. | Controles de composición; unidad de análisis |
+| Victimización y percepción de seguridad | Determinantes individuales y del centro de la victimización; la sensación de inseguridad se estudia menos. | Variable dependiente: inseguridad |
+| Lazos sociales y visitas | Las visitas se asocian con menor mala conducta y menor reincidencia en el marco del apoyo social. | Proporción sin visitas |
+| Métodos estadísticos | Respuesta fraccionaria, errores robustos en muestras pequeñas, validación cruzada y falacia ecológica. | Estimación, inferencia y alcance |
+
+: Ejes de la revisión, aportes principales y conexión con el modelo {#tbl-ejes}
+
+*Nota.* Elaboración propia a partir de las fuentes revisadas.
+
+Esa concentración deja cuatro vacíos que el estudio busca atender. El primero es la escasez de contrastes cuantitativos comparables entre centros sobre la gobernanza informal, que en buena medida se ha estudiado mediante casos. El segundo es que la inseguridad percibida, a diferencia de la victimización registrada o reportada, ha recibido menos atención como variable dependiente. El tercero es que la relación entre visitas y seguridad se ha estudiado a través de la conducta y de la reincidencia, no de la percepción. El cuarto es que la evidencia procede sobre todo de Estados Unidos y de Brasil, y las fuentes que integran esta revisión no incluyen estudios sobre el sistema penitenciario ecuatoriano. El estudio propone, por tanto, contrastar un modelo de orden carcelario y discriminación con datos de los centros del Ecuador, con la cautela que exige un diseño transversal de pocas unidades, en el que los resultados se interpretan como asociaciones y no como efectos causales.
+
+## Hipótesis y variables
+
+Las hipótesis se derivan de los tres elementos del estudio y se formulan sobre asociaciones entre centros, no sobre individuos [@robinson1950].
+
+**H1.** A mayor tamaño del centro, mayor proporción de presos que se sienten inseguros, porque hay más población que el Estado no puede controlar y eso favorece el orden paralelo [@skarbek2011; @skarbek2014].
+
+**H2.** A mayor proporción de presos sin visitas, mayor inseguridad, porque quien no tiene red externa dispone de menos recursos para protegerse y depende más de la protección privada [@gambetta1993; @cochranmears2013]. La literatura sobre visitas evalúa mala conducta y reincidencia, no inseguridad percibida; por eso H2 es una hipótesis y no un hallazgo establecido.
+
+**H3.** A mayor discriminación o maltrato reportado por los internos, mayor inseguridad, porque quien es discriminado o maltratado queda más expuesto y tiene mayor demanda de protección. Esta extensión es una propuesta del estudio y no un resultado de las fuentes, que muestran que las divisiones raciales ordenan la pertenencia a las pandillas [@skarbek2014] y que los factores de riesgo de victimización difieren entre grupos [@wooldredge2012].
+
+Además, el análisis incluye tres tipos de variables sin hipótesis central:
+
+- **Rotación.** La proporción de procesados sin sentencia aproxima la rotación de la población, con signo esperado positivo [@skarbek2011].
+- **Capacidad estatal.** La proporción inscrita en talleres o actividades productivas aproxima la oferta del Estado y tiene signo esperado negativo.
+- **Composición.** La proporción de minoría étnica, de sentenciados por delito sexual y de personas con discapacidad representa la explicación rival por importación, sin signo esperado [@irwin1962; @steinerwooldredge2009b; @wooldredge2015].

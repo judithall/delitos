@@ -1,0 +1,237 @@
+# Metodología del análisis de correlación {#sec-met-correlacion}
+
+```{r}
+#| label: setup
+#| include: false
+library(dplyr)
+library(tidyr)
+library(tibble)
+library(purrr)
+library(readr)
+library(stringr)
+library(ggplot2)
+library(knitr)
+library(here)
+
+options(OutDec = ",")
+
+# Base depurada de personas (una fila por persona entrevistada).
+# La genera datos/procesados/B08_Luna_Script_Limpieza_CP2022.R
+ruta_base <- here("datos", "salida_cp2022", "cp2022_base_limpia.rds")
+if (!file.exists(ruta_base)) {
+  stop("No existe ", ruta_base, ". Ejecute primero B08_Luna_Script_Limpieza_CP2022.R.")
+}
+micro <- readRDS(ruta_base)
+
+# Motivos de discriminación o maltrato marcados por cada persona (se excluye "99")
+col_motivos <- setdiff(grep("^F1_S6P02__", names(micro), value = TRUE), "F1_S6P02__99")
+# Seis dominios de discapacidad: 1 = sin dificultad; 2 a 4 = alguna dificultad o más
+col_discap  <- paste0("F1_S2_P070", 1:6)
+
+micro <- micro |>
+  mutate(
+    n_motivos = rowSums(pick(all_of(col_motivos)), na.rm = TRUE),
+    minoria   = if_else(is.na(F1_S2_P11), NA_real_, as.numeric(F1_S2_P11 %in% 1:5)),
+    # Delito sexual: abuso o violación (categorías 11 y 12), solo entre sentenciados
+    sexual    = if_else(is.na(F1_S4P16__11) & is.na(F1_S4P16__12), NA_real_,
+                        as.numeric(coalesce(F1_S4P16__11, 0) == 1 |
+                                   coalesce(F1_S4P16__12, 0) == 1)),
+    across(all_of(col_discap), ~ as.numeric(.x > 1), .names = "dif_{.col}")
+  )
+
+# Base por centro (CPL): cada variable se resume entre quienes responden
+base <- micro |>
+  group_by(cpl_cod, cpl = cpl_nombre) |>
+  summarise(
+    n_personas          = n(),
+    p_inseguro          = mean(ind_inseguro_cpl, na.rm = TRUE),
+    sin_visitas         = 1 - mean(ind_recibe_visitas, na.rm = TRUE),
+    procesados          = mean(ind_sin_sentencia, na.rm = TRUE),
+    motivos_por_persona = sum(n_motivos) / n(),
+    talleres            = mean(ind_actividad_ocup, na.rm = TRUE),
+    minoria_etnica      = mean(minoria, na.rm = TRUE),
+    p_delito_sexual     = mean(sexual, na.rm = TRUE),
+    discapacidad        = rowMeans(across(starts_with("dif_"), ~ mean(.x, na.rm = TRUE))),
+    .groups = "drop"
+  ) |>
+  filter(n_personas >= 50) |>
+  mutate(ln_tam  = log(n_personas),
+         es_loja = cpl_cod == 20)
+
+# Variables del análisis, en el orden de la matriz
+etiquetas <- c(
+  p_inseguro          = "Inseguridad",
+  sin_visitas         = "Sin visitas",
+  ln_tam              = "ln(Tamaño)",
+  procesados          = "Procesados",
+  motivos_por_persona = "Discriminación",
+  talleres            = "Talleres",
+  minoria_etnica      = "Minoría étnica",
+  p_delito_sexual     = "Delito sexual",
+  discapacidad        = "Discapacidad"
+)
+vars <- names(etiquetas)
+d <- base |> select(cpl, es_loja, all_of(vars))
+stopifnot(nrow(d) == 29, !anyNA(d))
+
+```
+
+
+## Diseño y unidad de análisis
+
+El análisis de correlación es de corte transversal y usa como unidad de análisis el
+centro de privación de libertad (CPL). La fuente es el Censo Penitenciario 2022 del
+Instituto Nacional de Estadística y Censos (INEC), en su versión depurada de microdatos por persona, que se resume por centro. Se incluyen los centros con 50 o
+más personas entrevistadas, lo que deja `r nrow(d)` centros. Como cada
+observación es un centro, los coeficientes describen asociaciones entre
+establecimientos y no relaciones entre individuos [@robinson1950].
+
+## Variables
+
+La variable dependiente es la proporción de personas que declaran sentirse inseguras
+en su centro. Las variables explicativas se derivan de la revisión de literatura y se
+agrupan según el eje que las sustenta: la debilidad de los vínculos externos (visitas),
+la capacidad del Estado para ordenar la vida del centro (tamaño, rotación y oferta de
+talleres) y la discriminación o el maltrato que reportan los propios internos. El signo
+esperado se fijó antes de calcular los coeficientes. Los talleres, que aproximan la
+oferta del Estado, tienen signo esperado negativo, y las variables de composición no
+tienen signo esperado porque representan la explicación rival por importación
+(@tbl-variables).
+
+```{r}
+#| label: tbl-variables
+#| tbl-cap: "Variables del análisis de correlación, fuente y signo esperado"
+tibble::tribble(
+  ~Variable,        ~Definición,                                                                   ~`Variable del censo`, ~`Eje de la revisión`,                      ~`Signo esperado`,
+  "Inseguridad",    "Proporción de presos que se sienten inseguros en el centro, entre quienes responden", "F1_S5P48 (ind_inseguro_cpl)", "Victimización y percepción de seguridad", "Dependiente",
+  "Sin visitas",    "Proporción que no ha recibido visitas de familiares o amigos",                "F1_S5P42 (ind_recibe_visitas)", "Lazos sociales y visitas",                 "+",
+  "ln(Tamaño)",     "Logaritmo natural de la población del centro",                                "Personas entrevistadas por centro (cpl_cod)", "Gobernanza criminal y protección privada (tamaño)", "+",
+  "Procesados",     "Proporción de personas sin sentencia (medida de rotación)",                   "F1_S4P12 (ind_sin_sentencia)", "Gobernanza criminal y protección privada (rotación)", "+",
+  "Discriminación", "Motivos de discriminación o maltrato reportados, divididos entre la población", "F1_S6P02 (motivos marcados)", "Economía del crimen y de la prisión (demanda de protección)", "+",
+  "Talleres",       "Proporción inscrita en talleres o actividades productivas",                   "F1_S5P1501 a F1_S5P1504 (ind_actividad_ocup)", "Control (capacidad estatal: oferta de talleres)",                 "−",
+  "Minoría étnica", "Proporción que se identifica como indígena, afroecuatoriana, negra, mulata o montubia", "F1_S2_P11 (categorías 1 a 5)", "Privación, importación y entorno (composición)",           "Sin signo",
+  "Delito sexual",  "Proporción de sentenciados por abuso o violación sexual",                     "F1_S4P16 (categorías 11 y 12)", "Privación, importación y entorno (composición)",                "Sin signo",
+  "Discapacidad",   "Promedio, en seis dominios, de la proporción con alguna dificultad",          "F1_S2_P0701 a F1_S2_P0706", "Privación, importación y entorno (composición)",                "Sin signo"
+) |>
+  kable(align = "lllll")
+```
+
+## Coeficientes e inferencia
+
+Para cada par de variables se calculan dos coeficientes:
+
+- **r de Pearson**, que mide la asociación lineal.
+- **rho de Spearman**, que mide la asociación monótona a partir de los rangos y es
+  menos sensible a centros extremos, como las cárceles de mayor población.
+
+Las pruebas son bilaterales con nivel de significancia de 0,05. Los intervalos de
+confianza del 95 % se obtienen con la transformación z de Fisher [@fisher1921]; para
+Spearman se usa el error estándar corregido de Bonett y Wright [@bonett2000],
+$\sqrt{(1 + \rho^2/2)/(n - 3)}$.
+
+## Comparaciones múltiples y sensibilidad
+
+- **Comparaciones múltiples.** Las ocho correlaciones con la variable dependiente
+  forman una familia de pruebas confirmatorias, cuyos p-valores se ajustan con el
+  método de Holm [@holm1979]. Las demás correlaciones de la matriz, 28 pares
+  entre variables explicativas, se reportan sin ajuste y como exploratorias.
+- **Sensibilidad.** Cada correlación con la variable dependiente se recalcula sin el
+  CPL Loja N.° 1 y excluyendo cada centro de uno en uno (jackknife), para reportar el
+  rango en que se mueve el coeficiente.
+- **Potencia.** Con 29 centros, una correlación necesita un valor absoluto cercano a
+  0,37 para ser significativa al 0,05. Por eso se interpreta el tamaño del coeficiente
+  y su intervalo, y no solo el p-valor.
+
+## Presentación de los resultados
+
+Las correlaciones se presentan en una tabla (@tbl-matriz) y en una gráfica
+(@fig-matriz). En ambas, los coeficientes de Pearson ocupan la parte inferior de la
+diagonal y los de Spearman la parte superior. La tabla incluye la media y la
+desviación estándar de cada variable y marca con asteriscos la significancia sin
+ajuste. La interpretación se desarrolla en el capítulo de resultados.
+
+```{r}
+#| label: funciones
+estrellas <- function(p) case_when(p < 0.001 ~ "***", p < 0.01 ~ "**", p < 0.05 ~ "*", TRUE ~ "")
+
+# Formato en español: sin cero inicial, coma decimal y signo menos tipográfico
+fmt_r <- function(r) {
+  x <- sprintf("%.2f", r)
+  x <- sub("^-0\\.00$", "0.00", x)
+  x <- sub("^(-?)0\\.", "\\1,", x)
+  sub("^-", "−", x)
+}
+
+cor_p <- function(x, y, metodo) {
+  ct <- suppressWarnings(cor.test(x, y, method = metodo, exact = FALSE))
+  c(r = unname(ct$estimate), p = ct$p.value)
+}
+
+n_v <- length(vars)
+M <- matrix("", n_v, n_v, dimnames = list(unname(etiquetas), unname(etiquetas)))
+R <- matrix(NA_real_, n_v, n_v)          # coeficientes numéricos para la gráfica
+for (i in seq_len(n_v)) for (j in seq_len(n_v)) {
+  if (i == j) { M[i, j] <- "—"; next }
+  if (i > j) {                           # bajo la diagonal: Pearson
+    z <- cor_p(d[[vars[i]]], d[[vars[j]]], "pearson")
+  } else {                               # sobre la diagonal: Spearman
+    z <- cor_p(d[[vars[i]]], d[[vars[j]]], "spearman")
+  }
+  M[i, j] <- paste0(fmt_r(z["r"]), estrellas(z["p"]))
+  R[i, j] <- z["r"]
+}
+```
+
+```{r}
+#| label: tbl-matriz
+#| tbl-cap: "Matriz de correlaciones entre los centros de privación de libertad (N = 29)"
+as_tibble(M, rownames = "Variable") |>
+  mutate(Media = map_chr(vars, ~ format(round(mean(d[[.x]]), 2), nsmall = 2)),
+         DE    = map_chr(vars, ~ format(round(sd(d[[.x]]), 2), nsmall = 2)),
+         .after = Variable) |>
+  kable(align = c("l", "r", "r", rep("c", n_v)))
+```
+
+*Nota.* Pearson bajo la diagonal y Spearman sobre la diagonal. \* p < 0,05;
+\*\* p < 0,01; \*\*\* p < 0,001, sin ajuste por comparaciones múltiples. Fuente: INEC,
+Censo Penitenciario 2022.
+
+```{r}
+#| label: fig-matriz
+#| fig-cap: "Matriz de correlaciones: Pearson bajo la diagonal y Spearman sobre la diagonal"
+#| fig-width: 7.5
+#| fig-height: 6
+grid <- expand_grid(f = seq_len(n_v), c = seq_len(n_v)) |>
+  mutate(r = map2_dbl(f, c, ~ R[.x, .y]),
+         txt = ifelse(is.na(r), "", fmt_r(r)),
+         fila = factor(etiquetas[f], levels = rev(unname(etiquetas))),
+         col  = factor(etiquetas[c], levels = unname(etiquetas)))
+
+ggplot(grid, aes(col, fila, fill = r)) +
+  geom_tile(colour = "white") +
+  geom_text(aes(label = txt), size = 3.2) +
+  scale_fill_gradient2(low = "#B2182B", mid = "white", high = "#2166AC",
+                       limits = c(-1, 1), na.value = "grey92", name = "r") +
+  labs(x = NULL, y = NULL, caption = "Fuente: INEC, Censo Penitenciario 2022.") +
+  theme_minimal(base_size = 11) +
+  theme(axis.text.x = element_text(angle = 40, hjust = 1), panel.grid = element_blank())
+```
+
+## Alcance y limitaciones
+
+- El diseño es transversal y de pocas unidades: las correlaciones indican asociación y
+  no permiten establecer causalidad.
+- Los coeficientes se calculan entre centros y no se trasladan al comportamiento de las
+  personas [@robinson1950].
+- Una correlación bivariada no equivale al efecto de una variable dentro de un modelo
+  multivariado, donde otras variables pueden cambiar su peso.
+- La inseguridad y la discriminación son percepciones de las mismas personas, por lo
+  que su asociación puede reflejar una retroalimentación.
+- Los signos esperados son hipótesis y no hallazgos establecidos. La literatura sobre
+  visitas y victimización estudia sobre todo la mala conducta, las agresiones y la
+  reincidencia, no la sensación de inseguridad, y las fuentes revisadas no incluyen
+  estudios del sistema penitenciario ecuatoriano.
+- La composición de la población se trata como explicación rival: si los centros
+  difieren en inseguridad porque reciben a personas distintas, una asociación con el
+  tamaño o con las visitas puede ser aparente.
+  
