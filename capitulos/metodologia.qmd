@@ -1,0 +1,218 @@
+---
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+# Datos y metodología {#sec-metodologia}
+
+```{r}
+#| label: setup
+#| include: false
+library(dplyr); library(tidyr); library(tibble); library(purrr); library(stringr)
+library(ggplot2); library(scales); library(knitr); library(here)
+
+options(OutDec = ",")
+options(knitr.kable.NA = "")
+
+source(here("R", "00_datos.R"))      # micro, micro29, base, d, etiquetas, vars, esperado
+source(here("R", "01_funciones.R"))  # fmt_r, wilson, cor_par, calcular_correlaciones, ...
+source(here("R", "02_graficas.R"))   # g_ranking(), g_densidad(), g_sexo(), g_motivos(), ...
+
+cor_res <- calcular_correlaciones(d, vars, etiquetas, esperado)
+```
+
+::: {.callout-note}
+## Alcance de esta versión
+Este capítulo desarrolla el objetivo específico 1 (distribución de la inseguridad percibida entre centros) y el análisis de correlación del objetivo específico 2. El modelo de regresión y la evaluación de su robustez (objetivos específicos 3 y 4) se incorporan en la versión siguiente.
+:::
+
+## Datos y unidad de análisis
+
+El análisis es de corte transversal y usa como unidad de análisis el centro de privación de libertad (CPL). La fuente es el Censo Penitenciario 2022 del Instituto Nacional de Estadística y Censos (INEC, 2022), en su versión depurada de microdatos por persona, que se resume por centro. Se incluyen los centros con 50 o más personas entrevistadas, lo que deja `r n_centros` centros. Como cada observación es un centro, los coeficientes describen asociaciones entre establecimientos y no relaciones entre individuos [@robinson1950].
+
+## Variables
+
+La variable dependiente es la proporción de personas que declaran sentirse inseguras en su centro. Las variables explicativas se derivan de la revisión de literatura y se agrupan según el eje que las sustenta: la debilidad de los vínculos externos (visitas), la capacidad del Estado para ordenar la vida del centro (tamaño, rotación y oferta de talleres) y la discriminación o el maltrato que reportan los propios internos. El signo esperado se fijó antes de calcular los coeficientes. La rotación se aproxima con la proporción de procesados [signo esperado positivo, @skarbek2011] y la capacidad estatal con la proporción inscrita en talleres (signo esperado negativo). Las variables de composición no tienen signo esperado porque representan la explicación rival por importación [@irwin1962; @steiner2009b; @wooldredge2015]. La @tbl-variables resume la definición, la fuente en el censo y el signo esperado de cada variable.
+
+| Variable | Definición | Variable del censo | Eje de la revisión | Signo esperado |
+|:-----------|:-----------------------|:-------------------|:-------------------|:---------:|
+| Inseguridad | Proporción de presos que se sienten inseguros en el centro, entre quienes responden | F1_S5P48 (ind_inseguro_cpl) | Victimización y percepción de seguridad | Dependiente |
+| Sin visitas | Proporción que no ha recibido visitas de familiares o amigos | F1_S5P42 (ind_recibe_visitas) | Lazos sociales y visitas | + |
+| ln(Tamaño) | Logaritmo natural de la población del centro | Personas entrevistadas por centro (cpl_cod) | Gobernanza criminal y protección privada (tamaño) | + |
+| Procesados | Proporción de personas sin sentencia (medida de rotación) | F1_S4P12 (ind_sin_sentencia) | Gobernanza criminal y protección privada (rotación) | + |
+| Discriminación | Motivos de discriminación o maltrato reportados, divididos entre la población | F1_S6P02 (motivos marcados) | Economía del crimen y de la prisión (demanda de protección) | + |
+| Talleres | Proporción inscrita en talleres o actividades productivas | F1_S5P1501 a F1_S5P1504 (ind_actividad_ocup) | Control (capacidad estatal: oferta de talleres) | − |
+| Minoría étnica | Proporción que se identifica como indígena, afroecuatoriana, negra, mulata o montubia | F1_S2_P11 (categorías 1 a 5) | Privación, importación y entorno (composición) | Sin signo |
+| Delito sexual | Proporción de sentenciados por abuso o violación sexual | F1_S4P16 (categorías 11 y 12) | Privación, importación y entorno (composición) | Sin signo |
+| Discapacidad | Promedio, en seis dominios, de la proporción con alguna dificultad | F1_S2_P0701 a F1_S2_P0706 | Privación, importación y entorno (composición) | Sin signo |
+
+: Variables del análisis, fuente en el censo y signo esperado {#tbl-variables}
+
+*Nota.* Elaboración propia a partir de la revisión de literatura y del Censo Penitenciario 2022 (INEC, 2022).
+
+## Distribución de la inseguridad percibida (objetivo específico 1)
+
+El primer objetivo es descriptivo. Para cada centro se calcula la proporción de personas que se sienten inseguras entre quienes responden la pregunta, junto con su intervalo de confianza del 95 % de Wilson, que refleja que los centros pequeños estiman su proporción con menos precisión. La distribución entre centros se resume con la media, la desviación estándar, la mediana, el rango intercuartílico y los valores extremos, y se ubica al CPL Loja N.° 1 por su posición en el orden de mayor a menor inseguridad. La @tbl-descriptivos presenta el resumen; las figuras muestran el ordenamiento de los centros (@fig-ranking), la forma de la distribución (@fig-densidad), la diferencia por sexo (@fig-sexo) y los motivos de discriminación o maltrato reportados (@fig-motivos).
+
+```{r}
+#| label: tbl-descriptivos
+#| tbl-cap: "Distribución de la inseguridad percibida entre los centros de privación de libertad"
+p <- d$p_inseguro
+pos_loja <- rank(-p, ties.method = "min")[d$es_loja]
+q <- quantile(p, c(0.25, 0.75))
+pct1 <- function(x) paste0(format(round(100 * x, 1), nsmall = 1, decimal.mark = ","), " %")
+tibble::tribble(
+  ~Estadístico, ~Valor,
+  "Centros analizados", as.character(nrow(d)),
+  "Personas que responden (total)", format(sum(d$n_resp), big.mark = ".", decimal.mark = ","),
+  "Proporción global (todas las personas)", pct1(sum(d$inseguros) / sum(d$n_resp)),
+  "Media entre centros", pct1(mean(p)),
+  "Desviación estándar entre centros", pct1(sd(p)),
+  "Mediana", pct1(median(p)),
+  "Rango intercuartílico (Q1 – Q3)", paste0(pct1(q[1]), " – ", pct1(q[2])),
+  "Mínimo", paste0(pct1(min(p)), " (", d$cpl_corto[which.min(p)], ")"),
+  "Máximo", paste0(pct1(max(p)), " (", d$cpl_corto[which.max(p)], ")"),
+  "CPL Loja N.° 1", paste0(pct1(p[d$es_loja]), " (puesto ", pos_loja, " de ", nrow(d), ")")
+) |>
+  kable(align = "lr")
+```
+
+*Nota.* La media entre centros da el mismo peso a cada centro; la proporción global da el mismo peso a cada persona. Fuente: INEC, Censo Penitenciario 2022.
+
+```{r}
+#| label: fig-ranking
+#| fig-cap: "Inseguridad percibida por centro de privación de libertad, con intervalo de confianza del 95 %"
+#| fig-alt: "Gráfica de puntos con intervalos de confianza que ordena los centros de mayor a menor proporción de personas que se sienten inseguras; el CPL Loja N.° 1 aparece resaltado en rojo y una línea discontinua marca el promedio."
+#| fig-width: 8
+#| fig-height: 9
+g_ranking(d)
+```
+
+```{r}
+#| label: fig-densidad
+#| fig-cap: "Distribución de la inseguridad percibida entre los centros"
+#| fig-alt: "Histograma con curva de densidad de la proporción de personas que se sienten inseguras en cada centro, con líneas verticales para la media y la mediana."
+#| fig-width: 7.5
+#| fig-height: 4.8
+g_densidad(d)
+```
+
+```{r}
+#| label: fig-sexo
+#| fig-cap: "Inseguridad percibida según sexo"
+#| fig-alt: "Gráfica de barras con la proporción de hombres y de mujeres que se sienten inseguros, con intervalos de confianza del 95 %."
+#| fig-width: 6
+#| fig-height: 5
+g_sexo(micro29)
+```
+
+```{r}
+#| label: fig-motivos
+#| fig-cap: "Motivos de discriminación o maltrato reportados por las personas entrevistadas"
+#| fig-alt: "Gráfica de barras horizontales con la proporción de personas que reporta cada motivo de discriminación o maltrato, ordenadas de mayor a menor."
+#| fig-width: 8.5
+#| fig-height: 5.5
+g_motivos(micro29)
+```
+
+## Análisis de correlación
+
+### Coeficientes e inferencia
+
+Para cada par de variables se calculan dos coeficientes:
+
+-   *r* de Pearson, que mide la asociación lineal.
+
+-   *ρ* de Spearman, que mide la asociación monótona a partir de los rangos y es menos sensible a centros extremos, como las cárceles de mayor población.
+
+Las pruebas son bilaterales con nivel de significancia de 0,05. Los intervalos de confianza del 95 % se obtienen con la transformación *z* de Fisher [@fisher1921]; para Spearman se usa el error estándar corregido de Bonett y Wright [@bonett2000]:
+
+$$
+EE = \sqrt{\frac{1 + \rho^2 / 2}{n - 3}}
+$$
+
+### Comparaciones múltiples y sensibilidad
+
+-   **Comparaciones múltiples.** Las ocho correlaciones con la variable dependiente forman una familia de pruebas confirmatorias, cuyos *p*-valores se ajustan con el método de Holm [@holm1979]. Las demás correlaciones de la matriz, 28 pares entre variables explicativas, se reportan sin ajuste y como exploratorias.
+
+-   **Sensibilidad.** Cada correlación con la variable dependiente se recalcula sin el CPL Loja N.° 1 y excluyendo cada centro de uno en uno (*jackknife*), para reportar el rango en que se mueve el coeficiente.
+
+-   **Potencia.** Con `r n_centros` centros, una correlación necesita un valor absoluto cercano a `r fmt_n(r_critico(n_centros))` para ser significativa al 0,05. Por eso se interpreta el tamaño del coeficiente y su intervalo, y no solo el *p*-valor.
+
+**Regla de decisión de la Hipótesis 3.** La Hipótesis 3 se contrasta dentro de la familia de ocho correlaciones confirmatorias con ajuste de Holm: se rechaza su hipótesis nula cuando el coeficiente es positivo y su valor *p* ajustado es menor que 0,05. Para esa decisión se usa el coeficiente de Pearson; el de Spearman se presenta como verificación. Con pocos centros la potencia es limitada, por lo que también se interpreta el tamaño de los coeficientes y no solo su significancia.
+
+### Presentación de los resultados
+
+Las correlaciones con la variable dependiente se presentan en una tabla (@tbl-correl-dep) y en una gráfica de coeficientes con intervalos y sensibilidad (@fig-forest), y se acompañan de diagramas de dispersión (@fig-dispersion). La matriz completa se presenta en una tabla (@tbl-matriz) y en una gráfica (@fig-matriz). En ambas, los coeficientes de Pearson ocupan la parte inferior de la diagonal y los de Spearman la parte superior. La tabla de la matriz incluye la media y la desviación estándar de cada variable y marca con asteriscos la significancia sin ajuste. La interpretación se desarrolla en el apartado de resultados.
+
+```{r}
+#| label: tbl-correl-dep
+#| tbl-cap: "Correlaciones de cada variable con la inseguridad percibida: coeficientes, ajuste de Holm y sensibilidad"
+cd <- cor_res$con_dep
+cd |>
+  transmute(
+    Variable = variable,
+    `Signo esperado` = esperado,
+    `r de Pearson [IC 95 %]` = paste0(fmt_r(r), " [", fmt_r(lo), "; ", fmt_r(hi), "]"),
+    p = fmt_p(p),
+    `p (Holm)` = fmt_p(p_holm),
+    `ρ de Spearman` = paste0(fmt_r(rho), estrellas(p_rho)),
+    `r sin Loja` = fmt_r(r_sin_loja),
+    `Rango jackknife` = paste0(fmt_r(r_min), " a ", fmt_r(r_max)),
+    `Hipótesis 3` = coalesce(h3, "—")
+  ) |>
+  kable(align = "llcccccc")
+```
+
+*Nota.* Holm aplicado a las ocho pruebas de Pearson. \* *p* < ,05; \*\* *p* < ,01; \*\*\* *p* < ,001 para Spearman, sin ajuste. Rango jackknife: valores mínimo y máximo de *r* al excluir cada centro de uno en uno. Fuente: INEC, Censo Penitenciario 2022.
+
+```{r}
+#| label: fig-forest
+#| fig-cap: "Correlación de Pearson de cada variable con la inseguridad percibida, con intervalo de confianza y sensibilidad a la exclusión de centros"
+#| fig-alt: "Gráfica de coeficientes: para cada variable, el coeficiente de Pearson con su intervalo de confianza del 95 %, una barra gris con el rango al excluir cada centro y un rombo con el valor sin Loja."
+#| fig-width: 8
+#| fig-height: 5
+g_forest(cor_res$con_dep, n_centros)
+```
+
+```{r}
+#| label: fig-dispersion
+#| fig-cap: "Inseguridad percibida frente a cada variable explicativa"
+#| fig-alt: "Ocho diagramas de dispersión, uno por variable explicativa, con la proporción de personas inseguras en el eje vertical, una recta de ajuste y el CPL Loja N.° 1 resaltado en rojo."
+#| fig-width: 9.5
+#| fig-height: 5.5
+g_dispersion(d, cor_res$con_dep, etiquetas)
+```
+
+```{r}
+#| label: tbl-matriz
+#| tbl-cap: "Matriz de correlaciones entre los centros de privación de libertad"
+tabla_matriz(d, vars, etiquetas, cor_res) |>
+  rename(`*M*` = M, `*DE*` = DE) |>
+  kable(align = c("l", "r", "r", rep("c", length(vars))))
+```
+
+*Nota.* Pearson bajo la diagonal y Spearman sobre la diagonal. \* *p* < ,05; \*\* *p* < ,01; \*\*\* *p* < ,001, sin ajuste por comparaciones múltiples. Fuente: INEC, Censo Penitenciario 2022.
+
+```{r}
+#| label: fig-matriz
+#| fig-cap: "Matriz de correlaciones: Pearson bajo la diagonal y Spearman sobre la diagonal"
+#| fig-alt: "Mapa de calor con las correlaciones de Pearson, bajo la diagonal, y de Spearman, sobre la diagonal, entre las nueve variables de los centros de privación de libertad."
+#| fig-width: 8
+#| fig-height: 6.5
+g_matriz(d, vars, etiquetas, cor_res)
+```
+
+## Alcance y limitaciones
+
+-   El diseño es transversal y de pocas unidades: las correlaciones indican asociación y no permiten establecer causalidad.
+
+-   Los coeficientes se calculan entre centros y no se trasladan al comportamiento de las personas [@robinson1950].
+
+-   Una correlación bivariada no equivale al efecto de una variable dentro de un modelo multivariado, donde otras variables pueden cambiar su peso.
+
+-   La inseguridad y la discriminación son percepciones de las mismas personas, por lo que su asociación puede reflejar una retroalimentación.
+
+-   Los signos esperados son hipótesis y no hallazgos establecidos. La literatura sobre visitas y victimización estudia sobre todo la mala conducta, las agresiones y la reincidencia, no la sensación de inseguridad, y las fuentes revisadas no incluyen estudios del sistema penitenciario ecuatoriano.

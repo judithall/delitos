@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Metodología del análisis de correlación – Inseguridad dentro de las cárceles del Ecuador</title>
+<title>Datos y metodología – Inseguridad dentro de las cárceles del Ecuador</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -137,7 +137,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_metodologia.html"><span class="chapter-title">Metodología del análisis de correlación</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_metodologia.html"><span class="chapter-title">Datos y metodología</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
@@ -174,12 +174,12 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_marco_teorico.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Marco teórico</span></a>
+  <a href="./02_marco_teorico.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Revisión literaria</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_metodologia.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Metodología del análisis de correlación</span></a>
+  <a href="./03_metodologia.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Datos y metodología</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -198,11 +198,15 @@ window.Quarto = {
     <h2 id="toc-title">Tabla de contenidos</h2>
    
   <ul>
-  <li><a href="#diseño-y-unidad-de-análisis" id="toc-diseño-y-unidad-de-análisis" class="nav-link active" data-scroll-target="#diseño-y-unidad-de-análisis">Diseño y unidad de análisis</a></li>
+  <li><a href="#datos-y-unidad-de-análisis" id="toc-datos-y-unidad-de-análisis" class="nav-link active" data-scroll-target="#datos-y-unidad-de-análisis">Datos y unidad de análisis</a></li>
   <li><a href="#variables" id="toc-variables" class="nav-link" data-scroll-target="#variables">Variables</a></li>
+  <li><a href="#distribución-de-la-inseguridad-percibida-objetivo-específico-1" id="toc-distribución-de-la-inseguridad-percibida-objetivo-específico-1" class="nav-link" data-scroll-target="#distribución-de-la-inseguridad-percibida-objetivo-específico-1">Distribución de la inseguridad percibida (objetivo específico 1)</a></li>
+  <li><a href="#sec-met-correlacion" id="toc-sec-met-correlacion" class="nav-link" data-scroll-target="#sec-met-correlacion">Correlación</a>
+  <ul class="collapse">
   <li><a href="#coeficientes-e-inferencia" id="toc-coeficientes-e-inferencia" class="nav-link" data-scroll-target="#coeficientes-e-inferencia">Coeficientes e inferencia</a></li>
   <li><a href="#comparaciones-múltiples-y-sensibilidad" id="toc-comparaciones-múltiples-y-sensibilidad" class="nav-link" data-scroll-target="#comparaciones-múltiples-y-sensibilidad">Comparaciones múltiples y sensibilidad</a></li>
   <li><a href="#presentación-de-los-resultados" id="toc-presentación-de-los-resultados" class="nav-link" data-scroll-target="#presentación-de-los-resultados">Presentación de los resultados</a></li>
+  </ul></li>
   <li><a href="#alcance-y-limitaciones" id="toc-alcance-y-limitaciones" class="nav-link" data-scroll-target="#alcance-y-limitaciones">Alcance y limitaciones</a></li>
   </ul>
 </nav>
@@ -212,7 +216,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-met-correlacion" class="quarto-section-identifier"><span class="chapter-title">Metodología del análisis de correlación</span></span></h1>
+<h1 class="title"><span id="sec-metodologia" class="quarto-section-identifier"><span class="chapter-title">Datos y metodología</span></span></h1>
 </div>
 
 
@@ -229,28 +233,26 @@ window.Quarto = {
 </header>
 
 
-<section id="diseño-y-unidad-de-análisis" class="level2">
-<h2 class="anchored" data-anchor-id="diseño-y-unidad-de-análisis">Diseño y unidad de análisis</h2>
-<p>El análisis de correlación es de corte transversal y usa como unidad de análisis el centro de privación de libertad (CPL). La fuente es el Censo Penitenciario 2022 del Instituto Nacional de Estadística y Censos (INEC), en su versión depurada de microdatos por persona, que se resume por centro. Se incluyen los centros con 50 o más personas entrevistadas, lo que deja 29 centros. Como cada observación es un centro, los coeficientes describen asociaciones entre establecimientos y no relaciones entre individuos <span class="citation" data-cites="robinson1950">(<a href="references.html#ref-robinson1950" role="doc-biblioref">Robinson, 1950</a>)</span>.</p>
+<section id="datos-y-unidad-de-análisis" class="level2">
+<h2 class="anchored" data-anchor-id="datos-y-unidad-de-análisis">Datos y unidad de análisis</h2>
+<p>El análisis es de corte transversal y usa como unidad de análisis el centro de privación de libertad (CPL). La fuente es el Censo Penitenciario 2022 del Instituto Nacional de Estadística y Censos <span class="citation" data-cites="inec2022">(<a href="references.html#ref-inec2022" role="doc-biblioref">Instituto Nacional de Estadística y Censos, 2022</a>)</span>, en su versión depurada de microdatos por persona, que se resume por centro. Se incluyen los centros con 50 o más personas entrevistadas, lo que deja 29 centros. Como cada observación es un centro, los coeficientes describen asociaciones entre establecimientos y no relaciones entre individuos <span class="citation" data-cites="robinson1950">(<a href="references.html#ref-robinson1950" role="doc-biblioref">Robinson, 1950</a>)</span>.</p>
 </section>
 <section id="variables" class="level2">
 <h2 class="anchored" data-anchor-id="variables">Variables</h2>
-<p>La variable dependiente es la proporción de personas que declaran sentirse inseguras en su centro. Las variables explicativas se derivan de la revisión de literatura y se agrupan según el eje que las sustenta: la debilidad de los vínculos externos (visitas), la capacidad del Estado para ordenar la vida del centro (tamaño, rotación y oferta de talleres) y la discriminación o el maltrato que reportan los propios internos. El signo esperado se fijó antes de calcular los coeficientes. Los talleres, que aproximan la oferta del Estado, tienen signo esperado negativo, y las variables de composición no tienen signo esperado porque representan la explicación rival por importación (<a href="#tbl-variables" class="quarto-xref">Tabla&nbsp;<span>4.1</span></a>).</p>
-<div class="cell">
-<div id="tbl-variables" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<p>La variable dependiente es la proporción de personas que declaran sentirse inseguras en su centro. Las variables explicativas se derivan de la revisión de literatura y se agrupan según el eje que las sustenta: la debilidad de los vínculos externos (visitas), la capacidad del Estado para ordenar la vida del centro (tamaño, rotación y oferta de talleres) y la discriminación o el maltrato que reportan los propios internos. El signo esperado se fijó antes de calcular los coeficientes. La rotación se aproxima con la proporción de procesados <span class="citation" data-cites="skarbek2011">(signo esperado positivo, <a href="references.html#ref-skarbek2011" role="doc-biblioref">Skarbek, 2011</a>)</span> y la capacidad estatal con la proporción inscrita en talleres (signo esperado negativo). Las variables de composición no tienen signo esperado porque representan la explicación rival por importación <span class="citation" data-cites="irwin1962 steinerwooldredge2009b wooldredge2015">(<a href="references.html#ref-irwin1962" role="doc-biblioref">Irwin &amp; Cressey, 1962</a>; <a href="references.html#ref-steinerwooldredge2009b" role="doc-biblioref">Steiner &amp; Wooldredge, 2009</a>; <a href="references.html#ref-wooldredge2015" role="doc-biblioref">Wooldredge &amp; Steiner, 2015</a>)</span>. La <a href="#tbl-variables" class="quarto-xref">Tabla&nbsp;<span>4.1</span></a> resume la definición, la fuente en el censo y el signo esperado de cada variable.</p>
+<div id="tbl-variables" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabla&nbsp;4.1: Variables del análisis de correlación, fuente y signo esperado
+Tabla&nbsp;4.1: Variables del análisis, fuente en el censo y signo esperado
 </figcaption>
 <div aria-describedby="tbl-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output-display">
-<table class="cell caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <colgroup>
-<col style="width: 6%">
-<col style="width: 38%">
-<col style="width: 20%">
+<col style="width: 13%">
 <col style="width: 27%">
-<col style="width: 6%">
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 12%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -258,7 +260,7 @@ Tabla&nbsp;4.1: Variables del análisis de correlación, fuente y signo esperado
 <th style="text-align: left;">Definición</th>
 <th style="text-align: left;">Variable del censo</th>
 <th style="text-align: left;">Eje de la revisión</th>
-<th style="text-align: left;">Signo esperado</th>
+<th style="text-align: center;">Signo esperado</th>
 </tr>
 </thead>
 <tbody>
@@ -267,63 +269,134 @@ Tabla&nbsp;4.1: Variables del análisis de correlación, fuente y signo esperado
 <td style="text-align: left;">Proporción de presos que se sienten inseguros en el centro, entre quienes responden</td>
 <td style="text-align: left;">F1_S5P48 (ind_inseguro_cpl)</td>
 <td style="text-align: left;">Victimización y percepción de seguridad</td>
-<td style="text-align: left;">Dependiente</td>
+<td style="text-align: center;">Dependiente</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Sin visitas</td>
 <td style="text-align: left;">Proporción que no ha recibido visitas de familiares o amigos</td>
 <td style="text-align: left;">F1_S5P42 (ind_recibe_visitas)</td>
 <td style="text-align: left;">Lazos sociales y visitas</td>
-<td style="text-align: left;">+</td>
+<td style="text-align: center;">+</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">ln(Tamaño)</td>
 <td style="text-align: left;">Logaritmo natural de la población del centro</td>
 <td style="text-align: left;">Personas entrevistadas por centro (cpl_cod)</td>
 <td style="text-align: left;">Gobernanza criminal y protección privada (tamaño)</td>
-<td style="text-align: left;">+</td>
+<td style="text-align: center;">+</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Procesados</td>
 <td style="text-align: left;">Proporción de personas sin sentencia (medida de rotación)</td>
 <td style="text-align: left;">F1_S4P12 (ind_sin_sentencia)</td>
 <td style="text-align: left;">Gobernanza criminal y protección privada (rotación)</td>
-<td style="text-align: left;">+</td>
+<td style="text-align: center;">+</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Discriminación</td>
 <td style="text-align: left;">Motivos de discriminación o maltrato reportados, divididos entre la población</td>
 <td style="text-align: left;">F1_S6P02 (motivos marcados)</td>
 <td style="text-align: left;">Economía del crimen y de la prisión (demanda de protección)</td>
-<td style="text-align: left;">+</td>
+<td style="text-align: center;">+</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Talleres</td>
 <td style="text-align: left;">Proporción inscrita en talleres o actividades productivas</td>
 <td style="text-align: left;">F1_S5P1501 a F1_S5P1504 (ind_actividad_ocup)</td>
 <td style="text-align: left;">Control (capacidad estatal: oferta de talleres)</td>
-<td style="text-align: left;">−</td>
+<td style="text-align: center;">−</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Minoría étnica</td>
 <td style="text-align: left;">Proporción que se identifica como indígena, afroecuatoriana, negra, mulata o montubia</td>
 <td style="text-align: left;">F1_S2_P11 (categorías 1 a 5)</td>
 <td style="text-align: left;">Privación, importación y entorno (composición)</td>
-<td style="text-align: left;">Sin signo</td>
+<td style="text-align: center;">Sin signo</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Delito sexual</td>
 <td style="text-align: left;">Proporción de sentenciados por abuso o violación sexual</td>
 <td style="text-align: left;">F1_S4P16 (categorías 11 y 12)</td>
 <td style="text-align: left;">Privación, importación y entorno (composición)</td>
-<td style="text-align: left;">Sin signo</td>
+<td style="text-align: center;">Sin signo</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Discapacidad</td>
 <td style="text-align: left;">Promedio, en seis dominios, de la proporción con alguna dificultad</td>
 <td style="text-align: left;">F1_S2_P0701 a F1_S2_P0706</td>
 <td style="text-align: left;">Privación, importación y entorno (composición)</td>
-<td style="text-align: left;">Sin signo</td>
+<td style="text-align: center;">Sin signo</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><em>Nota.</em> Elaboración propia a partir de la revisión de literatura y del Censo Penitenciario 2022 <span class="citation" data-cites="inec2022">(<a href="references.html#ref-inec2022" role="doc-biblioref">Instituto Nacional de Estadística y Censos, 2022</a>)</span>.</p>
+<p>La tabla reúne las nueve variables del estudio. La inseguridad es la única variable dependiente. Cuatro variables tienen signo esperado positivo (sin visitas, tamaño, procesados y discriminación): se espera que, a mayor valor, mayor inseguridad. Los talleres son la única variable con signo esperado negativo, porque aproximan la presencia del Estado dentro del centro. Minoría étnica, delito sexual y discapacidad no tienen signo esperado: se incluyen para comprobar que las diferencias entre centros no se deban solo a las personas que ingresan a ellos (explicación por importación).</p>
+</section>
+<section id="distribución-de-la-inseguridad-percibida-objetivo-específico-1" class="level2">
+<h2 class="anchored" data-anchor-id="distribución-de-la-inseguridad-percibida-objetivo-específico-1">Distribución de la inseguridad percibida (objetivo específico 1)</h2>
+<p>El primer objetivo es descriptivo. Para cada centro se calcula la proporción de personas que se sienten inseguras entre quienes responden la pregunta, junto con su intervalo de confianza del 95 % de Wilson, que refleja que los centros pequeños estiman su proporción con menos precisión. La distribución entre centros se resume con la media, la desviación estándar, la mediana, el rango intercuartílico y los valores extremos, y se ubica al CPL Loja N.° 1 por su posición en el orden de mayor a menor inseguridad. La <a href="#tbl-descriptivos" class="quarto-xref">Tabla&nbsp;<span>4.2</span></a> presenta el resumen; las figuras muestran el ordenamiento de los centros (<a href="#fig-ranking" class="quarto-xref">Figura&nbsp;<span>4.1</span></a>), la forma de la distribución (<a href="#fig-densidad" class="quarto-xref">Figura&nbsp;<span>4.2</span></a>), la diferencia por sexo (<a href="#fig-sexo" class="quarto-xref">Figura&nbsp;<span>4.3</span></a>) y los motivos de discriminación o maltrato reportados (<a href="#fig-motivos" class="quarto-xref">Figura&nbsp;<span>4.4</span></a>).</p>
+<div class="cell">
+<div id="tbl-descriptivos" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-descriptivos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;4.2: Distribución de la inseguridad percibida entre los centros de privación de libertad
+</figcaption>
+<div aria-describedby="tbl-descriptivos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 43%">
+<col style="width: 56%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Estadístico</th>
+<th style="text-align: right;">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Centros analizados</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Personas que responden (total)</td>
+<td style="text-align: right;">30.566</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Proporción global (todas las personas)</td>
+<td style="text-align: right;">40,4 %</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Media entre centros</td>
+<td style="text-align: right;">34,6 %</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Desviación estándar entre centros</td>
+<td style="text-align: right;">17,8 %</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mediana</td>
+<td style="text-align: right;">31,4 %</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Rango intercuartílico (Q1 – Q3)</td>
+<td style="text-align: right;">23,5 % – 44,0 %</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mínimo</td>
+<td style="text-align: right;">4,1 % (CENTRO DE REHABILITACION SOCIAL MANABI N 3)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Máximo</td>
+<td style="text-align: right;">70,6 % (CENTRO DE PRIVACION DE LIBERTAD LOJA N 1)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CPL Loja N.° 1</td>
+<td style="text-align: right;">70,6 % (puesto 1 de 29)</td>
 </tr>
 </tbody>
 </table>
@@ -332,69 +405,297 @@ Tabla&nbsp;4.1: Variables del análisis de correlación, fuente y signo esperado
 </figure>
 </div>
 </div>
+<p><em>Nota.</em> La media entre centros da el mismo peso a cada centro; la proporción global da el mismo peso a cada persona. Fuente: INEC, Censo Penitenciario 2022.</p>
+<p>Entre los 29 centros, en promedio el 34,6 % de las personas se siente insegura (mediana: 31,4 %). La desviación estándar es de 17,8 puntos porcentuales, y el 72 % de los centros queda a menos de una desviación estándar del promedio. La inseguridad va de 4,1 % en CENTRO DE REHABILITACION SOCIAL MANABI N 3 a 70,6 % en CENTRO DE PRIVACION DE LIBERTAD LOJA N 1, una diferencia de 66,4 puntos porcentuales entre el centro menos y el más inseguro. La proporción global (40,4 %) es mayor que la media entre centros: los centros con más personas son, en promedio, más inseguros. El CPL Loja N.° 1 ocupa el puesto 1 de 29, con 70,6 %.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-ranking" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Gráfica de puntos con intervalos de confianza que ordena los centros de mayor a menor proporción de personas que se sienten inseguras; el CPL Loja N.° 1 aparece resaltado en rojo y una línea discontinua marca el promedio.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ranking-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="03_metodologia_files/figure-html/fig-ranking-1.png" class="img-fluid figure-img" alt="Gráfica de puntos con intervalos de confianza que ordena los centros de mayor a menor proporción de personas que se sienten inseguras; el CPL Loja N.° 1 aparece resaltado en rojo y una línea discontinua marca el promedio." width="1600">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ranking-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4.1: Inseguridad percibida por centro de privación de libertad, con intervalo de confianza del 95 %
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>La gráfica ordena los centros de mayor a menor inseguridad. Los más inseguros son CENTRO DE PRIVACION DE LIBERTAD LOJA N 1 (70,6 %), CENTRO DE PRIVACION DE LIBERTAD GUAYAS N 2 (68,6 %) y CENTRO DE PRIVACION DE LIBERTAD ESMERALDAS N 1 (66,7 %); los menos inseguros, CENTRO DE REHABILITACION SOCIAL MANABI N 3 (4,1 %), CENTRO DE PRIVACION DE LIBERTAD CANAR N 1 (7,0 %) y CENTRO DE REHABILITACION SOCIAL MANABI N 2 (13,2 %). Hay 13 centros por encima del promedio (línea discontinua), de un total de 29. Cada punto tiene su intervalo del 95 %: en 10 centros el intervalo queda por completo sobre el promedio, en 14 queda por completo bajo el promedio y en los otros 5 lo incluye; en estos últimos, la diferencia con el promedio no se distingue del azar de la muestra. El intervalo más ancho es el de CENTRO DE PRIVACION PROVISIONAL DE LIBERTAD PASTAZA N 1 (52 respuestas), porque los centros con pocas personas estiman su proporción con menos precisión.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-densidad" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Histograma con curva de densidad de la proporción de personas que se sienten inseguras en cada centro, con líneas verticales para la media y la mediana.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-densidad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="03_metodologia_files/figure-html/fig-densidad-1.png" class="img-fluid figure-img" alt="Histograma con curva de densidad de la proporción de personas que se sienten inseguras en cada centro, con líneas verticales para la media y la mediana." width="1500">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-densidad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4.2: Distribución de la inseguridad percibida entre los centros
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>La distribución tiene una cola hacia valores altos: la media (34,6 %) supera a la mediana (31,4 %) porque unos pocos centros con inseguridad alta la empujan hacia arriba. La mitad central de los centros tiene entre 23,5 % y 44,0 % de personas inseguras, un rango de 20,5 puntos porcentuales; el rango total es de 66,4 puntos. La dispersión relativa es alta: hay diferencias grandes entre centros (coeficiente de variación de 0,51).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-sexo" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Gráfica de barras con la proporción de hombres y de mujeres que se sienten inseguros, con intervalos de confianza del 95 %.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sexo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="03_metodologia_files/figure-html/fig-sexo-1.png" class="img-fluid figure-img" alt="Gráfica de barras con la proporción de hombres y de mujeres que se sienten inseguros, con intervalos de confianza del 95 %." width="1200">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sexo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4.3: Inseguridad percibida según sexo
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Entre los hombres, el 39,4 % se siente inseguro (28.744 personas); entre las mujeres, el 56,3 % (1.822 personas). Las mujeres reportan más inseguridad que los hombres: la diferencia es de 16,9 puntos porcentuales y es estadísticamente significativa al 5 % (prueba de dos proporciones, <em>p</em> &lt; ,001). El grupo de mujeres es más pequeño, por eso su intervalo de confianza es más ancho. Esta comparación es entre personas y no entre centros, y es solo descriptiva: no controla por el centro en que está cada persona.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-motivos" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Gráfica de barras horizontales con la proporción de personas que reporta cada motivo de discriminación o maltrato, ordenadas de mayor a menor.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-motivos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="03_metodologia_files/figure-html/fig-motivos-1.png" class="img-fluid figure-img" alt="Gráfica de barras horizontales con la proporción de personas que reporta cada motivo de discriminación o maltrato, ordenadas de mayor a menor." width="1700">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-motivos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4.4: Motivos de discriminación o maltrato reportados por las personas entrevistadas
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>El motivo más reportado es etnia o raza (14,9 % de las personas), seguido de edad (9,2 %) y discapacidad o salud (3,9 %). Los demás motivos quedan por debajo de 3,9 %. En total, el 27,9 % de las personas marca al menos un motivo. Las proporciones se calculan sobre todas las personas entrevistadas en los centros analizados, incluidas las que no marcaron ningún motivo. Esta variable alimenta la medida de discriminación del análisis de correlación.</p>
 </section>
-<section id="coeficientes-e-inferencia" class="level2">
-<h2 class="anchored" data-anchor-id="coeficientes-e-inferencia">Coeficientes e inferencia</h2>
+<section id="sec-met-correlacion" class="level2">
+<h2 class="anchored" data-anchor-id="sec-met-correlacion">Correlación</h2>
+<section id="coeficientes-e-inferencia" class="level3">
+<h3 class="anchored" data-anchor-id="coeficientes-e-inferencia">Coeficientes e inferencia</h3>
 <p>Para cada par de variables se calculan dos coeficientes:</p>
 <ul>
-<li><strong>r de Pearson</strong>, que mide la asociación lineal.</li>
-<li><strong>rho de Spearman</strong>, que mide la asociación monótona a partir de los rangos y es menos sensible a centros extremos, como las cárceles de mayor población.</li>
+<li><p><em>r</em> de Pearson, que mide la asociación lineal.</p></li>
+<li><p><em>ρ</em> de Spearman, que mide la asociación monótona a partir de los rangos y es menos sensible a centros extremos, como las cárceles de mayor población.</p></li>
 </ul>
-<p>Las pruebas son bilaterales con nivel de significancia de 0,05. Los intervalos de confianza del 95 % se obtienen con la transformación z de Fisher <span class="citation" data-cites="fisher1921">(<a href="references.html#ref-fisher1921" role="doc-biblioref">Fisher, 1921</a>)</span>; para Spearman se usa el error estándar corregido de Bonett y Wright <span class="citation" data-cites="bonett2000">(<a href="references.html#ref-bonett2000" role="doc-biblioref">Bonett &amp; Wright, 2000</a>)</span>, <span class="math inline">\(\sqrt{(1 + \rho^2/2)/(n - 3)}\)</span>.</p>
+<p>Las pruebas son bilaterales con nivel de significancia de 0,05. Los intervalos de confianza del 95 % se obtienen con la transformación <em>z</em> de Fisher <span class="citation" data-cites="fisher1921">(<a href="references.html#ref-fisher1921" role="doc-biblioref">Fisher, 1921</a>)</span>; para Spearman se usa el error estándar corregido de Bonett y Wright <span class="citation" data-cites="bonett2000">(<a href="references.html#ref-bonett2000" role="doc-biblioref">Bonett &amp; Wright, 2000</a>)</span>:</p>
+<p><span class="math display">\[
+EE = \sqrt{\frac{1 + \rho^2 / 2}{n - 3}}
+\]</span></p>
 </section>
-<section id="comparaciones-múltiples-y-sensibilidad" class="level2">
-<h2 class="anchored" data-anchor-id="comparaciones-múltiples-y-sensibilidad">Comparaciones múltiples y sensibilidad</h2>
+<section id="comparaciones-múltiples-y-sensibilidad" class="level3">
+<h3 class="anchored" data-anchor-id="comparaciones-múltiples-y-sensibilidad">Comparaciones múltiples y sensibilidad</h3>
 <ul>
-<li><strong>Comparaciones múltiples.</strong> Las ocho correlaciones con la variable dependiente forman una familia de pruebas confirmatorias, cuyos p-valores se ajustan con el método de Holm <span class="citation" data-cites="holm1979">(<a href="references.html#ref-holm1979" role="doc-biblioref">Holm, 1979</a>)</span>. Las demás correlaciones de la matriz, 28 pares entre variables explicativas, se reportan sin ajuste y como exploratorias.</li>
-<li><strong>Sensibilidad.</strong> Cada correlación con la variable dependiente se recalcula sin el CPL Loja N.° 1 y excluyendo cada centro de uno en uno (jackknife), para reportar el rango en que se mueve el coeficiente.</li>
-<li><strong>Potencia.</strong> Con 29 centros, una correlación necesita un valor absoluto cercano a 0,37 para ser significativa al 0,05. Por eso se interpreta el tamaño del coeficiente y su intervalo, y no solo el p-valor.</li>
+<li><p><strong>Comparaciones múltiples.</strong> Las ocho correlaciones con la variable dependiente forman una familia de pruebas confirmatorias, cuyos <em>p</em>-valores se ajustan con el método de Holm <span class="citation" data-cites="holm1979">(<a href="references.html#ref-holm1979" role="doc-biblioref">Holm, 1979</a>)</span>. Las demás correlaciones de la matriz, 28 pares entre variables explicativas, se reportan sin ajuste y como exploratorias.</p></li>
+<li><p><strong>Sensibilidad.</strong> Cada correlación con la variable dependiente se recalcula sin el CPL Loja N.° 1 y excluyendo cada centro de uno en uno (<em>jackknife</em>), para reportar el rango en que se mueve el coeficiente.</p></li>
+<li><p><strong>Potencia.</strong> Con 29 centros, una correlación necesita un valor absoluto cercano a 0,37 para ser significativa al 0,05. Por eso se interpreta el tamaño del coeficiente y su intervalo, y no solo el <em>p</em>-valor.</p></li>
 </ul>
 </section>
-<section id="presentación-de-los-resultados" class="level2">
-<h2 class="anchored" data-anchor-id="presentación-de-los-resultados">Presentación de los resultados</h2>
-<p>Las correlaciones se presentan en una tabla (<a href="#tbl-matriz" class="quarto-xref">Tabla&nbsp;<span>4.2</span></a>) y en una gráfica (<a href="#fig-matriz" class="quarto-xref">Figura&nbsp;<span>4.1</span></a>). En ambas, los coeficientes de Pearson ocupan la parte inferior de la diagonal y los de Spearman la parte superior. La tabla incluye la media y la desviación estándar de cada variable y marca con asteriscos la significancia sin ajuste. La interpretación se desarrolla en el capítulo de resultados.</p>
+<section id="presentación-de-los-resultados" class="level3">
+<h3 class="anchored" data-anchor-id="presentación-de-los-resultados">Presentación de los resultados</h3>
+<p>Las correlaciones con la variable dependiente se presentan en una tabla (<a href="#tbl-correl-dep" class="quarto-xref">Tabla&nbsp;<span>4.3</span></a>) y en una gráfica de coeficientes con intervalos y sensibilidad (<a href="#fig-forest" class="quarto-xref">Figura&nbsp;<span>4.5</span></a>), y se acompañan de diagramas de dispersión (<a href="#fig-dispersion" class="quarto-xref">Figura&nbsp;<span>4.6</span></a>). La matriz completa se presenta en una tabla (<a href="#tbl-matriz" class="quarto-xref">Tabla&nbsp;<span>4.4</span></a>) y en una gráfica (<a href="#fig-matriz" class="quarto-xref">Figura&nbsp;<span>4.7</span></a>). En ambas, los coeficientes de Pearson ocupan la parte inferior de la diagonal y los de Spearman la parte superior. La tabla de la matriz incluye la media y la desviación estándar de cada variable y marca con asteriscos la significancia sin ajuste. Cada tabla y cada figura va seguida de un párrafo de análisis.</p>
+<div class="cell">
+<div id="tbl-correl-dep" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-correl-dep-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;4.3: Correlaciones de cada variable con la inseguridad percibida: coeficientes, ajuste de Holm y sensibilidad
+</figcaption>
+<div aria-describedby="tbl-correl-dep-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 18%">
+<col style="width: 4%">
+<col style="width: 7%">
+<col style="width: 11%">
+<col style="width: 9%">
+<col style="width: 12%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">Signo esperado</th>
+<th style="text-align: center;">r de Pearson [IC 95 %]</th>
+<th style="text-align: center;">p</th>
+<th style="text-align: center;">p (Holm)</th>
+<th style="text-align: center;">ρ de Spearman</th>
+<th style="text-align: center;">r sin Loja</th>
+<th style="text-align: center;">Rango jackknife</th>
+<th style="text-align: center;">Hipótesis 3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Sin visitas</td>
+<td style="text-align: left;">+</td>
+<td style="text-align: center;">,36 [,00; ,64]</td>
+<td style="text-align: center;">,052</td>
+<td style="text-align: center;">,416</td>
+<td style="text-align: center;">,33</td>
+<td style="text-align: center;">,40</td>
+<td style="text-align: center;">,26 a ,42</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ln(Tamaño)</td>
+<td style="text-align: left;">+</td>
+<td style="text-align: center;">,28 [−,10; ,59]</td>
+<td style="text-align: center;">,141</td>
+<td style="text-align: center;">,988</td>
+<td style="text-align: center;">,37*</td>
+<td style="text-align: center;">,29</td>
+<td style="text-align: center;">,21 a ,44</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Procesados</td>
+<td style="text-align: left;">+</td>
+<td style="text-align: center;">,00 [−,37; ,36]</td>
+<td style="text-align: center;">,985</td>
+<td style="text-align: center;">1.000</td>
+<td style="text-align: center;">−,02</td>
+<td style="text-align: center;">,02</td>
+<td style="text-align: center;">−,10 a ,06</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Discriminación</td>
+<td style="text-align: left;">+</td>
+<td style="text-align: center;">−,14 [−,48; ,24]</td>
+<td style="text-align: center;">,476</td>
+<td style="text-align: center;">1.000</td>
+<td style="text-align: center;">,03</td>
+<td style="text-align: center;">−,17</td>
+<td style="text-align: center;">−,20 a −,03</td>
+<td style="text-align: center;">No se rechaza H0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Talleres</td>
+<td style="text-align: left;">−</td>
+<td style="text-align: center;">,03 [−,34; ,40]</td>
+<td style="text-align: center;">,863</td>
+<td style="text-align: center;">1.000</td>
+<td style="text-align: center;">−,06</td>
+<td style="text-align: center;">−,06</td>
+<td style="text-align: center;">−,08 a ,09</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Minoría étnica</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: center;">,03 [−,34; ,39]</td>
+<td style="text-align: center;">,887</td>
+<td style="text-align: center;">1.000</td>
+<td style="text-align: center;">−,03</td>
+<td style="text-align: center;">,16</td>
+<td style="text-align: center;">−,16 a ,16</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Delito sexual</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: center;">−,17 [−,51; ,21]</td>
+<td style="text-align: center;">,367</td>
+<td style="text-align: center;">1.000</td>
+<td style="text-align: center;">−,16</td>
+<td style="text-align: center;">−,25</td>
+<td style="text-align: center;">−,25 a −,08</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Discapacidad</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: center;">,22 [−,16; ,54]</td>
+<td style="text-align: center;">,261</td>
+<td style="text-align: center;">1.000</td>
+<td style="text-align: center;">,17</td>
+<td style="text-align: center;">,05</td>
+<td style="text-align: center;">,05 a ,34</td>
+<td style="text-align: center;">—</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p><em>Nota.</em> Holm aplicado a las ocho pruebas de Pearson. * <em>p</em> &lt; ,05; ** <em>p</em> &lt; ,01; *** <em>p</em> &lt; ,001 para Spearman, sin ajuste. Rango jackknife: valores mínimo y máximo de <em>r</em> al excluir cada centro de uno en uno. Fuente: INEC, Censo Penitenciario 2022.</p>
+<p>Ninguna de las 8 correlaciones con la inseguridad es significativa después del ajuste de Holm (el menor <em>p</em> ajustado es ,416, en Sin visitas). La asociación más fuerte es la de Sin visitas (r = ,36, moderada y positiva). Con 29 centros, un coeficiente necesita un valor absoluto de al menos 0,37 para ser significativo al 5 % sin ajuste. Con signo contrario al esperado aparece Discriminación (r = −,14). Al excluir el CPL Loja N.° 1, el coeficiente cambia como máximo 0,16 (Discapacidad: de ,22 a ,05). El rango jackknife cruza el cero en Procesados, Talleres y Minoría étnica: en esas variables el signo depende de qué centro se excluya. Pearson y Spearman coinciden en el signo en 5 de 8 variables; difieren en ,15 o más en Discriminación, lo que sugiere una relación no lineal o un centro extremo. Para la Hipótesis 3 (Discriminación), la tabla indica: «No se rechaza H0».</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-forest" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Gráfica de coeficientes: para cada variable, el coeficiente de Pearson con su intervalo de confianza del 95 %, una barra gris con el rango al excluir cada centro y un rombo con el valor sin Loja.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-forest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="03_metodologia_files/figure-html/fig-forest-1.png" class="img-fluid figure-img" alt="Gráfica de coeficientes: para cada variable, el coeficiente de Pearson con su intervalo de confianza del 95 %, una barra gris con el rango al excluir cada centro y un rombo con el valor sin Loja." width="1600">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-forest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4.5: Correlación de Pearson de cada variable con la inseguridad percibida, con intervalo de confianza y sensibilidad a la exclusión de centros
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Cada punto es el coeficiente de Pearson de una variable con la inseguridad, y la línea es su intervalo de confianza del 95 %. Todos los intervalos incluyen el cero: con 29 centros, los datos no permiten afirmar que alguna de estas asociaciones sea distinta de cero. Los intervalos miden entre 0,65 y 0,73 unidades de r: con 29 centros, los coeficientes se estiman con poca precisión. La barra gris muestra el rango del coeficiente al excluir cada centro de uno en uno: en Procesados, Talleres y Minoría étnica el rango cruza el cero; la variable más sensible es Minoría étnica, cuyo coeficiente va de −,16 a ,16. El rombo rojo, que excluye el CPL Loja N.° 1, se separa más del punto azul en Discapacidad (de ,22 a ,05); en las demás variables la diferencia es menor.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-dispersion" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Ocho diagramas de dispersión, uno por variable explicativa, con la proporción de personas inseguras en el eje vertical, una recta de ajuste y el CPL Loja N.° 1 resaltado en rojo.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-dispersion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="03_metodologia_files/figure-html/fig-dispersion-1.png" class="img-fluid figure-img" alt="Ocho diagramas de dispersión, uno por variable explicativa, con la proporción de personas inseguras en el eje vertical, una recta de ajuste y el CPL Loja N.° 1 resaltado en rojo." width="1900">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dispersion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4.6: Inseguridad percibida frente a cada variable explicativa
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Cada punto es un centro y la línea discontinua es la tendencia lineal. La relación más marcada es la de Sin visitas (r = ,36, ρ = ,33): los centros con valores más altos de «Sin visitas» tienden a tener más inseguridad. En Procesados, Talleres y Minoría étnica (|r| &lt; ,10) la nube de puntos no muestra una tendencia clara. El CPL Loja N.° 1 (en rojo) se separa del resto en Inseguridad (2,0 desviaciones estándar sobre la media) y Discapacidad (2,3 desviaciones estándar sobre la media). Con solo 29 puntos, un centro extremo puede mover la recta; por eso el rango jackknife de la <a href="#tbl-correl-dep" class="quarto-xref">Tabla&nbsp;<span>4.3</span></a> sirve de comprobación.</p>
 <div class="cell">
 <div id="tbl-matriz" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-matriz-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabla&nbsp;4.2: Matriz de correlaciones entre los centros de privación de libertad (N = 29)
+Tabla&nbsp;4.4: Matriz de correlaciones entre los centros de privación de libertad
 </figcaption>
 <div aria-describedby="tbl-matriz-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <table class="cell caption-top table table-sm table-striped small">
 <colgroup>
-<col style="width: 10%">
-<col style="width: 4%">
-<col style="width: 3%">
-<col style="width: 8%">
-<col style="width: 8%">
-<col style="width: 8%">
-<col style="width: 8%">
-<col style="width: 10%">
+<col style="width: 18%">
+<col style="width: 5%">
+<col style="width: 5%">
 <col style="width: 6%">
-<col style="width: 10%">
-<col style="width: 10%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 7%">
 <col style="width: 9%">
+<col style="width: 7%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Variable</th>
-<th style="text-align: right;">Media</th>
-<th style="text-align: right;">DE</th>
-<th style="text-align: center;">Inseguridad</th>
-<th style="text-align: center;">Sin visitas</th>
-<th style="text-align: center;">ln(Tamaño)</th>
-<th style="text-align: center;">Procesados</th>
-<th style="text-align: center;">Discriminación</th>
-<th style="text-align: center;">Talleres</th>
-<th style="text-align: center;">Minoría étnica</th>
-<th style="text-align: center;">Delito sexual</th>
-<th style="text-align: center;">Discapacidad</th>
+<th style="text-align: right;"><em>M</em></th>
+<th style="text-align: right;"><em>DE</em></th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">5</th>
+<th style="text-align: center;">6</th>
+<th style="text-align: center;">7</th>
+<th style="text-align: center;">8</th>
+<th style="text-align: center;">9</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Inseguridad</td>
+<td style="text-align: left;">1. Inseguridad</td>
 <td style="text-align: right;">0,35</td>
 <td style="text-align: right;">0,18</td>
 <td style="text-align: center;">—</td>
@@ -408,7 +709,7 @@ Tabla&nbsp;4.2: Matriz de correlaciones entre los centros de privación de liber
 <td style="text-align: center;">,17</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Sin visitas</td>
+<td style="text-align: left;">2. Sin visitas</td>
 <td style="text-align: right;">0,37</td>
 <td style="text-align: right;">0,12</td>
 <td style="text-align: center;">,36</td>
@@ -422,7 +723,7 @@ Tabla&nbsp;4.2: Matriz de correlaciones entre los centros de privación de liber
 <td style="text-align: center;">−,13</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">ln(Tamaño)</td>
+<td style="text-align: left;">3. ln(Tamaño)</td>
 <td style="text-align: right;">6,32</td>
 <td style="text-align: right;">1,21</td>
 <td style="text-align: center;">,28</td>
@@ -436,7 +737,7 @@ Tabla&nbsp;4.2: Matriz de correlaciones entre los centros de privación de liber
 <td style="text-align: center;">−,11</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Procesados</td>
+<td style="text-align: left;">4. Procesados</td>
 <td style="text-align: right;">0,19</td>
 <td style="text-align: right;">0,10</td>
 <td style="text-align: center;">,00</td>
@@ -450,7 +751,7 @@ Tabla&nbsp;4.2: Matriz de correlaciones entre los centros de privación de liber
 <td style="text-align: center;">−,37*</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Discriminación</td>
+<td style="text-align: left;">5. Discriminación</td>
 <td style="text-align: right;">0,33</td>
 <td style="text-align: right;">0,09</td>
 <td style="text-align: center;">−,14</td>
@@ -464,7 +765,7 @@ Tabla&nbsp;4.2: Matriz de correlaciones entre los centros de privación de liber
 <td style="text-align: center;">−,36</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Talleres</td>
+<td style="text-align: left;">6. Talleres</td>
 <td style="text-align: right;">0,54</td>
 <td style="text-align: right;">0,16</td>
 <td style="text-align: center;">,03</td>
@@ -478,7 +779,7 @@ Tabla&nbsp;4.2: Matriz de correlaciones entre los centros de privación de liber
 <td style="text-align: center;">,18</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Minoría étnica</td>
+<td style="text-align: left;">7. Minoría étnica</td>
 <td style="text-align: right;">0,33</td>
 <td style="text-align: right;">0,12</td>
 <td style="text-align: center;">,03</td>
@@ -492,7 +793,7 @@ Tabla&nbsp;4.2: Matriz de correlaciones entre los centros de privación de liber
 <td style="text-align: center;">−,29</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Delito sexual</td>
+<td style="text-align: left;">8. Delito sexual</td>
 <td style="text-align: right;">0,20</td>
 <td style="text-align: right;">0,12</td>
 <td style="text-align: center;">−,17</td>
@@ -506,7 +807,7 @@ Tabla&nbsp;4.2: Matriz de correlaciones entre los centros de privación de liber
 <td style="text-align: center;">,49**</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Discapacidad</td>
+<td style="text-align: left;">9. Discapacidad</td>
 <td style="text-align: right;">0,09</td>
 <td style="text-align: right;">0,04</td>
 <td style="text-align: center;">,22</td>
@@ -526,31 +827,33 @@ Tabla&nbsp;4.2: Matriz de correlaciones entre los centros de privación de liber
 </figure>
 </div>
 </div>
-<p><em>Nota.</em> Pearson bajo la diagonal y Spearman sobre la diagonal. * p &lt; 0,05; ** p &lt; 0,01; *** p &lt; 0,001, sin ajuste por comparaciones múltiples. Fuente: INEC, Censo Penitenciario 2022.</p>
+<p><em>Nota.</em> Pearson bajo la diagonal y Spearman sobre la diagonal. * <em>p</em> &lt; ,05; ** <em>p</em> &lt; ,01; *** <em>p</em> &lt; ,001, sin ajuste por comparaciones múltiples. Fuente: INEC, Censo Penitenciario 2022.</p>
+<p>La tabla muestra todas las correlaciones; las de la inseguridad (primera fila y primera columna) se analizaron en la tabla anterior. Entre las 28 combinaciones de variables explicativas, 7 tienen <em>p</em> &lt; ,05 sin ajuste. Como son 28 pruebas, por azar se esperarían unas 1,4 significativas, por eso estas correlaciones se leen como exploratorias. Las más altas son Sin visitas con ln(Tamaño) (r = ,66), Discriminación con Talleres (r = −,53) y Procesados con Delito sexual (r = −,50). Hay pares con relación moderada o alta (|r| ≥ ,50): si se incluyen en un mismo modelo, parte de su efecto se superpondrá. Las columnas <em>M</em> y <em>DE</em> resumen cada variable: ln(Tamaño) está en logaritmos, por eso su media no es una proporción.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-matriz" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-matriz" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Mapa de calor con las correlaciones de Pearson, bajo la diagonal, y de Spearman, sobre la diagonal, entre las nueve variables de los centros de privación de libertad.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-matriz-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="03_metodologia_files/figure-html/fig-matriz-1.png" class="img-fluid figure-img" width="720">
+<img src="03_metodologia_files/figure-html/fig-matriz-1.png" class="img-fluid figure-img" alt="Mapa de calor con las correlaciones de Pearson, bajo la diagonal, y de Spearman, sobre la diagonal, entre las nueve variables de los centros de privación de libertad." width="1600">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-matriz-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;4.1: Matriz de correlaciones: Pearson bajo la diagonal y Spearman sobre la diagonal
+Figura&nbsp;4.7: Matriz de correlaciones: Pearson bajo la diagonal y Spearman sobre la diagonal
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
+<p>La figura muestra la misma información de la tabla en colores: azul indica asociación positiva, rojo negativa, y cuanto más intenso el color, más fuerte la relación. La pareja con la relación más intensa es ln(Tamaño) con Sin visitas (r = ,66). En 33 de los 36 pares, Pearson y Spearman difieren en menos de ,15; la mayor diferencia está en Minoría étnica con Talleres (r = −,21, ρ = −,41), señal de que esa relación no es lineal o de que un centro extremo influye en ella.</p>
+</section>
 </section>
 <section id="alcance-y-limitaciones" class="level2">
 <h2 class="anchored" data-anchor-id="alcance-y-limitaciones">Alcance y limitaciones</h2>
 <ul>
-<li>El diseño es transversal y de pocas unidades: las correlaciones indican asociación y no permiten establecer causalidad.</li>
-<li>Los coeficientes se calculan entre centros y no se trasladan al comportamiento de las personas <span class="citation" data-cites="robinson1950">(<a href="references.html#ref-robinson1950" role="doc-biblioref">Robinson, 1950</a>)</span>.</li>
-<li>Una correlación bivariada no equivale al efecto de una variable dentro de un modelo multivariado, donde otras variables pueden cambiar su peso.</li>
-<li>La inseguridad y la discriminación son percepciones de las mismas personas, por lo que su asociación puede reflejar una retroalimentación.</li>
-<li>Los signos esperados son hipótesis y no hallazgos establecidos. La literatura sobre visitas y victimización estudia sobre todo la mala conducta, las agresiones y la reincidencia, no la sensación de inseguridad, y las fuentes revisadas no incluyen estudios del sistema penitenciario ecuatoriano.</li>
-<li>La composición de la población se trata como explicación rival: si los centros difieren en inseguridad porque reciben a personas distintas, una asociación con el tamaño o con las visitas puede ser aparente.</li>
+<li><p>El diseño es transversal y de pocas unidades: las correlaciones indican asociación y no permiten establecer causalidad.</p></li>
+<li><p>Los coeficientes se calculan entre centros y no se trasladan al comportamiento de las personas <span class="citation" data-cites="robinson1950">(<a href="references.html#ref-robinson1950" role="doc-biblioref">Robinson, 1950</a>)</span>.</p></li>
+<li><p>Una correlación bivariada no equivale al efecto de una variable dentro de un modelo multivariado, donde otras variables pueden cambiar su peso.</p></li>
+<li><p>La inseguridad y la discriminación son percepciones de las mismas personas, por lo que su asociación puede reflejar una retroalimentación.</p></li>
+<li><p>Los signos esperados son hipótesis y no hallazgos establecidos. La literatura sobre visitas y victimización estudia sobre todo la mala conducta, las agresiones y la reincidencia, no la sensación de inseguridad, y las fuentes revisadas no incluyen estudios del sistema penitenciario ecuatoriano.</p></li>
 </ul>
 
 
@@ -564,8 +867,23 @@ Fisher, R. A. (1921). On the "probable error" of a coefficient of correlation de
 <div id="ref-holm1979" class="csl-entry" role="listitem">
 Holm, S. (1979). A simple sequentially rejective multiple test procedure. <em>Scandinavian Journal of Statistics</em>, <em>6</em>(2), 65-70. <a href="https://www.jstor.org/stable/4615733">https://www.jstor.org/stable/4615733</a>
 </div>
+<div id="ref-inec2022" class="csl-entry" role="listitem">
+Instituto Nacional de Estadística y Censos. (2022). <em>Censo Penitenciario 2022</em> [Conjunto de datos]. <a href="https://www.ecuadorencifras.gob.ec/censo-penitenciario-2022/">https://www.ecuadorencifras.gob.ec/censo-penitenciario-2022/</a>
+</div>
+<div id="ref-irwin1962" class="csl-entry" role="listitem">
+Irwin, J., &amp; Cressey, D. R. (1962). Thieves, convicts and the inmate culture. <em>Social Problems</em>, <em>10</em>(2), 142-155. <a href="https://doi.org/10.2307/799047">https://doi.org/10.2307/799047</a>
+</div>
 <div id="ref-robinson1950" class="csl-entry" role="listitem">
 Robinson, W. S. (1950). Ecological correlations and the behavior of individuals. <em>American Sociological Review</em>, <em>15</em>(3), 351-357. <a href="https://doi.org/10.2307/2087176">https://doi.org/10.2307/2087176</a>
+</div>
+<div id="ref-skarbek2011" class="csl-entry" role="listitem">
+Skarbek, D. (2011). Governance and prison gangs. <em>American Political Science Review</em>, <em>105</em>(4), 702-716. <a href="https://doi.org/10.1017/S0003055411000335">https://doi.org/10.1017/S0003055411000335</a>
+</div>
+<div id="ref-steinerwooldredge2009b" class="csl-entry" role="listitem">
+Steiner, B., &amp; Wooldredge, J. (2009). The relevance of inmate race/ethnicity versus population composition for understanding prison rule violations. <em>Punishment &amp; Society</em>, <em>11</em>(4), 459-489. <a href="https://doi.org/10.1177/1462474509341143">https://doi.org/10.1177/1462474509341143</a>
+</div>
+<div id="ref-wooldredge2015" class="csl-entry" role="listitem">
+Wooldredge, J., &amp; Steiner, B. (2015). Macro-level perspective on prison inmate deviance. <em>Punishment &amp; Society</em>, <em>17</em>(2), 230-257. <a href="https://doi.org/10.1177/1462474515577151">https://doi.org/10.1177/1462474515577151</a>
 </div>
 </div>
 </section>
@@ -973,8 +1291,8 @@ Robinson, W. S. (1950). Ecological correlations and the behavior of individuals.
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./02_marco_teorico.html" class="pagination-link" aria-label="Marco teórico">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Marco teórico</span></span>
+      <a href="./02_marco_teorico.html" class="pagination-link" aria-label="Revisión literaria">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Revisión literaria</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

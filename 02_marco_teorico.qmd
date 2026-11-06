@@ -1,8 +1,8 @@
-# Marco teórico {#sec-marco}
+# Revisión literaria {#sec-revision}
 
-La inseguridad que declaran sentir las personas privadas de la libertad es una medida directa de qué tan bien cumple un centro su función elemental de custodiar sin exponer a quienes custodia. Cuando esa percepción varía de forma marcada entre centros de un mismo país, la explicación no puede limitarse a rasgos individuales: apunta a diferencias en la manera en que se organiza la vida dentro de cada establecimiento. Este marco teórico, construido como revisión de literatura, sustenta un estudio que busca explicar esas diferencias entre los centros de privación de libertad del Ecuador a partir de tres elementos: la debilidad de los vínculos externos de los internos, la capacidad del Estado para ordenar la vida carcelaria y la discriminación o el maltrato que los propios internos reportan.
+La inseguridad que declaran sentir las personas privadas de la libertad es una medida directa de qué tan bien cumple un centro su función elemental de custodiar sin exponer a quienes custodia. Cuando esa percepción varía de forma marcada entre centros de un mismo país, la explicación no puede limitarse a rasgos individuales: apunta a diferencias en la manera en que se organiza la vida dentro de cada establecimiento. Esta revisión de literatura sustenta un estudio que busca explicar esas diferencias entre los centros de privación de libertad del Ecuador a partir de tres elementos: la debilidad de los vínculos externos de los internos, la capacidad del Estado para ordenar la vida carcelaria y la discriminación o el maltrato que los propios internos reportan.
 
-Integra 45 fuentes y se organiza en seis ejes. Los dos primeros recogen las teorías que sostienen el modelo: la gobernanza criminal y la protección privada, y la economía del crimen y de la prisión. El tercero presenta la explicación rival más influyente de la criminología penitenciaria, la que enfrenta la privación con la importación. El cuarto y el quinto reúnen la evidencia sobre victimización y sobre lazos sociales y visitas, que corresponden a la variable dependiente y a una de las variables explicativas centrales. El sexto discute las referencias metodológicas que justifican la estimación con pocos centros. La revisión cierra con una síntesis de los aportes y de los vacíos que el estudio pretende atender.
+La revisión integra 45 fuentes y se organiza en seis ejes. Los dos primeros recogen las teorías que sostienen el modelo: la gobernanza criminal y la protección privada, y la economía del crimen y de la prisión. El tercero presenta la explicación rival más influyente de la criminología penitenciaria, la que enfrenta la privación con la importación. El cuarto y el quinto reúnen la evidencia sobre victimización y sobre lazos sociales y visitas, que corresponden a la variable dependiente y a una de las variables explicativas centrales. El sexto discute las referencias metodológicas que justifican la estimación con pocos centros. La revisión cierra con una síntesis de los aportes y de los vacíos que el estudio pretende atender.
 
 ## Gobernanza criminal y protección privada
 
@@ -80,19 +80,3 @@ La @tbl-ejes resume la contribución de cada eje y su conexión con las variable
 *Nota.* Elaboración propia a partir de las fuentes revisadas.
 
 Esa concentración deja cuatro vacíos que el estudio busca atender. El primero es la escasez de contrastes cuantitativos comparables entre centros sobre la gobernanza informal, que en buena medida se ha estudiado mediante casos. El segundo es que la inseguridad percibida, a diferencia de la victimización registrada o reportada, ha recibido menos atención como variable dependiente. El tercero es que la relación entre visitas y seguridad se ha estudiado a través de la conducta y de la reincidencia, no de la percepción. El cuarto es que la evidencia procede sobre todo de Estados Unidos y de Brasil, y las fuentes que integran esta revisión no incluyen estudios sobre el sistema penitenciario ecuatoriano. El estudio propone, por tanto, contrastar un modelo de orden carcelario y discriminación con datos de los centros del Ecuador, con la cautela que exige un diseño transversal de pocas unidades, en el que los resultados se interpretan como asociaciones y no como efectos causales.
-
-## Hipótesis y variables
-
-Las hipótesis se derivan de los tres elementos del estudio y se formulan sobre asociaciones entre centros, no sobre individuos [@robinson1950].
-
-**H1.** A mayor tamaño del centro, mayor proporción de presos que se sienten inseguros, porque hay más población que el Estado no puede controlar y eso favorece el orden paralelo [@skarbek2011; @skarbek2014].
-
-**H2.** A mayor proporción de presos sin visitas, mayor inseguridad, porque quien no tiene red externa dispone de menos recursos para protegerse y depende más de la protección privada [@gambetta1993; @cochranmears2013]. La literatura sobre visitas evalúa mala conducta y reincidencia, no inseguridad percibida; por eso H2 es una hipótesis y no un hallazgo establecido.
-
-**H3.** A mayor discriminación o maltrato reportado por los internos, mayor inseguridad, porque quien es discriminado o maltratado queda más expuesto y tiene mayor demanda de protección. Esta extensión es una propuesta del estudio y no un resultado de las fuentes, que muestran que las divisiones raciales ordenan la pertenencia a las pandillas [@skarbek2014] y que los factores de riesgo de victimización difieren entre grupos [@wooldredge2012].
-
-Además, el análisis incluye tres tipos de variables sin hipótesis central:
-
-- **Rotación.** La proporción de procesados sin sentencia aproxima la rotación de la población, con signo esperado positivo [@skarbek2011].
-- **Capacidad estatal.** La proporción inscrita en talleres o actividades productivas aproxima la oferta del Estado y tiene signo esperado negativo.
-- **Composición.** La proporción de minoría étnica, de sentenciados por delito sexual y de personas con discapacidad representa la explicación rival por importación, sin signo esperado [@irwin1962; @steinerwooldredge2009b; @wooldredge2015].

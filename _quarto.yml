@@ -8,11 +8,11 @@ book:
   author: "Zury Jiménez, Judith Luna"
   date: "2026-11-04"
   chapters:
-    - index.qmd
-    - 01_introduccion.qmd
-    - 02_marco_teorico.qmd
-    - 03_metodologia.qmd
-    - references.qmd
+    - index.qmd                    # Resumen
+    - 01_introduccion.qmd          # Introducción
+    - 02_marco_teorico.qmd    # Revisión literaria
+    - 03_metodologia.qmd     # Datos y metodología
+    - references.qmd               # Referencias
 
 # APA 7.ª edición
 bibliography: references.bib
@@ -31,3 +31,5 @@ format:
     theme: cosmo
     toc: true
     toc-depth: 3
+    fig-dpi: 200
+    fig-align: center

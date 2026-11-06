@@ -96,6 +96,35 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -145,12 +174,12 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_marco_teorico.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Marco teórico</span></a>
+  <a href="./02_marco_teorico.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Revisión literaria</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_metodologia.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Metodología del análisis de correlación</span></a>
+  <a href="./03_metodologia.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Datos y metodología</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -171,7 +200,7 @@ div.csl-indent {
   <ul>
   <li><a href="#objetivo-general" id="toc-objetivo-general" class="nav-link active" data-scroll-target="#objetivo-general">Objetivo general</a></li>
   <li><a href="#objetivos-específicos" id="toc-objetivos-específicos" class="nav-link" data-scroll-target="#objetivos-específicos">Objetivos específicos</a></li>
-  <li><a href="#objetivos-específicos-1" id="toc-objetivos-específicos-1" class="nav-link" data-scroll-target="#objetivos-específicos-1">Objetivos específicos</a></li>
+  <li><a href="#hipótesis" id="toc-hipótesis" class="nav-link" data-scroll-target="#hipótesis">Hipótesis</a></li>
   </ul>
 </nav>
     </div>
@@ -197,34 +226,48 @@ div.csl-indent {
 </header>
 
 
-<p>La seguridad dentro de una cárcel es una condición básica del orden que debe garantizar el Estado. Cuando esa garantía se debilita, la violencia deja de ser un hecho aislado y pasa a organizar la vida cotidiana de quienes están privados de libertad. En 2022, el Instituto Nacional de Estadística y Censos [INEC] levantó el Censo Penitenciario 2022 entre el 22 de agosto y el 10 de diciembre en todos los centros de privación de libertad del país y entrevistó directamente a 31 321 personas <span class="citation" data-cites="inec2022">(<a href="#ref-inec2022" role="doc-biblioref">Instituto Nacional de Estadística y Censos, 2022</a>)</span>. Ese operativo permite, por primera vez, comparar la percepción de inseguridad entre centros con una misma pregunta y un mismo instrumento.</p>
-<p>La literatura sobre orden carcelario es amplia, pero se concentra en Estados Unidos y Brasil, estudia sobre todo la mala conducta, la victimización reportada y la reincidencia, y ha prestado menos atención a la inseguridad percibida como variable dependiente. Las fuentes revisadas tampoco incluyen estudios del sistema penitenciario ecuatoriano (véase el <a href="#sec-marco" class="quarto-xref"><span class="quarto-unresolved-ref">sec-marco</span></a>).</p>
+<p>La seguridad dentro de una cárcel es una condición básica del orden que debe garantizar el Estado. Cuando esa garantía se debilita, la violencia deja de ser un hecho aislado y pasa a organizar la vida cotidiana de quienes están privados de libertad. En 2022, el Instituto Nacional de Estadística y Censos [INEC] levantó el Censo Penitenciario 2022 entre el 22 de agosto y el 10 de diciembre en todos los centros de privación de libertad del país y entrevistó directamente a 31 321 personas <span class="citation" data-cites="inec2022">(<a href="references.html#ref-inec2022" role="doc-biblioref">Instituto Nacional de Estadística y Censos, 2022</a>)</span>. Ese operativo permite, por primera vez, comparar la percepción de inseguridad entre centros con una misma pregunta y un mismo instrumento.</p>
+<p>La literatura sobre orden carcelario es amplia, pero se concentra en Estados Unidos y Brasil, estudia sobre todo la mala conducta, la victimización reportada y la reincidencia, y ha prestado menos atención a la inseguridad percibida como variable dependiente. Las fuentes revisadas tampoco incluyen estudios del sistema penitenciario ecuatoriano (véase <a href="02_marco_teorico.html" class="quarto-xref"><span>Revisión literaria</span></a>).</p>
 <p>Este documento presenta un avance de investigación que usa solo ese censo para responder una pregunta concreta: ¿qué características de un centro y de su población se asocian con una mayor proporción de presos que se sienten inseguros? Se examinan tres elementos: la debilidad de los vínculos externos de los internos, la capacidad del Estado para ordenar la vida carcelaria y la discriminación o el maltrato que los propios internos reportan.</p>
 <section id="objetivo-general" class="level2">
 <h2 class="anchored" data-anchor-id="objetivo-general">Objetivo general</h2>
-<p>Estimar un modelo de inseguridad intracarcelaria a nivel de centro, usando exclusivamente los tabulados del Censo Penitenciario 2022.</p>
+<p>Estimar un modelo de inseguridad intracarcelaria a nivel de centro, usando exclusivamente la información del Censo Penitenciario 2022.</p>
 </section>
 <section id="objetivos-específicos" class="level2">
 <h2 class="anchored" data-anchor-id="objetivos-específicos">Objetivos específicos</h2>
 <ol type="1">
 <li>Describir la distribución de la inseguridad percibida entre los centros de privación de libertad.</li>
-<li>Medir la asociación entre la inseguridad y ocho variables derivadas de la revisión de literatura mediante correlaciones de Pearson y de Spearman, con ajuste de Holm para las pruebas confirmatorias (<a href="#sec-met-correlacion" class="quarto-xref"><span class="quarto-unresolved-ref">sec-met-correlacion</span></a>).</li>
-<li>Contrastar si el tamaño del centro (H1), la proporción de presos sin visitas (H2) y la discriminación reportada (H3) se asocian con una mayor inseguridad.</li>
+<li>Medir la asociación entre la inseguridad y ocho variables derivadas de la revisión de literatura mediante correlaciones de Pearson y de Spearman, con ajuste de Holm para las pruebas confirmatorias (<a href="03_metodologia.html" class="quarto-xref"><span>Datos y metodología</span></a>).</li>
+<li>Contrastar, mediante un logit fraccional, si el tamaño del centro y la proporción de presos sin visitas se asocian con una mayor inseguridad, controlando por la participación en talleres y la proporción de procesados.</li>
 <li>Evaluar la robustez de esas asociaciones a la ponderación y a la exclusión de un caso extremo.</li>
 </ol>
 </section>
-<section id="objetivos-específicos-1" class="level2">
-<h2 class="anchored" data-anchor-id="objetivos-específicos-1">Objetivos específicos</h2>
-<ol type="1">
-<li>Describir la distribución de la inseguridad percibida entre los centros de privación de libertad.</li>
-<li>Contrastar si el tamaño del centro (H1) y la proporción de presos sin visitas (H2) se asocian con una mayor inseguridad.</li>
-<li>Evaluar la robustez de esas asociaciones a la ponderación y a la exclusión de un caso extremo.</li>
-</ol>
+<section id="hipótesis" class="level2">
+<h2 class="anchored" data-anchor-id="hipótesis">Hipótesis</h2>
+<p>Las hipótesis se formulan sobre asociaciones entre centros y no sobre individuos <span class="citation" data-cites="robinson1950">(<a href="references.html#ref-robinson1950" role="doc-biblioref">Robinson, 1950</a>)</span>. Sea <span class="math inline">\(\beta_1\)</span> el coeficiente del logaritmo del tamaño del centro y <span class="math inline">\(\beta_2\)</span> el de la proporción de presos sin visitas en el modelo de inseguridad.</p>
+<p><strong>Hipótesis nula (rechazo del modelo).</strong> <span class="math inline">\(H_0\)</span>: <span class="math inline">\(\beta_1 = \beta_2 = 0\)</span>. El tamaño del centro y la proporción de presos sin visitas no se asocian con la proporción de presos que se sienten inseguros, por lo que el modelo no explica las diferencias de inseguridad entre centros.</p>
+<p><strong>Hipótesis alternativa (aceptación del modelo).</strong> <span class="math inline">\(H_1\)</span>: <span class="math inline">\(\beta_1 &gt; 0\)</span> o <span class="math inline">\(\beta_2 &gt; 0\)</span>. Al menos una de las dos variables se asocia positivamente con la inseguridad: a mayor tamaño del centro o a mayor proporción de presos sin visitas, mayor proporción de presos que se sienten inseguros, una vez controlados la participación en talleres y la proporción de procesados.</p>
+<p>El sentido esperado de ambos coeficientes proviene de la literatura. En centros grandes y con población cambiante, la reputación deja de ordenar la convivencia y el orden pasa a depender de actores informales <span class="citation" data-cites="gambetta1993 skarbek2011 skarbek2014">(<a href="references.html#ref-gambetta1993" role="doc-biblioref">Gambetta, 1993</a>; <a href="references.html#ref-skarbek2011" role="doc-biblioref">Skarbek, 2011</a>, <a href="references.html#ref-skarbek2014" role="doc-biblioref">2014</a>)</span>. Quien no recibe visitas dispone de menos apoyo externo y de menos recursos para protegerse, y depende más de la protección privada <span class="citation" data-cites="cochranmears2013">(<a href="references.html#ref-cochranmears2013" role="doc-biblioref">Cochran &amp; Mears, 2013</a>)</span>.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-cochranmears2013" class="csl-entry" role="listitem">
+Cochran, J. C., &amp; Mears, D. P. (2013). Social isolation and inmate behavior: A conceptual framework for theorizing prison visitation and guiding and assessing research. <em>Journal of Criminal Justice</em>, <em>41</em>(4), 252-261. <a href="https://doi.org/10.1016/j.jcrimjus.2013.05.001">https://doi.org/10.1016/j.jcrimjus.2013.05.001</a>
+</div>
+<div id="ref-gambetta1993" class="csl-entry" role="listitem">
+Gambetta, D. (1993). <em>The <span>S</span>icilian mafia: The business of private protection</em>. Harvard University Press.
+</div>
 <div id="ref-inec2022" class="csl-entry" role="listitem">
 Instituto Nacional de Estadística y Censos. (2022). <em>Censo Penitenciario 2022</em> [Conjunto de datos]. <a href="https://www.ecuadorencifras.gob.ec/censo-penitenciario-2022/">https://www.ecuadorencifras.gob.ec/censo-penitenciario-2022/</a>
+</div>
+<div id="ref-robinson1950" class="csl-entry" role="listitem">
+Robinson, W. S. (1950). Ecological correlations and the behavior of individuals. <em>American Sociological Review</em>, <em>15</em>(3), 351-357. <a href="https://doi.org/10.2307/2087176">https://doi.org/10.2307/2087176</a>
+</div>
+<div id="ref-skarbek2011" class="csl-entry" role="listitem">
+Skarbek, D. (2011). Governance and prison gangs. <em>American Political Science Review</em>, <em>105</em>(4), 702-716. <a href="https://doi.org/10.1017/S0003055411000335">https://doi.org/10.1017/S0003055411000335</a>
+</div>
+<div id="ref-skarbek2014" class="csl-entry" role="listitem">
+Skarbek, D. (2014). <em>The social order of the underworld: How prison gangs govern the <span>A</span>merican penal system</em>. Oxford University Press.
 </div>
 </div>
 </section>
@@ -637,8 +680,8 @@ Instituto Nacional de Estadística y Censos. (2022). <em>Censo Penitenciario 202
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./02_marco_teorico.html" class="pagination-link" aria-label="Marco teórico">
-        <span class="nav-page-text"><span class="chapter-title">Marco teórico</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./02_marco_teorico.html" class="pagination-link" aria-label="Revisión literaria">
+        <span class="nav-page-text"><span class="chapter-title">Revisión literaria</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

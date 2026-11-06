@@ -1,237 +1,556 @@
-# Metodología del análisis de correlación {#sec-met-correlacion}
+---
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+# Datos y metodología {#sec-metodologia}
 
 ```{r}
 #| label: setup
 #| include: false
-library(dplyr)
-library(tidyr)
-library(tibble)
-library(purrr)
-library(readr)
-library(stringr)
-library(ggplot2)
-library(knitr)
-library(here)
+library(dplyr); library(tidyr); library(tibble); library(purrr); library(stringr)
+library(ggplot2); library(scales); library(knitr); library(here)
 
 options(OutDec = ",")
+options(knitr.kable.NA = "")
 
-# Base depurada de personas (una fila por persona entrevistada).
-# La genera datos/procesados/B08_Luna_Script_Limpieza_CP2022.R
-ruta_base <- here("datos", "salida_cp2022", "cp2022_base_limpia.rds")
-if (!file.exists(ruta_base)) {
-  stop("No existe ", ruta_base, ". Ejecute primero B08_Luna_Script_Limpieza_CP2022.R.")
-}
-micro <- readRDS(ruta_base)
+source(here("R", "00_datos.R"))      # micro, micro29, base, d, etiquetas, vars, esperado
+source(here("R", "01_funciones.R"))  # fmt_r, wilson, cor_par, calcular_correlaciones, ...
+source(here("R", "02_graficas.R"))   # g_ranking(), g_densidad(), g_sexo(), g_motivos(), ...
 
-# Motivos de discriminación o maltrato marcados por cada persona (se excluye "99")
-col_motivos <- setdiff(grep("^F1_S6P02__", names(micro), value = TRUE), "F1_S6P02__99")
-# Seis dominios de discapacidad: 1 = sin dificultad; 2 a 4 = alguna dificultad o más
-col_discap  <- paste0("F1_S2_P070", 1:6)
-
-micro <- micro |>
-  mutate(
-    n_motivos = rowSums(pick(all_of(col_motivos)), na.rm = TRUE),
-    minoria   = if_else(is.na(F1_S2_P11), NA_real_, as.numeric(F1_S2_P11 %in% 1:5)),
-    # Delito sexual: abuso o violación (categorías 11 y 12), solo entre sentenciados
-    sexual    = if_else(is.na(F1_S4P16__11) & is.na(F1_S4P16__12), NA_real_,
-                        as.numeric(coalesce(F1_S4P16__11, 0) == 1 |
-                                   coalesce(F1_S4P16__12, 0) == 1)),
-    across(all_of(col_discap), ~ as.numeric(.x > 1), .names = "dif_{.col}")
-  )
-
-# Base por centro (CPL): cada variable se resume entre quienes responden
-base <- micro |>
-  group_by(cpl_cod, cpl = cpl_nombre) |>
-  summarise(
-    n_personas          = n(),
-    p_inseguro          = mean(ind_inseguro_cpl, na.rm = TRUE),
-    sin_visitas         = 1 - mean(ind_recibe_visitas, na.rm = TRUE),
-    procesados          = mean(ind_sin_sentencia, na.rm = TRUE),
-    motivos_por_persona = sum(n_motivos) / n(),
-    talleres            = mean(ind_actividad_ocup, na.rm = TRUE),
-    minoria_etnica      = mean(minoria, na.rm = TRUE),
-    p_delito_sexual     = mean(sexual, na.rm = TRUE),
-    discapacidad        = rowMeans(across(starts_with("dif_"), ~ mean(.x, na.rm = TRUE))),
-    .groups = "drop"
-  ) |>
-  filter(n_personas >= 50) |>
-  mutate(ln_tam  = log(n_personas),
-         es_loja = cpl_cod == 20)
-
-# Variables del análisis, en el orden de la matriz
-etiquetas <- c(
-  p_inseguro          = "Inseguridad",
-  sin_visitas         = "Sin visitas",
-  ln_tam              = "ln(Tamaño)",
-  procesados          = "Procesados",
-  motivos_por_persona = "Discriminación",
-  talleres            = "Talleres",
-  minoria_etnica      = "Minoría étnica",
-  p_delito_sexual     = "Delito sexual",
-  discapacidad        = "Discapacidad"
-)
-vars <- names(etiquetas)
-d <- base |> select(cpl, es_loja, all_of(vars))
-stopifnot(nrow(d) == 29, !anyNA(d))
-
+cor_res <- calcular_correlaciones(d, vars, etiquetas, esperado)
 ```
 
+```{r}
+#| label: aux-analisis
+#| include: false
+# Funciones de formato para los párrafos de análisis (coma decimal).
+# Los números de cada párrafo se calculan aquí a partir de d y cor_res,
+# así el texto siempre coincide con las tablas y las figuras.
+t_num  <- function(x, d = 2) formatC(x, format = "f", digits = d, decimal.mark = ",")
+t_pct  <- function(x, d = 1) paste0(t_num(100 * x, d), " %")
+t_pts  <- function(x, d = 1) t_num(100 * x, d)
+t_r    <- function(x) { s <- sprintf("%.2f", x); s <- sub("^(-?)0\\.", "\\1,", s); sub("^-", "−", s) }
+t_p    <- function(p) ifelse(p < 0.001, "*p* < ,001", paste0("*p* = ", gsub("\\.", ",", sub("^0\\.", ".", sprintf("%.3f", p)))))
+t_unir <- function(x) { x <- as.character(x); n <- length(x); if (n <= 1) x else paste0(paste(x[-n], collapse = ", "), " y ", x[n]) }
+t_fuerza <- function(r) as.character(cut(abs(r), c(-Inf, 0.10, 0.30, 0.50, Inf),
+                                          c("prácticamente nula", "débil", "moderada", "fuerte"), right = FALSE))
+```
 
-## Diseño y unidad de análisis
+## Datos y unidad de análisis
 
-El análisis de correlación es de corte transversal y usa como unidad de análisis el
-centro de privación de libertad (CPL). La fuente es el Censo Penitenciario 2022 del
-Instituto Nacional de Estadística y Censos (INEC), en su versión depurada de microdatos por persona, que se resume por centro. Se incluyen los centros con 50 o
-más personas entrevistadas, lo que deja `r nrow(d)` centros. Como cada
-observación es un centro, los coeficientes describen asociaciones entre
-establecimientos y no relaciones entre individuos [@robinson1950].
+El análisis es de corte transversal y usa como unidad de análisis el centro de privación de libertad (CPL). La fuente es el Censo Penitenciario 2022 del Instituto Nacional de Estadística y Censos [@inec2022], en su versión depurada de microdatos por persona, que se resume por centro. Se incluyen los centros con 50 o más personas entrevistadas, lo que deja `r n_centros` centros. Como cada observación es un centro, los coeficientes describen asociaciones entre establecimientos y no relaciones entre individuos [@robinson1950].
 
 ## Variables
 
-La variable dependiente es la proporción de personas que declaran sentirse inseguras
-en su centro. Las variables explicativas se derivan de la revisión de literatura y se
-agrupan según el eje que las sustenta: la debilidad de los vínculos externos (visitas),
-la capacidad del Estado para ordenar la vida del centro (tamaño, rotación y oferta de
-talleres) y la discriminación o el maltrato que reportan los propios internos. El signo
-esperado se fijó antes de calcular los coeficientes. Los talleres, que aproximan la
-oferta del Estado, tienen signo esperado negativo, y las variables de composición no
-tienen signo esperado porque representan la explicación rival por importación
-(@tbl-variables).
+La variable dependiente es la proporción de personas que declaran sentirse inseguras en su centro. Las variables explicativas se derivan de la revisión de literatura y se agrupan según el eje que las sustenta: la debilidad de los vínculos externos (visitas), la capacidad del Estado para ordenar la vida del centro (tamaño, rotación y oferta de talleres) y la discriminación o el maltrato que reportan los propios internos. El signo esperado se fijó antes de calcular los coeficientes. La rotación se aproxima con la proporción de procesados [signo esperado positivo, @skarbek2011] y la capacidad estatal con la proporción inscrita en talleres (signo esperado negativo). Las variables de composición no tienen signo esperado porque representan la explicación rival por importación [@irwin1962; @steinerwooldredge2009b; @wooldredge2015]. La @tbl-variables resume la definición, la fuente en el censo y el signo esperado de cada variable.
+
+| Variable | Definición | Variable del censo | Eje de la revisión | Signo esperado |
+|:-----------|:-----------------------|:-------------------|:-------------------|:---------:|
+| Inseguridad | Proporción de presos que se sienten inseguros en el centro, entre quienes responden | F1_S5P48 (ind_inseguro_cpl) | Victimización y percepción de seguridad | Dependiente |
+| Sin visitas | Proporción que no ha recibido visitas de familiares o amigos | F1_S5P42 (ind_recibe_visitas) | Lazos sociales y visitas | + |
+| ln(Tamaño) | Logaritmo natural de la población del centro | Personas entrevistadas por centro (cpl_cod) | Gobernanza criminal y protección privada (tamaño) | + |
+| Procesados | Proporción de personas sin sentencia (medida de rotación) | F1_S4P12 (ind_sin_sentencia) | Gobernanza criminal y protección privada (rotación) | + |
+| Discriminación | Motivos de discriminación o maltrato reportados, divididos entre la población | F1_S6P02 (motivos marcados) | Economía del crimen y de la prisión (demanda de protección) | + |
+| Talleres | Proporción inscrita en talleres o actividades productivas | F1_S5P1501 a F1_S5P1504 (ind_actividad_ocup) | Control (capacidad estatal: oferta de talleres) | − |
+| Minoría étnica | Proporción que se identifica como indígena, afroecuatoriana, negra, mulata o montubia | F1_S2_P11 (categorías 1 a 5) | Privación, importación y entorno (composición) | Sin signo |
+| Delito sexual | Proporción de sentenciados por abuso o violación sexual | F1_S4P16 (categorías 11 y 12) | Privación, importación y entorno (composición) | Sin signo |
+| Discapacidad | Promedio, en seis dominios, de la proporción con alguna dificultad | F1_S2_P0701 a F1_S2_P0706 | Privación, importación y entorno (composición) | Sin signo |
+
+: Variables del análisis, fuente en el censo y signo esperado {#tbl-variables}
+
+*Nota.* Elaboración propia a partir de la revisión de literatura y del Censo Penitenciario 2022 [@inec2022].
+
+La tabla reúne las nueve variables del estudio. La inseguridad es la única variable dependiente. Cuatro variables tienen signo esperado positivo (sin visitas, tamaño, procesados y discriminación): se espera que, a mayor valor, mayor inseguridad. Los talleres son la única variable con signo esperado negativo, porque aproximan la presencia del Estado dentro del centro. Minoría étnica, delito sexual y discapacidad no tienen signo esperado: se incluyen para comprobar que las diferencias entre centros no se deban solo a las personas que ingresan a ellos (explicación por importación).
+
+## Distribución de la inseguridad percibida (objetivo específico 1)
+
+El primer objetivo es descriptivo. Para cada centro se calcula la proporción de personas que se sienten inseguras entre quienes responden la pregunta, junto con su intervalo de confianza del 95 % de Wilson, que refleja que los centros pequeños estiman su proporción con menos precisión. La distribución entre centros se resume con la media, la desviación estándar, la mediana, el rango intercuartílico y los valores extremos, y se ubica al CPL Loja N.° 1 por su posición en el orden de mayor a menor inseguridad. La @tbl-descriptivos presenta el resumen; las figuras muestran el ordenamiento de los centros (@fig-ranking), la forma de la distribución (@fig-densidad), la diferencia por sexo (@fig-sexo) y los motivos de discriminación o maltrato reportados (@fig-motivos).
 
 ```{r}
-#| label: tbl-variables
-#| tbl-cap: "Variables del análisis de correlación, fuente y signo esperado"
+#| label: tbl-descriptivos
+#| tbl-cap: "Distribución de la inseguridad percibida entre los centros de privación de libertad"
+p <- d$p_inseguro
+pos_loja <- rank(-p, ties.method = "min")[d$es_loja]
+q <- quantile(p, c(0.25, 0.75))
+pct1 <- function(x) paste0(format(round(100 * x, 1), nsmall = 1, decimal.mark = ","), " %")
 tibble::tribble(
-  ~Variable,        ~Definición,                                                                   ~`Variable del censo`, ~`Eje de la revisión`,                      ~`Signo esperado`,
-  "Inseguridad",    "Proporción de presos que se sienten inseguros en el centro, entre quienes responden", "F1_S5P48 (ind_inseguro_cpl)", "Victimización y percepción de seguridad", "Dependiente",
-  "Sin visitas",    "Proporción que no ha recibido visitas de familiares o amigos",                "F1_S5P42 (ind_recibe_visitas)", "Lazos sociales y visitas",                 "+",
-  "ln(Tamaño)",     "Logaritmo natural de la población del centro",                                "Personas entrevistadas por centro (cpl_cod)", "Gobernanza criminal y protección privada (tamaño)", "+",
-  "Procesados",     "Proporción de personas sin sentencia (medida de rotación)",                   "F1_S4P12 (ind_sin_sentencia)", "Gobernanza criminal y protección privada (rotación)", "+",
-  "Discriminación", "Motivos de discriminación o maltrato reportados, divididos entre la población", "F1_S6P02 (motivos marcados)", "Economía del crimen y de la prisión (demanda de protección)", "+",
-  "Talleres",       "Proporción inscrita en talleres o actividades productivas",                   "F1_S5P1501 a F1_S5P1504 (ind_actividad_ocup)", "Control (capacidad estatal: oferta de talleres)",                 "−",
-  "Minoría étnica", "Proporción que se identifica como indígena, afroecuatoriana, negra, mulata o montubia", "F1_S2_P11 (categorías 1 a 5)", "Privación, importación y entorno (composición)",           "Sin signo",
-  "Delito sexual",  "Proporción de sentenciados por abuso o violación sexual",                     "F1_S4P16 (categorías 11 y 12)", "Privación, importación y entorno (composición)",                "Sin signo",
-  "Discapacidad",   "Promedio, en seis dominios, de la proporción con alguna dificultad",          "F1_S2_P0701 a F1_S2_P0706", "Privación, importación y entorno (composición)",                "Sin signo"
+  ~Estadístico, ~Valor,
+  "Centros analizados", as.character(nrow(d)),
+  "Personas que responden (total)", format(sum(d$n_resp), big.mark = ".", decimal.mark = ","),
+  "Proporción global (todas las personas)", pct1(sum(d$inseguros) / sum(d$n_resp)),
+  "Media entre centros", pct1(mean(p)),
+  "Desviación estándar entre centros", pct1(sd(p)),
+  "Mediana", pct1(median(p)),
+  "Rango intercuartílico (Q1 – Q3)", paste0(pct1(q[1]), " – ", pct1(q[2])),
+  "Mínimo", paste0(pct1(min(p)), " (", d$cpl_corto[which.min(p)], ")"),
+  "Máximo", paste0(pct1(max(p)), " (", d$cpl_corto[which.max(p)], ")"),
+  "CPL Loja N.° 1", paste0(pct1(p[d$es_loja]), " (puesto ", pos_loja, " de ", nrow(d), ")")
 ) |>
-  kable(align = "lllll")
+  kable(align = "lr")
 ```
 
-## Coeficientes e inferencia
+*Nota.* La media entre centros da el mismo peso a cada centro; la proporción global da el mismo peso a cada persona. Fuente: INEC, Censo Penitenciario 2022.
+
+```{r}
+#| label: an-descriptivos
+#| include: false
+a_p     <- d$p_inseguro
+a_n     <- nrow(d)
+a_media <- mean(a_p); a_med <- median(a_p); a_sd <- sd(a_p)
+a_glob  <- sum(d$inseguros) / sum(d$n_resp)
+a_imin  <- which.min(a_p); a_imax <- which.max(a_p)
+a_pos   <- rank(-a_p, ties.method = "min")[d$es_loja]
+a_dentro <- mean(abs(a_p - a_media) <= a_sd)
+a_dif   <- a_glob - a_media
+a_txt_glob <- if (abs(a_dif) < 0.005) {
+  "casi igual a la media entre centros, así que el tamaño de los centros casi no altera el resultado"
+} else if (a_dif > 0) {
+  "mayor que la media entre centros: los centros con más personas son, en promedio, más inseguros"
+} else {
+  "menor que la media entre centros: los centros con más personas son, en promedio, menos inseguros"
+}
+```
+
+Entre los `r a_n` centros, en promedio el `r t_pct(a_media)` de las personas se siente insegura (mediana: `r t_pct(a_med)`). La desviación estándar es de `r t_pts(a_sd)` puntos porcentuales, y el `r t_pct(a_dentro, 0)` de los centros queda a menos de una desviación estándar del promedio. La inseguridad va de `r t_pct(a_p[a_imin])` en `r d$cpl_corto[a_imin]` a `r t_pct(a_p[a_imax])` en `r d$cpl_corto[a_imax]`, una diferencia de `r t_pts(a_p[a_imax] - a_p[a_imin])` puntos porcentuales entre el centro menos y el más inseguro. La proporción global (`r t_pct(a_glob)`) es `r a_txt_glob`. El CPL Loja N.° 1 ocupa el puesto `r a_pos` de `r a_n`, con `r t_pct(a_p[d$es_loja])`.
+
+```{r}
+#| label: fig-ranking
+#| fig-cap: "Inseguridad percibida por centro de privación de libertad, con intervalo de confianza del 95 %"
+#| fig-alt: "Gráfica de puntos con intervalos de confianza que ordena los centros de mayor a menor proporción de personas que se sienten inseguras; el CPL Loja N.° 1 aparece resaltado en rojo y una línea discontinua marca el promedio."
+#| fig-width: 8
+#| fig-height: 9
+g_ranking(d)
+```
+
+```{r}
+#| label: an-ranking
+#| include: false
+# Intervalo de Wilson al 95 % de cada centro
+a_wilson <- function(x, n, z = 1.96) {
+  p <- x / n; den <- 1 + z^2 / n
+  cen <- (p + z^2 / (2 * n)) / den
+  hw  <- z * sqrt(p * (1 - p) / n + z^2 / (4 * n^2)) / den
+  cbind(lo = cen - hw, hi = cen + hw)
+}
+a_ic     <- a_wilson(d$inseguros, d$n_resp)
+a_arriba <- sum(a_ic[, "lo"] > a_media)
+a_abajo  <- sum(a_ic[, "hi"] < a_media)
+a_incl   <- a_n - a_arriba - a_abajo
+a_sobre  <- sum(a_p > a_media)
+a_ord    <- order(a_p, decreasing = TRUE)
+a_top    <- paste0(d$cpl_corto[a_ord[1:3]], " (", t_pct(a_p[a_ord[1:3]]), ")")
+a_bot    <- paste0(d$cpl_corto[rev(a_ord)[1:3]], " (", t_pct(a_p[rev(a_ord)[1:3]]), ")")
+a_iw     <- which.max(a_ic[, "hi"] - a_ic[, "lo"])
+```
+
+La gráfica ordena los centros de mayor a menor inseguridad. Los más inseguros son `r t_unir(a_top)`; los menos inseguros, `r t_unir(a_bot)`. Hay `r a_sobre` centros por encima del promedio (línea discontinua), de un total de `r a_n`. Cada punto tiene su intervalo del 95 %: en `r a_arriba` centros el intervalo queda por completo sobre el promedio, en `r a_abajo` queda por completo bajo el promedio y en los otros `r a_incl` lo incluye; en estos últimos, la diferencia con el promedio no se distingue del azar de la muestra. El intervalo más ancho es el de `r d$cpl_corto[a_iw]` (`r format(d$n_resp[a_iw], big.mark = ".", decimal.mark = ",")` respuestas), porque los centros con pocas personas estiman su proporción con menos precisión.
+
+```{r}
+#| label: fig-densidad
+#| fig-cap: "Distribución de la inseguridad percibida entre los centros"
+#| fig-alt: "Histograma con curva de densidad de la proporción de personas que se sienten inseguras en cada centro, con líneas verticales para la media y la mediana."
+#| fig-width: 7.5
+#| fig-height: 4.8
+g_densidad(d)
+```
+
+```{r}
+#| label: an-densidad
+#| include: false
+a_asim <- a_media - a_med
+a_q    <- quantile(a_p, c(0.25, 0.75))
+a_cv   <- a_sd / a_media
+a_forma <- if (abs(a_asim) < 0.005) {
+  "es casi simétrica: la media y la mediana casi coinciden"
+} else if (a_asim > 0) {
+  paste0("tiene una cola hacia valores altos: la media (", t_pct(a_media), ") supera a la mediana (", t_pct(a_med),
+         ") porque unos pocos centros con inseguridad alta la empujan hacia arriba")
+} else {
+  paste0("tiene una cola hacia valores bajos: la media (", t_pct(a_media), ") queda por debajo de la mediana (", t_pct(a_med),
+         ") porque unos pocos centros con inseguridad baja la empujan hacia abajo")
+}
+a_disp <- if (a_cv < 0.15) {
+  "baja: los centros se parecen bastante entre sí en su nivel de inseguridad"
+} else if (a_cv < 0.30) {
+  "moderada: hay diferencias apreciables entre centros"
+} else {
+  "alta: hay diferencias grandes entre centros"
+}
+```
+
+La distribución `r a_forma`. La mitad central de los centros tiene entre `r t_pct(a_q[1])` y `r t_pct(a_q[2])` de personas inseguras, un rango de `r t_pts(a_q[2] - a_q[1])` puntos porcentuales; el rango total es de `r t_pts(max(a_p) - min(a_p))` puntos. La dispersión relativa es `r a_disp` (coeficiente de variación de `r t_num(a_cv)`).
+
+```{r}
+#| label: fig-sexo
+#| fig-cap: "Inseguridad percibida según sexo"
+#| fig-alt: "Gráfica de barras con la proporción de hombres y de mujeres que se sienten inseguros, con intervalos de confianza del 95 %."
+#| fig-width: 6
+#| fig-height: 5
+g_sexo(micro29)
+```
+
+```{r}
+#| label: an-sexo
+#| include: false
+txt_sexo <- tryCatch({
+  x <- micro29 |>
+    filter(!is.na(F1_S2_P02), !is.na(ind_inseguro_cpl)) |>
+    mutate(sexo = case_when(F1_S2_P02 %in% c(1, "1", "Hombre") ~ "Hombre",
+                            F1_S2_P02 %in% c(2, "2", "Mujer")  ~ "Mujer")) |>
+    filter(!is.na(sexo)) |>
+    group_by(sexo) |>
+    summarise(n = n(), x = sum(ind_inseguro_cpl == 1), p = mean(ind_inseguro_cpl == 1), .groups = "drop")
+  h <- x[x$sexo == "Hombre", ]; m <- x[x$sexo == "Mujer", ]
+  pt  <- prop.test(c(h$x, m$x), c(h$n, m$n))
+  dif <- m$p - h$p
+  menor <- if (m$n < h$n) "mujeres" else "hombres"
+  paste0(
+    "Entre los hombres, el ", t_pct(h$p), " se siente inseguro (", format(h$n, big.mark = ".", decimal.mark = ","),
+    " personas); entre las mujeres, el ", t_pct(m$p), " (", format(m$n, big.mark = ".", decimal.mark = ","),
+    " personas). Las mujeres reportan ", if (dif > 0) "más" else "menos", " inseguridad que los hombres: la diferencia es de ", t_pts(abs(dif)), " puntos porcentuales y ",
+    if (pt$p.value < 0.05) "es estadísticamente significativa" else "no es estadísticamente significativa",
+    " al 5 % (prueba de dos proporciones, ", t_p(pt$p.value), "). El grupo de ", menor,
+    " es más pequeño, por eso su intervalo de confianza es más ancho."
+  )
+}, error = function(e) {
+  "No se pudo calcular este análisis automáticamente; revise que `micro29` tenga las columnas `F1_S2_P02` e `ind_inseguro_cpl`."
+})
+```
+
+`r txt_sexo` Esta comparación es entre personas y no entre centros, y es solo descriptiva: no controla por el centro en que está cada persona.
+
+```{r}
+#| label: fig-motivos
+#| fig-cap: "Motivos de discriminación o maltrato reportados por las personas entrevistadas"
+#| fig-alt: "Gráfica de barras horizontales con la proporción de personas que reporta cada motivo de discriminación o maltrato, ordenadas de mayor a menor."
+#| fig-width: 8.5
+#| fig-height: 5.5
+g_motivos(micro29)
+```
+
+```{r}
+#| label: an-motivos
+#| include: false
+txt_motivos <- tryCatch({
+  etq <- c("F1_S6P02__1"  = "etnia o raza",
+           "F1_S6P02__2"  = "edad",
+           "F1_S6P02__3"  = "orientación sexual o identidad de género",
+           "F1_S6P02__4"  = "nacionalidad u origen",
+           "F1_S6P02__5"  = "religión o creencias",
+           "F1_S6P02__6"  = "discapacidad o salud",
+           "F1_S6P02__7"  = "delito imputado o condena",
+           "F1_S6P02__8"  = "condición socioeconómica",
+           "F1_S6P02__9"  = "pertenencia a banda o grupo",
+           "F1_S6P02__10" = "aspecto físico o tatuajes")
+  cols <- intersect(names(etq), names(micro29))
+  tot  <- nrow(micro29)
+  prop <- sapply(cols, function(cc) sum(micro29[[cc]] == 1, na.rm = TRUE) / tot)
+  o    <- order(prop, decreasing = TRUE)
+  alguno <- mean(rowSums(micro29[cols] == 1, na.rm = TRUE) > 0)
+  paste0(
+    "El motivo más reportado es ", etq[cols[o[1]]], " (", t_pct(prop[o[1]]), " de las personas), seguido de ",
+    etq[cols[o[2]]], " (", t_pct(prop[o[2]]), ") y ", etq[cols[o[3]]], " (", t_pct(prop[o[3]]), "). ",
+    "Los demás motivos quedan por debajo de ", t_pct(prop[o[3]]), ". ",
+    "En total, el ", t_pct(alguno), " de las personas marca al menos un motivo."
+  )
+}, error = function(e) {
+  "No se pudo calcular este análisis automáticamente; revise que `micro29` tenga las columnas `F1_S6P02__1` a `F1_S6P02__10`."
+})
+```
+
+`r txt_motivos` Las proporciones se calculan sobre todas las personas entrevistadas en los centros analizados, incluidas las que no marcaron ningún motivo. Esta variable alimenta la medida de discriminación del análisis de correlación.
+
+## Correlación {#sec-met-correlacion}
+
+### Coeficientes e inferencia
 
 Para cada par de variables se calculan dos coeficientes:
 
-- **r de Pearson**, que mide la asociación lineal.
-- **rho de Spearman**, que mide la asociación monótona a partir de los rangos y es
-  menos sensible a centros extremos, como las cárceles de mayor población.
+-   *r* de Pearson, que mide la asociación lineal.
 
-Las pruebas son bilaterales con nivel de significancia de 0,05. Los intervalos de
-confianza del 95 % se obtienen con la transformación z de Fisher [@fisher1921]; para
-Spearman se usa el error estándar corregido de Bonett y Wright [@bonett2000],
-$\sqrt{(1 + \rho^2/2)/(n - 3)}$.
+-   *ρ* de Spearman, que mide la asociación monótona a partir de los rangos y es menos sensible a centros extremos, como las cárceles de mayor población.
 
-## Comparaciones múltiples y sensibilidad
+Las pruebas son bilaterales con nivel de significancia de 0,05. Los intervalos de confianza del 95 % se obtienen con la transformación *z* de Fisher [@fisher1921]; para Spearman se usa el error estándar corregido de Bonett y Wright [@bonett2000]:
 
-- **Comparaciones múltiples.** Las ocho correlaciones con la variable dependiente
-  forman una familia de pruebas confirmatorias, cuyos p-valores se ajustan con el
-  método de Holm [@holm1979]. Las demás correlaciones de la matriz, 28 pares
-  entre variables explicativas, se reportan sin ajuste y como exploratorias.
-- **Sensibilidad.** Cada correlación con la variable dependiente se recalcula sin el
-  CPL Loja N.° 1 y excluyendo cada centro de uno en uno (jackknife), para reportar el
-  rango en que se mueve el coeficiente.
-- **Potencia.** Con 29 centros, una correlación necesita un valor absoluto cercano a
-  0,37 para ser significativa al 0,05. Por eso se interpreta el tamaño del coeficiente
-  y su intervalo, y no solo el p-valor.
+$$
+EE = \sqrt{\frac{1 + \rho^2 / 2}{n - 3}}
+$$
 
-## Presentación de los resultados
+### Comparaciones múltiples y sensibilidad
 
-Las correlaciones se presentan en una tabla (@tbl-matriz) y en una gráfica
-(@fig-matriz). En ambas, los coeficientes de Pearson ocupan la parte inferior de la
-diagonal y los de Spearman la parte superior. La tabla incluye la media y la
-desviación estándar de cada variable y marca con asteriscos la significancia sin
-ajuste. La interpretación se desarrolla en el capítulo de resultados.
+-   **Comparaciones múltiples.** Las ocho correlaciones con la variable dependiente forman una familia de pruebas confirmatorias, cuyos *p*-valores se ajustan con el método de Holm [@holm1979]. Las demás correlaciones de la matriz, 28 pares entre variables explicativas, se reportan sin ajuste y como exploratorias.
+
+-   **Sensibilidad.** Cada correlación con la variable dependiente se recalcula sin el CPL Loja N.° 1 y excluyendo cada centro de uno en uno (*jackknife*), para reportar el rango en que se mueve el coeficiente.
+
+-   **Potencia.** Con `r n_centros` centros, una correlación necesita un valor absoluto cercano a `r fmt_n(r_critico(n_centros))` para ser significativa al 0,05. Por eso se interpreta el tamaño del coeficiente y su intervalo, y no solo el *p*-valor.
+
+### Presentación de los resultados
+
+Las correlaciones con la variable dependiente se presentan en una tabla (@tbl-correl-dep) y en una gráfica de coeficientes con intervalos y sensibilidad (@fig-forest), y se acompañan de diagramas de dispersión (@fig-dispersion). La matriz completa se presenta en una tabla (@tbl-matriz) y en una gráfica (@fig-matriz). En ambas, los coeficientes de Pearson ocupan la parte inferior de la diagonal y los de Spearman la parte superior. La tabla de la matriz incluye la media y la desviación estándar de cada variable y marca con asteriscos la significancia sin ajuste. Cada tabla y cada figura va seguida de un párrafo de análisis.
 
 ```{r}
-#| label: funciones
-estrellas <- function(p) case_when(p < 0.001 ~ "***", p < 0.01 ~ "**", p < 0.05 ~ "*", TRUE ~ "")
+#| label: tbl-correl-dep
+#| tbl-cap: "Correlaciones de cada variable con la inseguridad percibida: coeficientes, ajuste de Holm y sensibilidad"
+cd <- cor_res$con_dep
+cd |>
+  transmute(
+    Variable = variable,
+    `Signo esperado` = esperado,
+    `r de Pearson [IC 95 %]` = paste0(fmt_r(r), " [", fmt_r(lo), "; ", fmt_r(hi), "]"),
+    p = fmt_p(p),
+    `p (Holm)` = fmt_p(p_holm),
+    `ρ de Spearman` = paste0(fmt_r(rho), estrellas(p_rho)),
+    `r sin Loja` = fmt_r(r_sin_loja),
+    `Rango jackknife` = paste0(fmt_r(r_min), " a ", fmt_r(r_max)),
+    `Hipótesis 3` = coalesce(h3, "—")
+  ) |>
+  kable(align = c("l", "l", rep("c", 7)))
+```
 
-# Formato en español: sin cero inicial, coma decimal y signo menos tipográfico
-fmt_r <- function(r) {
-  x <- sprintf("%.2f", r)
-  x <- sub("^-0\\.00$", "0.00", x)
-  x <- sub("^(-?)0\\.", "\\1,", x)
-  sub("^-", "−", x)
+*Nota.* Holm aplicado a las ocho pruebas de Pearson. \* *p* < ,05; \*\* *p* < ,01; \*\*\* *p* < ,001 para Spearman, sin ajuste. Rango jackknife: valores mínimo y máximo de *r* al excluir cada centro de uno en uno. Fuente: INEC, Censo Penitenciario 2022.
+
+```{r}
+#| label: an-correl-dep
+#| include: false
+cd <- cor_res$con_dep
+# Signo esperado: +1, -1 o NA (sin signo)
+cd$esp <- ifelse(grepl("^\\+|posit", cd$esperado, ignore.case = TRUE), 1,
+          ifelse(grepl("^[−-]|negat", cd$esperado, ignore.case = TRUE), -1, NA_real_))
+k <- nrow(cd)
+
+# 1. Significancia con ajuste de Holm
+cd_sig <- cd[cd$p_holm < 0.05, ]
+cd_n_sa <- sum(cd$p < 0.05)
+i_min <- which.min(cd$p_holm)
+txt_holm <- paste0(
+  if (nrow(cd_sig) == 0) {
+    paste0("Ninguna de las ", k, " correlaciones con la inseguridad es significativa después del ajuste de Holm (el menor *p* ajustado es ",
+           sub("^\\*p\\* [=<] ", "", t_p(cd$p_holm[i_min])), ", en ", cd$variable[i_min], ").")
+  } else {
+    paste0("Después del ajuste de Holm, ", t_unir(paste0(cd_sig$variable, " (r = ", t_r(cd_sig$r), ")")),
+           if (nrow(cd_sig) == 1) " es la única correlación significativa al 5 %." else " son significativas al 5 %.")
+  },
+  if (cd_n_sa > 0) paste0(" Sin el ajuste serían ", cd_n_sa, " de ", k,
+                          "; el ajuste evita presentar como hallazgo lo que puede salir por azar al hacer varias pruebas.") else ""
+)
+
+# 2. Asociación más fuerte
+i_f <- which.max(abs(cd$r))
+txt_fuerte <- paste0(
+  "La asociación más fuerte es la de ", cd$variable[i_f], " (r = ", t_r(cd$r[i_f]), ", ", t_fuerza(cd$r[i_f]), " y ",
+  ifelse(cd$r[i_f] > 0, "positiva", "negativa"), "). Con ", n_centros,
+  " centros, un coeficiente necesita un valor absoluto de al menos ", t_num(r_critico(n_centros)),
+  " para ser significativo al 5 % sin ajuste."
+)
+
+# 3. Signo contrario al esperado (solo si |r| >= ,10)
+cd_con <- cd[!is.na(cd$esp) & abs(cd$r) >= 0.10 & sign(cd$r) != cd$esp, ]
+txt_signo <- if (nrow(cd_con) == 0) {
+  "Ninguna variable con signo esperado y |r| ≥ ,10 muestra el signo contrario al esperado."
+} else {
+  paste0("Con signo contrario al esperado aparece", if (nrow(cd_con) > 1) "n " else " ",
+         t_unir(paste0(cd_con$variable, " (r = ", t_r(cd_con$r), ")")), ".")
 }
 
-cor_p <- function(x, y, metodo) {
-  ct <- suppressWarnings(cor.test(x, y, method = metodo, exact = FALSE))
-  c(r = unname(ct$estimate), p = ct$p.value)
-}
-
-n_v <- length(vars)
-M <- matrix("", n_v, n_v, dimnames = list(unname(etiquetas), unname(etiquetas)))
-R <- matrix(NA_real_, n_v, n_v)          # coeficientes numéricos para la gráfica
-for (i in seq_len(n_v)) for (j in seq_len(n_v)) {
-  if (i == j) { M[i, j] <- "—"; next }
-  if (i > j) {                           # bajo la diagonal: Pearson
-    z <- cor_p(d[[vars[i]]], d[[vars[j]]], "pearson")
-  } else {                               # sobre la diagonal: Spearman
-    z <- cor_p(d[[vars[i]]], d[[vars[j]]], "spearman")
+# 4. Sensibilidad
+dif_loja <- abs(cd$r_sin_loja - cd$r); i_d <- which.max(dif_loja)
+cd_cruza <- cd[sign(cd$r_min) != sign(cd$r_max), ]
+txt_sens <- paste0(
+  "Al excluir el CPL Loja N.° 1, el coeficiente cambia como máximo ", t_num(dif_loja[i_d]),
+  " (", cd$variable[i_d], ": de ", t_r(cd$r[i_d]), " a ", t_r(cd$r_sin_loja[i_d]), "). ",
+  if (nrow(cd_cruza) == 0) {
+    "Al excluir cada centro de uno en uno, ningún coeficiente cambia de signo."
+  } else {
+    paste0("El rango jackknife cruza el cero en ", t_unir(cd_cruza$variable),
+           ": en esas variables el signo depende de qué centro se excluya.")
   }
-  M[i, j] <- paste0(fmt_r(z["r"]), estrellas(z["p"]))
-  R[i, j] <- z["r"]
+)
+
+# 5. Pearson frente a Spearman
+cd_dif <- cd[abs(cd$r - cd$rho) >= 0.15, ]
+txt_ps <- paste0(
+  "Pearson y Spearman coinciden en el signo en ", sum(sign(cd$r) == sign(cd$rho)), " de ", k, " variables",
+  if (nrow(cd_dif) == 0) " y sus valores son parecidos." else
+    paste0("; difieren en ,15 o más en ", t_unir(cd_dif$variable), ", lo que sugiere una relación no lineal o un centro extremo.")
+)
+
+# 6. Hipótesis 3 (según la columna h3 de la tabla)
+cd_h3 <- cd[!is.na(cd$h3) & cd$h3 != "—", ]
+txt_h3 <- if (nrow(cd_h3) >= 1) {
+  paste0(" Para la Hipótesis 3 (", cd_h3$variable[1], "), la tabla indica: «", cd_h3$h3[1], "».")
+} else ""
+```
+
+`r txt_holm` `r txt_fuerte` `r txt_signo` `r txt_sens` `r paste0(txt_ps, txt_h3)`
+
+```{r}
+#| label: fig-forest
+#| fig-cap: "Correlación de Pearson de cada variable con la inseguridad percibida, con intervalo de confianza y sensibilidad a la exclusión de centros"
+#| fig-alt: "Gráfica de coeficientes: para cada variable, el coeficiente de Pearson con su intervalo de confianza del 95 %, una barra gris con el rango al excluir cada centro y un rombo con el valor sin Loja."
+#| fig-width: 8
+#| fig-height: 5
+g_forest(cor_res$con_dep, n_centros)
+```
+
+```{r}
+#| label: an-forest
+#| include: false
+cd <- cor_res$con_dep
+f_cero <- cd[cd$lo > 0 | cd$hi < 0, ]
+f_anch <- cd$hi - cd$lo
+txt_f1 <- if (nrow(f_cero) == 0) {
+  paste0("Todos los intervalos incluyen el cero: con ", n_centros,
+         " centros, los datos no permiten afirmar que alguna de estas asociaciones sea distinta de cero.")
+} else {
+  paste0("El intervalo no toca el cero en ", nrow(f_cero), " de ", nrow(cd), " variables (", t_unir(f_cero$variable), ")",
+         if (nrow(f_cero) < nrow(cd)) paste0("; en las otras ", nrow(cd) - nrow(f_cero),
+                                             " el intervalo incluye el cero, y ahí los datos no permiten afirmar si la asociación es positiva o negativa.") else ".")
+}
+txt_f2 <- paste0("Los intervalos miden entre ", t_num(min(f_anch)), " y ", t_num(max(f_anch)),
+                 " unidades de r: con ", n_centros, " centros, los coeficientes se estiman con poca precisión.")
+f_rng <- cd$r_max - cd$r_min; i_s <- which.max(f_rng)
+f_cruza <- cd[sign(cd$r_min) != sign(cd$r_max), ]
+txt_f3 <- paste0(
+  if (nrow(f_cruza) == 0) "en ninguna variable cambia el signo" else paste0("en ", t_unir(f_cruza$variable), " el rango cruza el cero"),
+  "; la variable más sensible es ", cd$variable[i_s], ", cuyo coeficiente va de ", t_r(cd$r_min[i_s]), " a ", t_r(cd$r_max[i_s]), "."
+)
+f_dl <- abs(cd$r_sin_loja - cd$r); i_l <- which.max(f_dl)
+txt_f4 <- if (max(f_dl) < 0.05) {
+  "casi no se separa del punto azul: excluir ese centro no cambia las conclusiones."
+} else {
+  paste0("se separa más del punto azul en ", cd$variable[i_l], " (de ", t_r(cd$r[i_l]), " a ", t_r(cd$r_sin_loja[i_l]),
+         "); en las demás variables la diferencia es menor.")
 }
 ```
+
+Cada punto es el coeficiente de Pearson de una variable con la inseguridad, y la línea es su intervalo de confianza del 95 %. `r txt_f1` `r txt_f2` La barra gris muestra el rango del coeficiente al excluir cada centro de uno en uno: `r txt_f3` El rombo rojo, que excluye el CPL Loja N.° 1, `r txt_f4`
+
+```{r}
+#| label: fig-dispersion
+#| fig-cap: "Inseguridad percibida frente a cada variable explicativa"
+#| fig-alt: "Ocho diagramas de dispersión, uno por variable explicativa, con la proporción de personas inseguras en el eje vertical, una recta de ajuste y el CPL Loja N.° 1 resaltado en rojo."
+#| fig-width: 9.5
+#| fig-height: 5.5
+g_dispersion(d, cor_res$con_dep, etiquetas)
+```
+
+```{r}
+#| label: an-dispersion
+#| include: false
+cd <- cor_res$con_dep
+j <- which.max(abs(cd$r))
+txt_d1 <- paste0(
+  "La relación más marcada es la de ", cd$variable[j], " (r = ", t_r(cd$r[j]), ", ρ = ", t_r(cd$rho[j]), "): los centros con valores más altos de «",
+  cd$variable[j], "» tienden a tener ", ifelse(cd$r[j] > 0, "más", "menos"), " inseguridad."
+)
+d_cero <- cd[abs(cd$r) < 0.10, ]
+txt_d2 <- if (nrow(d_cero) == 0) "" else paste0(
+  " En ", t_unir(d_cero$variable), " (|r| < ,10) la nube de puntos no muestra una tendencia clara."
+)
+txt_d3 <- tryCatch({
+  v_dep <- "p_inseguro"
+  vv <- c(v_dep, setdiff(vars, v_dep))
+  z <- sapply(vv, function(v) (d[[v]][d$es_loja] - mean(d[[v]])) / sd(d[[v]]))
+  lab <- unname(etiquetas[vv])
+  ext <- which(abs(z) > 2)
+  if (length(ext) == 0) {
+    "El CPL Loja N.° 1 (en rojo) no se separa de forma marcada del resto en ninguna variable (menos de 2 desviaciones estándar de la media)."
+  } else {
+    paste0("El CPL Loja N.° 1 (en rojo) se separa del resto en ",
+           t_unir(paste0(lab[ext], " (", t_num(abs(z[ext]), 1), " desviaciones estándar ", ifelse(z[ext] > 0, "sobre", "bajo"), " la media)")), ".")
+  }
+}, error = function(e) "")
+```
+
+Cada punto es un centro y la línea discontinua es la tendencia lineal. `r paste0(txt_d1, txt_d2)` `r txt_d3` Con solo `r n_centros` puntos, un centro extremo puede mover la recta; por eso el rango jackknife de la @tbl-correl-dep sirve de comprobación.
 
 ```{r}
 #| label: tbl-matriz
-#| tbl-cap: "Matriz de correlaciones entre los centros de privación de libertad (N = 29)"
-as_tibble(M, rownames = "Variable") |>
-  mutate(Media = map_chr(vars, ~ format(round(mean(d[[.x]]), 2), nsmall = 2)),
-         DE    = map_chr(vars, ~ format(round(sd(d[[.x]]), 2), nsmall = 2)),
-         .after = Variable) |>
-  kable(align = c("l", "r", "r", rep("c", n_v)))
+#| tbl-cap: "Matriz de correlaciones entre los centros de privación de libertad"
+tabla_matriz(d, vars, etiquetas, cor_res) |>
+  rename(`*M*` = M, `*DE*` = DE) |>
+  kable(align = c("l", "r", "r", rep("c", length(vars))))
 ```
 
-*Nota.* Pearson bajo la diagonal y Spearman sobre la diagonal. \* p < 0,05;
-\*\* p < 0,01; \*\*\* p < 0,001, sin ajuste por comparaciones múltiples. Fuente: INEC,
-Censo Penitenciario 2022.
+*Nota.* Pearson bajo la diagonal y Spearman sobre la diagonal. \* *p* < ,05; \*\* *p* < ,01; \*\*\* *p* < ,001, sin ajuste por comparaciones múltiples. Fuente: INEC, Censo Penitenciario 2022.
+
+```{r}
+#| label: an-matriz
+#| include: false
+txt_m <- tryCatch({
+  v_dep <- "p_inseguro"
+  ex <- setdiff(vars, v_dep)
+  etq <- function(v) unname(etiquetas[v])
+  cp <- cor(d[ex])
+  ij <- which(upper.tri(cp), arr.ind = TRUE)
+  pr <- tibble(a = ex[ij[, 1]], b = ex[ij[, 2]], r = cp[ij],
+               p = mapply(function(i, j) cor.test(d[[ex[i]]], d[[ex[j]]])$p.value, ij[, 1], ij[, 2]))
+  n_sig <- sum(pr$p < 0.05)
+  top <- pr[order(-abs(pr$r)), ][1:3, ]
+  mx  <- max(abs(pr$r))
+  colin <- if (mx >= 0.70) {
+    "Hay pares muy relacionados entre sí (|r| ≥ ,70): si más adelante se incluyen en un mismo modelo, será difícil separar el efecto de cada uno."
+  } else if (mx >= 0.50) {
+    "Hay pares con relación moderada o alta (|r| ≥ ,50): si se incluyen en un mismo modelo, parte de su efecto se superpondrá."
+  } else {
+    "Ningún par supera |r| = ,50, así que no hay señal de que las variables se solapen mucho entre sí."
+  }
+  paste0(
+    "La tabla muestra todas las correlaciones; las de la inseguridad (primera fila y primera columna) se analizaron en la tabla anterior. ",
+    "Entre las ", nrow(pr), " combinaciones de variables explicativas, ", n_sig, " tienen *p* < ,05 sin ajuste. Como son ", nrow(pr),
+    " pruebas, por azar se esperarían unas ", t_num(nrow(pr) * 0.05, 1), " significativas, por eso estas correlaciones se leen como exploratorias. ",
+    "Las más altas son ", t_unir(paste0(etq(top$a), " con ", etq(top$b), " (r = ", t_r(top$r), ")")), ". ", colin
+  )
+}, error = function(e) "No se pudo calcular este análisis automáticamente; revise que `vars` y `etiquetas` coincidan con las columnas de `d`.")
+```
+
+`r txt_m` Las columnas *M* y *DE* resumen cada variable: ln(Tamaño) está en logaritmos, por eso su media no es una proporción.
 
 ```{r}
 #| label: fig-matriz
 #| fig-cap: "Matriz de correlaciones: Pearson bajo la diagonal y Spearman sobre la diagonal"
-#| fig-width: 7.5
-#| fig-height: 6
-grid <- expand_grid(f = seq_len(n_v), c = seq_len(n_v)) |>
-  mutate(r = map2_dbl(f, c, ~ R[.x, .y]),
-         txt = ifelse(is.na(r), "", fmt_r(r)),
-         fila = factor(etiquetas[f], levels = rev(unname(etiquetas))),
-         col  = factor(etiquetas[c], levels = unname(etiquetas)))
-
-ggplot(grid, aes(col, fila, fill = r)) +
-  geom_tile(colour = "white") +
-  geom_text(aes(label = txt), size = 3.2) +
-  scale_fill_gradient2(low = "#B2182B", mid = "white", high = "#2166AC",
-                       limits = c(-1, 1), na.value = "grey92", name = "r") +
-  labs(x = NULL, y = NULL, caption = "Fuente: INEC, Censo Penitenciario 2022.") +
-  theme_minimal(base_size = 11) +
-  theme(axis.text.x = element_text(angle = 40, hjust = 1), panel.grid = element_blank())
+#| fig-alt: "Mapa de calor con las correlaciones de Pearson, bajo la diagonal, y de Spearman, sobre la diagonal, entre las nueve variables de los centros de privación de libertad."
+#| fig-width: 8
+#| fig-height: 6.5
+g_matriz(d, vars, etiquetas, cor_res)
 ```
+
+```{r}
+#| label: an-fig-matriz
+#| include: false
+txt_fm <- tryCatch({
+  cp <- cor(d[vars]); sp <- cor(d[vars], method = "spearman")
+  ij <- which(lower.tri(cp), arr.ind = TRUE)
+  etq <- function(v) unname(etiquetas[v])
+  df <- tibble(a = vars[ij[, 1]], b = vars[ij[, 2]], r = cp[ij], rho = sp[ij])
+  df$dif <- abs(df$r - df$rho)
+  n_par <- nrow(df); n_dif <- sum(df$dif >= 0.15)
+  m <- df[which.max(df$dif), ]
+  g <- df[which.max(abs(df$r)), ]
+  paste0(
+    "La figura muestra la misma información de la tabla en colores: azul indica asociación positiva, rojo negativa, y cuanto más intenso el color, más fuerte la relación. ",
+    "La pareja con la relación más intensa es ", etq(g$a), " con ", etq(g$b), " (r = ", t_r(g$r), "). ",
+    "En ", n_par - n_dif, " de los ", n_par, " pares, Pearson y Spearman difieren en menos de ,15",
+    if (n_dif > 0) paste0("; la mayor diferencia está en ", etq(m$a), " con ", etq(m$b), " (r = ", t_r(m$r), ", ρ = ", t_r(m$rho),
+                         "), señal de que esa relación no es lineal o de que un centro extremo influye en ella.") else "."
+  )
+}, error = function(e) "No se pudo calcular este análisis automáticamente; revise que `vars` y `etiquetas` coincidan con las columnas de `d`.")
+```
+
+`r txt_fm`
 
 ## Alcance y limitaciones
 
-- El diseño es transversal y de pocas unidades: las correlaciones indican asociación y
-  no permiten establecer causalidad.
-- Los coeficientes se calculan entre centros y no se trasladan al comportamiento de las
-  personas [@robinson1950].
-- Una correlación bivariada no equivale al efecto de una variable dentro de un modelo
-  multivariado, donde otras variables pueden cambiar su peso.
-- La inseguridad y la discriminación son percepciones de las mismas personas, por lo
-  que su asociación puede reflejar una retroalimentación.
-- Los signos esperados son hipótesis y no hallazgos establecidos. La literatura sobre
-  visitas y victimización estudia sobre todo la mala conducta, las agresiones y la
-  reincidencia, no la sensación de inseguridad, y las fuentes revisadas no incluyen
-  estudios del sistema penitenciario ecuatoriano.
-- La composición de la población se trata como explicación rival: si los centros
-  difieren en inseguridad porque reciben a personas distintas, una asociación con el
-  tamaño o con las visitas puede ser aparente.
-  
+-   El diseño es transversal y de pocas unidades: las correlaciones indican asociación y no permiten establecer causalidad.
+
+-   Los coeficientes se calculan entre centros y no se trasladan al comportamiento de las personas [@robinson1950].
+
+-   Una correlación bivariada no equivale al efecto de una variable dentro de un modelo multivariado, donde otras variables pueden cambiar su peso.
+
+-   La inseguridad y la discriminación son percepciones de las mismas personas, por lo que su asociación puede reflejar una retroalimentación.
+
+-   Los signos esperados son hipótesis y no hallazgos establecidos. La literatura sobre visitas y victimización estudia sobre todo la mala conducta, las agresiones y la reincidencia, no la sensación de inseguridad, y las fuentes revisadas no incluyen estudios del sistema penitenciario ecuatoriano.
+
