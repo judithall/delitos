@@ -207,6 +207,11 @@ window.Quarto = {
   <li><a href="#comparaciones-múltiples-y-sensibilidad" id="toc-comparaciones-múltiples-y-sensibilidad" class="nav-link" data-scroll-target="#comparaciones-múltiples-y-sensibilidad">Comparaciones múltiples y sensibilidad</a></li>
   <li><a href="#presentación-de-los-resultados" id="toc-presentación-de-los-resultados" class="nav-link" data-scroll-target="#presentación-de-los-resultados">Presentación de los resultados</a></li>
   </ul></li>
+  <li><a href="#sec-logit-fraccional" id="toc-sec-logit-fraccional" class="nav-link" data-scroll-target="#sec-logit-fraccional">Modelo de respuesta fraccionaria (objetivos específicos 3 y 4)</a>
+  <ul class="collapse">
+  <li><a href="#estimaciones-e-inferencia" id="toc-estimaciones-e-inferencia" class="nav-link" data-scroll-target="#estimaciones-e-inferencia">Estimaciones e inferencia</a></li>
+  <li><a href="#influencia-y-sensibilidad-leave-one-out" id="toc-influencia-y-sensibilidad-leave-one-out" class="nav-link" data-scroll-target="#influencia-y-sensibilidad-leave-one-out">Influencia y sensibilidad leave-one-out</a></li>
+  </ul></li>
   <li><a href="#alcance-y-limitaciones" id="toc-alcance-y-limitaciones" class="nav-link" data-scroll-target="#alcance-y-limitaciones">Alcance y limitaciones</a></li>
   </ul>
 </nav>
@@ -333,7 +338,7 @@ Tabla&nbsp;4.1: Variables del análisis, fuente en el censo y signo esperado
 </figure>
 </div>
 <p><em>Nota.</em> Elaboración propia a partir de la revisión de literatura y del Censo Penitenciario 2022 <span class="citation" data-cites="inec2022">(<a href="references.html#ref-inec2022" role="doc-biblioref">Instituto Nacional de Estadística y Censos, 2022</a>)</span>.</p>
-<p>La tabla reúne las nueve variables del estudio. La inseguridad es la única variable dependiente. Cuatro variables tienen signo esperado positivo (sin visitas, tamaño, procesados y discriminación): se espera que, a mayor valor, mayor inseguridad. Los talleres son la única variable con signo esperado negativo, porque aproximan la presencia del Estado dentro del centro. Minoría étnica, delito sexual y discapacidad no tienen signo esperado: se incluyen para comprobar que las diferencias entre centros no se deban solo a las personas que ingresan a ellos (explicación por importación).</p>
+<p>La tabla reúne las nueve variables del estudio. La inseguridad es la única variable dependiente. Cuatro variables tienen signo esperado positivo (sin visitas, tamaño, procesados y discriminación): se plantea que valores agregados mayores podrían asociarse con mayor inseguridad. Los talleres son la única variable con signo esperado negativo, porque aproximan la oferta institucional dentro del centro. Minoría étnica, delito sexual y discapacidad no tienen signo esperado: se incluyen como controles de composición agregada, sin atribuir a las personas efectos observados entre centros.</p>
 </section>
 <section id="distribución-de-la-inseguridad-percibida-objetivo-específico-1" class="level2">
 <h2 class="anchored" data-anchor-id="distribución-de-la-inseguridad-percibida-objetivo-específico-1">Distribución de la inseguridad percibida (objetivo específico 1)</h2>
@@ -828,7 +833,7 @@ Tabla&nbsp;4.4: Matriz de correlaciones entre los centros de privación de liber
 </div>
 </div>
 <p><em>Nota.</em> Pearson bajo la diagonal y Spearman sobre la diagonal. * <em>p</em> &lt; ,05; ** <em>p</em> &lt; ,01; *** <em>p</em> &lt; ,001, sin ajuste por comparaciones múltiples. Fuente: INEC, Censo Penitenciario 2022.</p>
-<p>La tabla muestra todas las correlaciones; las de la inseguridad (primera fila y primera columna) se analizaron en la tabla anterior. Entre las 28 combinaciones de variables explicativas, 7 tienen <em>p</em> &lt; ,05 sin ajuste. Como son 28 pruebas, por azar se esperarían unas 1,4 significativas, por eso estas correlaciones se leen como exploratorias. Las más altas son Sin visitas con ln(Tamaño) (r = ,66), Discriminación con Talleres (r = −,53) y Procesados con Delito sexual (r = −,50). Hay pares con relación moderada o alta (|r| ≥ ,50): si se incluyen en un mismo modelo, parte de su efecto se superpondrá. Las columnas <em>M</em> y <em>DE</em> resumen cada variable: ln(Tamaño) está en logaritmos, por eso su media no es una proporción.</p>
+<p>La tabla muestra todas las correlaciones; las de la inseguridad (primera fila y primera columna) se analizaron en la tabla anterior. Entre las 28 combinaciones de variables explicativas, 7 tienen <em>p</em> &lt; ,05 sin ajuste. Como son 28 pruebas, por azar se esperarían unas 1,4 significativas, por eso estas correlaciones se leen como exploratorias. Las más altas son Sin visitas con ln(Tamaño) (r = ,66), Discriminación con Talleres (r = −,53) y Procesados con Delito sexual (r = −,50). Hay pares con relación moderada o alta (|r| ≥ ,50): si se incluyen en un mismo modelo, parte de la información que aportan se solapará. Las columnas <em>M</em> y <em>DE</em> resumen cada variable: ln(Tamaño) está en logaritmos, por eso su media no es una proporción.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-matriz" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Mapa de calor con las correlaciones de Pearson, bajo la diagonal, y de Spearman, sobre la diagonal, entre las nueve variables de los centros de privación de libertad.">
@@ -843,7 +848,364 @@ Figura&nbsp;4.7: Matriz de correlaciones: Pearson bajo la diagonal y Spearman so
 </div>
 </div>
 </div>
-<p>La figura muestra la misma información de la tabla en colores: azul indica asociación positiva, rojo negativa, y cuanto más intenso el color, más fuerte la relación. La pareja con la relación más intensa es ln(Tamaño) con Sin visitas (r = ,66). En 33 de los 36 pares, Pearson y Spearman difieren en menos de ,15; la mayor diferencia está en Minoría étnica con Talleres (r = −,21, ρ = −,41), señal de que esa relación no es lineal o de que un centro extremo influye en ella.</p>
+<p>La figura muestra la misma información de la tabla en colores: azul indica asociación positiva, rojo negativa, y cuanto más intenso el color, más fuerte la relación. La pareja con la relación más intensa es ln(Tamaño) con Sin visitas (r = ,66). En 33 de los 36 pares, Pearson y Spearman difieren en menos de ,15; la mayor diferencia está en Minoría étnica con Talleres (r = −,21, ρ = −,41), señal de posible no linealidad o de sensibilidad a un centro extremo.</p>
+</section>
+</section>
+<section id="sec-logit-fraccional" class="level2">
+<h2 class="anchored" data-anchor-id="sec-logit-fraccional">Modelo de respuesta fraccionaria (objetivos específicos 3 y 4)</h2>
+<p>La respuesta del modelo es la proporción de respuestas válidas que reportan inseguridad en cada centro, (y_i=_i/n_i), donde (n_i) es el número de respuestas válidas a la pregunta. Para los 29 centros se estima un modelo logit fraccional por cuasiverosimilitud <span class="citation" data-cites="papke1996">(<a href="references.html#ref-papke1996" role="doc-biblioref">Papke &amp; Wooldridge, 1996</a>)</span>:</p>
+<p><span class="math display">\[
+\operatorname{logit}(\mu_i)
+= \log\!\left(\frac{\mu_i}{1-\mu_i}\right)
+= \beta_0 + \beta_1\log(\text{personas}_i)
++ \beta_2\,\text{sin visitas}_i
++ \beta_3\,\text{talleres}_i
++ \beta_4\,\text{procesados}_i,
+\qquad \mu_i=E(y_i\mid X_i).
+\]</span></p>
+<p>La variable dependiente y las tres covariables expresadas como proporciones están entre 0 y 1; el tamaño se expresa como el logaritmo natural del número de personas entrevistadas por centro. Los coeficientes describen asociaciones condicionales entre centros: no son cambios porcentuales directos ni efectos causales. La especificación no permite inferir que una característica agregada describa a una persona particular.</p>
+<p>La estimación y los diagnósticos se implementan en <code>R/03_modelos.R</code>. Tanto este capítulo como el resumen (<code>index.qmd</code>) llaman a las mismas funciones, de modo que las cifras del resumen se recalculan a partir de los datos y no se copian manualmente.</p>
+<p>Se estiman dos variantes para mostrar qué cambia al dar el mismo peso a cada centro o a cada respuesta:</p>
+<ul>
+<li><strong>Sin ponderar:</strong> cada centro tiene peso uno; describe la relación promedio entre centros.</li>
+<li><strong>Ponderada por respuestas válidas:</strong> se usa (n_i) como peso de cuasiverosimilitud. La estimación da mayor peso a los centros con más respuestas a la pregunta de inseguridad. No es un ponderador muestral del diseño del censo ni una corrección por selección de centros.</li>
+</ul>
+<p>La función objetivo de cuasiverosimilitud emplea (w_i=1) en el modelo sin ponderar y (w_i=n_i) en el ponderado:</p>
+<p><span class="math display">\[
+Q(\boldsymbol{\beta}) =
+\sum_{i=1}^{N} w_i\left[
+y_i\log(\mu_i) + (1-y_i)\log(1-\mu_i)
+\right],
+\qquad \operatorname{logit}(\mu_i)=X_i\boldsymbol{\beta}.
+\]</span></p>
+<p>En ambas variantes, la matriz de covarianza principal es robusta a heterocedasticidad tipo HC3, recomendada como ajuste de muestra pequeña <span class="citation" data-cites="mackinnon1985 long2000">(<a href="references.html#ref-long2000" role="doc-biblioref">Long &amp; Ervin, 2000</a>; <a href="references.html#ref-mackinnon1985" role="doc-biblioref">MacKinnon &amp; White, 1985</a>)</span>. Los intervalos del 95 % y las pruebas bilaterales usan una distribución <em>t</em> con 24 grados de libertad ((N-k), con 5 parámetros, incluida la constante). HC0 se presenta como sensibilidad, dado que la conclusión del resumen cambia con la corrección de varianza. No se calcula una matriz cluster-robusta: cada fila ya representa un centro y no hay observaciones individuales repetidas dentro de cada unidad analítica.</p>
+<section id="estimaciones-e-inferencia" class="level3">
+<h3 class="anchored" data-anchor-id="estimaciones-e-inferencia">Estimaciones e inferencia</h3>
+<div class="cell">
+<div id="tbl-logit-fraccional" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-logit-fraccional-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;4.5: Logit fraccional de la proporción de respuestas que reportan inseguridad por centro
+</figcaption>
+<div aria-describedby="tbl-logit-fraccional-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 13%">
+<col style="width: 14%">
+<col style="width: 18%">
+<col style="width: 20%">
+<col style="width: 8%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Modelo</th>
+<th style="text-align: left;">Variable</th>
+<th style="text-align: center;">Coeficiente</th>
+<th style="text-align: center;">EE robusto HC3</th>
+<th style="text-align: center;">IC 95 %</th>
+<th style="text-align: center;">p (t)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Sin ponderar</td>
+<td style="text-align: left;">Constante</td>
+<td style="text-align: center;">-4,006</td>
+<td style="text-align: center;">2,344</td>
+<td style="text-align: center;">[-8,844; 0,832]</td>
+<td style="text-align: center;">,100</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sin ponderar</td>
+<td style="text-align: left;">ln(Tamaño)</td>
+<td style="text-align: center;">0,205</td>
+<td style="text-align: center;">0,264</td>
+<td style="text-align: center;">[-0,340; 0,749]</td>
+<td style="text-align: center;">,445</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Sin ponderar</td>
+<td style="text-align: left;">Sin visitas</td>
+<td style="text-align: center;">2,182</td>
+<td style="text-align: center;">2,094</td>
+<td style="text-align: center;">[-2,140; 6,503]</td>
+<td style="text-align: center;">,308</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sin ponderar</td>
+<td style="text-align: left;">Talleres</td>
+<td style="text-align: center;">1,785</td>
+<td style="text-align: center;">1,586</td>
+<td style="text-align: center;">[-1,488; 5,059]</td>
+<td style="text-align: center;">,271</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Sin ponderar</td>
+<td style="text-align: left;">Procesados</td>
+<td style="text-align: center;">1,413</td>
+<td style="text-align: center;">2,245</td>
+<td style="text-align: center;">[-3,221; 6,047]</td>
+<td style="text-align: center;">,535</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ponderado por n_resp</td>
+<td style="text-align: left;">Constante</td>
+<td style="text-align: center;">-4,500</td>
+<td style="text-align: center;">2,049</td>
+<td style="text-align: center;">[-8,728; -0,272]</td>
+<td style="text-align: center;">,038</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ponderado por n_resp</td>
+<td style="text-align: left;">ln(Tamaño)</td>
+<td style="text-align: center;">0,249</td>
+<td style="text-align: center;">0,262</td>
+<td style="text-align: center;">[-0,291; 0,790]</td>
+<td style="text-align: center;">,350</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ponderado por n_resp</td>
+<td style="text-align: left;">Sin visitas</td>
+<td style="text-align: center;">2,500</td>
+<td style="text-align: center;">1,850</td>
+<td style="text-align: center;">[-1,319; 6,319]</td>
+<td style="text-align: center;">,189</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ponderado por n_resp</td>
+<td style="text-align: left;">Talleres</td>
+<td style="text-align: center;">1,924</td>
+<td style="text-align: center;">1,467</td>
+<td style="text-align: center;">[-1,104; 4,952]</td>
+<td style="text-align: center;">,202</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ponderado por n_resp</td>
+<td style="text-align: left;">Procesados</td>
+<td style="text-align: center;">1,436</td>
+<td style="text-align: center;">1,649</td>
+<td style="text-align: center;">[-1,967; 4,838]</td>
+<td style="text-align: center;">,392</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p><em>Nota.</em> La categoría ponderada usa el número de respuestas válidas del centro (<code>n_resp</code>) como peso; la categoría sin ponderar da el mismo peso a los 29 centros. Las pruebas e intervalos usan errores HC3 y 24 grados de libertad. El modelo es una cuasiverosimilitud para respuesta fraccionaria, no una regresión lineal de proporciones.</p>
+<p>En la estimación principal HC3, el coeficiente de tamaño y el de proporción sin visitas se reportan con sus intervalos y valores <em>p</em> en la tabla. Para la variante ponderada, la sensibilidad a HC0 es:</p>
+<div class="cell">
+<div id="tbl-logit-hc0" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-logit-hc0-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;4.6: Sensibilidad de los coeficientes principales al estimador robusto HC0
+</figcaption>
+<div aria-describedby="tbl-logit-hc0-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: center;">Coeficiente</th>
+<th style="text-align: center;">EE robusto HC0</th>
+<th style="text-align: center;">p (t)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ln(Tamaño)</td>
+<td style="text-align: center;">0,249</td>
+<td style="text-align: center;">0,144</td>
+<td style="text-align: center;">,097</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sin visitas</td>
+<td style="text-align: center;">2,500</td>
+<td style="text-align: center;">0,978</td>
+<td style="text-align: center;">,017</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Esta comparación permite ver que la evidencia estadística de las asociaciones principales depende del estimador robusto elegido. Por ello, HC3 se conserva como análisis principal dado el reducido número de unidades, mientras que HC0 se interpreta únicamente como comprobación de sensibilidad, no como una especificación seleccionada por producir valores <em>p</em> menores.</p>
+</section>
+<section id="influencia-y-sensibilidad-leave-one-out" class="level3">
+<h3 class="anchored" data-anchor-id="influencia-y-sensibilidad-leave-one-out">Influencia y sensibilidad leave-one-out</h3>
+<p>Se vuelve a estimar cada especificación 29 veces, excluyendo un centro distinto en cada iteración. El rango de coeficientes y el número de exclusiones que cambian su signo se calculan directamente:</p>
+<div class="cell">
+<div id="tbl-leave-one-out" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-leave-one-out-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;4.7: Rango de coeficientes al excluir un centro por vez
+</figcaption>
+<div aria-describedby="tbl-leave-one-out-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 6%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 29%">
+<col style="width: 12%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Modelo</th>
+<th style="text-align: left;">Variable</th>
+<th style="text-align: center;">Mínimo leave-one-out</th>
+<th style="text-align: center;">Máximo leave-one-out</th>
+<th style="text-align: left;">Centro que más mueve el coeficiente</th>
+<th style="text-align: center;">Cambio absoluto máximo</th>
+<th style="text-align: center;">Exclusiones que cambian el signo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Ponderado por n_resp</td>
+<td style="text-align: left;">ln(Tamaño)</td>
+<td style="text-align: center;">0,083</td>
+<td style="text-align: center;">0,384</td>
+<td style="text-align: left;">CENTRO DE PRIVACION DE LIBERTAD COTOPAXI N 1</td>
+<td style="text-align: center;">0,167</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ponderado por n_resp</td>
+<td style="text-align: left;">Procesados</td>
+<td style="text-align: center;">0,867</td>
+<td style="text-align: center;">2,461</td>
+<td style="text-align: left;">CENTRO DE REHABILITACION SOCIAL SANTO DOMINGO N 1</td>
+<td style="text-align: center;">1,025</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ponderado por n_resp</td>
+<td style="text-align: left;">Sin visitas</td>
+<td style="text-align: center;">0,986</td>
+<td style="text-align: center;">2,903</td>
+<td style="text-align: left;">CENTRO DE PRIVACION DE LIBERTAD AZUAY N 1</td>
+<td style="text-align: center;">1,514</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ponderado por n_resp</td>
+<td style="text-align: left;">Talleres</td>
+<td style="text-align: center;">1,072</td>
+<td style="text-align: center;">2,814</td>
+<td style="text-align: left;">CENTRO DE PRIVACION DE LIBERTAD GUAYAS N 1</td>
+<td style="text-align: center;">0,890</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Sin ponderar</td>
+<td style="text-align: left;">ln(Tamaño)</td>
+<td style="text-align: center;">0,118</td>
+<td style="text-align: center;">0,340</td>
+<td style="text-align: left;">CENTRO DE PRIVACION DE LIBERTAD ESMERALDAS N 1</td>
+<td style="text-align: center;">0,135</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sin ponderar</td>
+<td style="text-align: left;">Procesados</td>
+<td style="text-align: center;">0,652</td>
+<td style="text-align: center;">3,072</td>
+<td style="text-align: left;">CENTRO DE PRIVACION PROVISIONAL DE LIBERTAD LOS RIOS N 1</td>
+<td style="text-align: center;">1,659</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Sin ponderar</td>
+<td style="text-align: left;">Sin visitas</td>
+<td style="text-align: center;">1,026</td>
+<td style="text-align: center;">2,866</td>
+<td style="text-align: left;">CENTRO DE PRIVACION DE LIBERTAD ESMERALDAS N 1</td>
+<td style="text-align: center;">1,156</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sin ponderar</td>
+<td style="text-align: left;">Talleres</td>
+<td style="text-align: center;">1,149</td>
+<td style="text-align: center;">2,758</td>
+<td style="text-align: left;">CENTRO DE PRIVACION PROVISIONAL DE LIBERTAD PASTAZA N 1</td>
+<td style="text-align: center;">0,973</td>
+<td style="text-align: center;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Los diagnósticos complementan ese ejercicio. Se señalan los centros con mayor distancia de Cook y leverage en cada especificación; los umbrales (4/N) y (2k/N) son reglas exploratorias para alertar sobre posible influencia, no criterios automáticos de exclusión.</p>
+<div class="cell">
+<div id="tbl-influencia-centros" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-influencia-centros-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;4.8: Diagnósticos de influencia por especificación
+</figcaption>
+<div aria-describedby="tbl-influencia-centros-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 27%">
+<col style="width: 6%">
+<col style="width: 9%">
+<col style="width: 28%">
+<col style="width: 8%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Modelo</th>
+<th style="text-align: left;">Centro con mayor Cook</th>
+<th style="text-align: center;">Cook máximo</th>
+<th style="text-align: center;">Centros sobre 4/N</th>
+<th style="text-align: left;">Centro con mayor leverage</th>
+<th style="text-align: center;">Leverage máximo</th>
+<th style="text-align: center;">Centros sobre 2k/N</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Sin ponderar</td>
+<td style="text-align: left;">CENTRO DE PRIVACION PROVISIONAL DE LIBERTAD PASTAZA N 1</td>
+<td style="text-align: center;">0,334</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">CENTRO DE PRIVACION PROVISIONAL DE LIBERTAD LOS RIOS N 1</td>
+<td style="text-align: center;">0,453</td>
+<td style="text-align: center;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ponderado por n_resp</td>
+<td style="text-align: left;">CENTRO DE PRIVACION DE LIBERTAD GUAYAS N 1</td>
+<td style="text-align: center;">0,997</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">CENTRO DE PRIVACION DE LIBERTAD GUAYAS N 1</td>
+<td style="text-align: center;">0,659</td>
+<td style="text-align: center;">6</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>La exclusión de centros es un diagnóstico, no la base del resultado principal: se conserva la muestra completa. El leave-one-out informa cuánto varían las estimaciones sin cada centro, pero con 29 unidades la potencia es limitada y tanto los coeficientes como sus errores pueden ser sensibles a observaciones de alto leverage.</p>
 </section>
 </section>
 <section id="alcance-y-limitaciones" class="level2">
@@ -851,7 +1213,7 @@ Figura&nbsp;4.7: Matriz de correlaciones: Pearson bajo la diagonal y Spearman so
 <ul>
 <li><p>El diseño es transversal y de pocas unidades: las correlaciones indican asociación y no permiten establecer causalidad.</p></li>
 <li><p>Los coeficientes se calculan entre centros y no se trasladan al comportamiento de las personas <span class="citation" data-cites="robinson1950">(<a href="references.html#ref-robinson1950" role="doc-biblioref">Robinson, 1950</a>)</span>.</p></li>
-<li><p>Una correlación bivariada no equivale al efecto de una variable dentro de un modelo multivariado, donde otras variables pueden cambiar su peso.</p></li>
+<li><p>Una correlación bivariada no equivale a la asociación condicional dentro de un modelo multivariado, donde el ajuste por otras variables puede cambiar su magnitud.</p></li>
 <li><p>La inseguridad y la discriminación son percepciones de las mismas personas, por lo que su asociación puede reflejar una retroalimentación.</p></li>
 <li><p>Los signos esperados son hipótesis y no hallazgos establecidos. La literatura sobre visitas y victimización estudia sobre todo la mala conducta, las agresiones y la reincidencia, no la sensación de inseguridad, y las fuentes revisadas no incluyen estudios del sistema penitenciario ecuatoriano.</p></li>
 </ul>
@@ -872,6 +1234,15 @@ Instituto Nacional de Estadística y Censos. (2022). <em>Censo Penitenciario 202
 </div>
 <div id="ref-irwin1962" class="csl-entry" role="listitem">
 Irwin, J., &amp; Cressey, D. R. (1962). Thieves, convicts and the inmate culture. <em>Social Problems</em>, <em>10</em>(2), 142-155. <a href="https://doi.org/10.2307/799047">https://doi.org/10.2307/799047</a>
+</div>
+<div id="ref-long2000" class="csl-entry" role="listitem">
+Long, J. S., &amp; Ervin, L. H. (2000). Using heteroscedasticity consistent standard errors in the linear regression model. <em>The American Statistician</em>, <em>54</em>(3), 217-224. <a href="https://doi.org/10.1080/00031305.2000.10474549">https://doi.org/10.1080/00031305.2000.10474549</a>
+</div>
+<div id="ref-mackinnon1985" class="csl-entry" role="listitem">
+MacKinnon, J. G., &amp; White, H. (1985). Some heteroskedasticity-consistent covariance matrix estimators with improved finite sample properties. <em>Journal of Econometrics</em>, <em>29</em>(3), 305-325. <a href="https://doi.org/10.1016/0304-4076(85">https://doi.org/10.1016/0304-4076(85</a>
+</div>
+<div id="ref-papke1996" class="csl-entry" role="listitem">
+Papke, L. E., &amp; Wooldridge, J. M. (1996). Econometric methods for fractional response variables with an application to 401(k) plan participation rates. <em>Journal of Applied Econometrics</em>, <em>11</em>(6), 619-632. <a href="https://doi.org/10.1002/(SICI)1099-1255(199611)11:6<619::AID-JAE418>3.0.CO;2-1">https://doi.org/10.1002/(SICI)1099-1255(199611)11:6&lt;619::AID-JAE418&gt;3.0.CO;2-1</a>
 </div>
 <div id="ref-robinson1950" class="csl-entry" role="listitem">
 Robinson, W. S. (1950). Ecological correlations and the behavior of individuals. <em>American Sociological Review</em>, <em>15</em>(3), 351-357. <a href="https://doi.org/10.2307/2087176">https://doi.org/10.2307/2087176</a>

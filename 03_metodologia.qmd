@@ -19,6 +19,7 @@ options(knitr.kable.NA = "")
 source(here("R", "00_datos.R"))      # micro, micro29, base, d, etiquetas, vars, esperado
 source(here("R", "01_funciones.R"))  # fmt_r, wilson, cor_par, calcular_correlaciones, ...
 source(here("R", "02_graficas.R"))   # g_ranking(), g_densidad(), g_sexo(), g_motivos(), ...
+source(here("R", "03_modelos.R"))   # logit fraccional, HC3 y sensibilidad leave-one-out
 
 cor_res <- calcular_correlaciones(d, vars, etiquetas, esperado)
 ```
@@ -63,7 +64,7 @@ La variable dependiente es la proporción de personas que declaran sentirse inse
 
 *Nota.* Elaboración propia a partir de la revisión de literatura y del Censo Penitenciario 2022 [@inec2022].
 
-La tabla reúne las nueve variables del estudio. La inseguridad es la única variable dependiente. Cuatro variables tienen signo esperado positivo (sin visitas, tamaño, procesados y discriminación): se espera que, a mayor valor, mayor inseguridad. Los talleres son la única variable con signo esperado negativo, porque aproximan la presencia del Estado dentro del centro. Minoría étnica, delito sexual y discapacidad no tienen signo esperado: se incluyen para comprobar que las diferencias entre centros no se deban solo a las personas que ingresan a ellos (explicación por importación).
+La tabla reúne las nueve variables del estudio. La inseguridad es la única variable dependiente. Cuatro variables tienen signo esperado positivo (sin visitas, tamaño, procesados y discriminación): se plantea que valores agregados mayores podrían asociarse con mayor inseguridad. Los talleres son la única variable con signo esperado negativo, porque aproximan la oferta institucional dentro del centro. Minoría étnica, delito sexual y discapacidad no tienen signo esperado: se incluyen como controles de composición agregada, sin atribuir a las personas efectos observados entre centros.
 
 ## Distribución de la inseguridad percibida (objetivo específico 1)
 
@@ -492,9 +493,9 @@ txt_m <- tryCatch({
   top <- pr[order(-abs(pr$r)), ][1:3, ]
   mx  <- max(abs(pr$r))
   colin <- if (mx >= 0.70) {
-    "Hay pares muy relacionados entre sí (|r| ≥ ,70): si más adelante se incluyen en un mismo modelo, será difícil separar el efecto de cada uno."
+    "Hay pares muy relacionados entre sí (|r| ≥ ,70): si más adelante se incluyen en un mismo modelo, habrá poca información para distinguir sus asociaciones condicionales."
   } else if (mx >= 0.50) {
-    "Hay pares con relación moderada o alta (|r| ≥ ,50): si se incluyen en un mismo modelo, parte de su efecto se superpondrá."
+    "Hay pares con relación moderada o alta (|r| ≥ ,50): si se incluyen en un mismo modelo, parte de la información que aportan se solapará."
   } else {
     "Ningún par supera |r| = ,50, así que no hay señal de que las variables se solapen mucho entre sí."
   }
@@ -535,12 +536,169 @@ txt_fm <- tryCatch({
     "La pareja con la relación más intensa es ", etq(g$a), " con ", etq(g$b), " (r = ", t_r(g$r), "). ",
     "En ", n_par - n_dif, " de los ", n_par, " pares, Pearson y Spearman difieren en menos de ,15",
     if (n_dif > 0) paste0("; la mayor diferencia está en ", etq(m$a), " con ", etq(m$b), " (r = ", t_r(m$r), ", ρ = ", t_r(m$rho),
-                         "), señal de que esa relación no es lineal o de que un centro extremo influye en ella.") else "."
+                         "), señal de posible no linealidad o de sensibilidad a un centro extremo.") else "."
   )
 }, error = function(e) "No se pudo calcular este análisis automáticamente; revise que `vars` y `etiquetas` coincidan con las columnas de `d`.")
 ```
 
 `r txt_fm`
+
+## Modelo de respuesta fraccionaria (objetivos específicos 3 y 4) {#sec-logit-fraccional}
+
+La respuesta del modelo es la proporción de respuestas válidas que reportan inseguridad en cada centro, \(y_i=\text{inseguros}_i/n_i\), donde \(n_i\) es el número de respuestas válidas a la pregunta. Para los `r n_centros` centros se estima un modelo logit fraccional por cuasiverosimilitud [@papke1996]:
+
+$$
+\operatorname{logit}(\mu_i)
+= \log\!\left(\frac{\mu_i}{1-\mu_i}\right)
+= \beta_0 + \beta_1\log(\text{personas}_i)
++ \beta_2\,\text{sin visitas}_i
++ \beta_3\,\text{talleres}_i
++ \beta_4\,\text{procesados}_i,
+\qquad \mu_i=E(y_i\mid X_i).
+$$
+
+La variable dependiente y las tres covariables expresadas como proporciones están entre 0 y 1; el tamaño se expresa como el logaritmo natural del número de personas entrevistadas por centro. Los coeficientes describen asociaciones condicionales entre centros: no son cambios porcentuales directos ni efectos causales. La especificación no permite inferir que una característica agregada describa a una persona particular.
+
+La estimación y los diagnósticos se implementan en `R/03_modelos.R`. Tanto este capítulo como el resumen (`index.qmd`) llaman a las mismas funciones, de modo que las cifras del resumen se recalculan a partir de los datos y no se copian manualmente.
+
+Se estiman dos variantes para mostrar qué cambia al dar el mismo peso a cada centro o a cada respuesta:
+
+- **Sin ponderar:** cada centro tiene peso uno; describe la relación promedio entre centros.
+- **Ponderada por respuestas válidas:** se usa \(n_i\) como peso de cuasiverosimilitud. La estimación da mayor peso a los centros con más respuestas a la pregunta de inseguridad. No es un ponderador muestral del diseño del censo ni una corrección por selección de centros.
+
+La función objetivo de cuasiverosimilitud emplea \(w_i=1\) en el modelo sin ponderar y \(w_i=n_i\) en el ponderado:
+
+$$
+Q(\boldsymbol{\beta}) =
+\sum_{i=1}^{N} w_i\left[
+y_i\log(\mu_i) + (1-y_i)\log(1-\mu_i)
+\right],
+\qquad \operatorname{logit}(\mu_i)=X_i\boldsymbol{\beta}.
+$$
+
+```{r}
+#| label: modelos-logit-fraccional
+#| include: false
+modelos_fraccionales <- list(
+  `Sin ponderar` = estimar_logit_fraccional(d, ponderado = FALSE),
+  `Ponderado por n_resp` = estimar_logit_fraccional(d, ponderado = TRUE)
+)
+modelo_ponderado_hc0 <- estimar_logit_fraccional(
+  d, ponderado = TRUE, tipo_vcov = "HC0"
+)
+tabla_modelos <- dplyr::bind_rows(lapply(names(modelos_fraccionales), function(nombre) {
+  cbind(modelo = nombre, modelos_fraccionales[[nombre]]$resultados)
+}))
+sensibilidad_modelos <- sensibilidad_leave_one_out(d)
+diagnosticos_modelos <- diagnosticos_influencia(modelos_fraccionales, d)
+gl_modelo <- stats::df.residual(modelos_fraccionales[[1]]$modelo)
+k_modelo <- length(stats::coef(modelos_fraccionales[[1]]$modelo))
+
+formato_p_modelo <- function(x) {
+  ifelse(x < 0.001, "< ,001", sub("^0\\.", ",", sprintf("%.3f", x)))
+}
+etiquetas_modelo <- c(
+  "(Intercept)" = "Constante",
+  "ln_tam" = "ln(Tamaño)",
+  "sin_visitas" = "Sin visitas",
+  "talleres" = "Talleres",
+  "procesados" = "Procesados"
+)
+```
+
+En ambas variantes, la matriz de covarianza principal es robusta a heterocedasticidad tipo HC3, recomendada como ajuste de muestra pequeña [@mackinnon1985; @long2000]. Los intervalos del 95 % y las pruebas bilaterales usan una distribución *t* con `r gl_modelo` grados de libertad (\(N-k\), con `r k_modelo` parámetros, incluida la constante). HC0 se presenta como sensibilidad, dado que la conclusión del resumen cambia con la corrección de varianza. No se calcula una matriz cluster-robusta: cada fila ya representa un centro y no hay observaciones individuales repetidas dentro de cada unidad analítica.
+
+### Estimaciones e inferencia
+
+```{r}
+#| label: tbl-logit-fraccional
+#| tbl-cap: "Logit fraccional de la proporción de respuestas que reportan inseguridad por centro"
+tabla_modelos |>
+  transmute(
+    Modelo = modelo,
+    Variable = unname(etiquetas_modelo[variable]),
+    `Coeficiente` = fmt_n(estimacion, 3),
+    `EE robusto HC3` = fmt_n(ee_robusto, 3),
+    `IC 95 %` = paste0("[", fmt_n(ic_inferior, 3), "; ", fmt_n(ic_superior, 3), "]"),
+    `p (t)` = formato_p_modelo(p)
+  ) |>
+  knitr::kable(align = c("l", "l", rep("c", 4)))
+```
+
+*Nota.* La categoría ponderada usa el número de respuestas válidas del centro (`n_resp`) como peso; la categoría sin ponderar da el mismo peso a los `r n_centros` centros. Las pruebas e intervalos usan errores HC3 y `r gl_modelo` grados de libertad. El modelo es una cuasiverosimilitud para respuesta fraccionaria, no una regresión lineal de proporciones.
+
+En la estimación principal HC3, el coeficiente de tamaño y el de proporción sin visitas se reportan con sus intervalos y valores *p* en la tabla. Para la variante ponderada, la sensibilidad a HC0 es:
+
+```{r}
+#| label: tbl-logit-hc0
+#| tbl-cap: "Sensibilidad de los coeficientes principales al estimador robusto HC0"
+modelo_ponderado_hc0$resultados |>
+  dplyr::filter(variable %in% c("ln_tam", "sin_visitas")) |>
+  transmute(
+    Variable = unname(etiquetas_modelo[variable]),
+    `Coeficiente` = fmt_n(estimacion, 3),
+    `EE robusto HC0` = fmt_n(ee_robusto, 3),
+    `p (t)` = formato_p_modelo(p)
+  ) |>
+  knitr::kable(align = c("l", "c", "c", "c"))
+```
+
+Esta comparación permite ver que la evidencia estadística de las asociaciones principales depende del estimador robusto elegido. Por ello, HC3 se conserva como análisis principal dado el reducido número de unidades, mientras que HC0 se interpreta únicamente como comprobación de sensibilidad, no como una especificación seleccionada por producir valores *p* menores.
+
+### Influencia y sensibilidad leave-one-out
+
+Se vuelve a estimar cada especificación `r n_centros` veces, excluyendo un centro distinto en cada iteración. El rango de coeficientes y el número de exclusiones que cambian su signo se calculan directamente:
+
+```{r}
+#| label: tbl-leave-one-out
+#| tbl-cap: "Rango de coeficientes al excluir un centro por vez"
+resumen_loo <- sensibilidad_modelos |>
+  dplyr::filter(variable %in% c("ln_tam", "sin_visitas", "talleres", "procesados")) |>
+  dplyr::left_join(
+    dplyr::select(tabla_modelos, modelo, variable, estimacion_base = estimacion),
+    by = c("modelo", "variable")
+  ) |>
+  dplyr::group_by(modelo, variable) |>
+  dplyr::summarise(
+    minimo = min(estimacion),
+    maximo = max(estimacion),
+    centro_mayor_cambio = centro_excluido[which.max(abs(estimacion - estimacion_base))],
+    cambio_maximo = max(abs(estimacion - estimacion_base)),
+    cambios_signo = sum(sign(estimacion) != sign(estimacion_base)),
+    .groups = "drop"
+  ) |>
+  transmute(
+    Modelo = modelo,
+    Variable = unname(etiquetas_modelo[variable]),
+    `Mínimo leave-one-out` = fmt_n(minimo, 3),
+    `Máximo leave-one-out` = fmt_n(maximo, 3),
+    `Centro que más mueve el coeficiente` = centro_mayor_cambio,
+    `Cambio absoluto máximo` = fmt_n(cambio_maximo, 3),
+    `Exclusiones que cambian el signo` = cambios_signo
+  )
+resumen_loo |>
+  knitr::kable(align = c("l", "l", "c", "c", "l", "c", "c"))
+```
+
+Los diagnósticos complementan ese ejercicio. Se señalan los centros con mayor distancia de Cook y leverage en cada especificación; los umbrales \(4/N\) y \(2k/N\) son reglas exploratorias para alertar sobre posible influencia, no criterios automáticos de exclusión.
+
+```{r}
+#| label: tbl-influencia-centros
+#| tbl-cap: "Diagnósticos de influencia por especificación"
+diagnosticos_modelos |>
+  transmute(
+    Modelo = modelo,
+    `Centro con mayor Cook` = centro_max_cook,
+    `Cook máximo` = fmt_n(cook_max, 3),
+    `Centros sobre 4/N` = centros_cook_sobre_umbral,
+    `Centro con mayor leverage` = centro_max_leverage,
+    `Leverage máximo` = fmt_n(leverage_max, 3),
+    `Centros sobre 2k/N` = centros_leverage_sobre_umbral
+  ) |>
+  knitr::kable(align = c("l", "l", "c", "c", "l", "c", "c"))
+```
+
+La exclusión de centros es un diagnóstico, no la base del resultado principal: se conserva la muestra completa. El leave-one-out informa cuánto varían las estimaciones sin cada centro, pero con 29 unidades la potencia es limitada y tanto los coeficientes como sus errores pueden ser sensibles a observaciones de alto leverage.
 
 ## Alcance y limitaciones
 
@@ -548,9 +706,8 @@ txt_fm <- tryCatch({
 
 -   Los coeficientes se calculan entre centros y no se trasladan al comportamiento de las personas [@robinson1950].
 
--   Una correlación bivariada no equivale al efecto de una variable dentro de un modelo multivariado, donde otras variables pueden cambiar su peso.
+-   Una correlación bivariada no equivale a la asociación condicional dentro de un modelo multivariado, donde el ajuste por otras variables puede cambiar su magnitud.
 
 -   La inseguridad y la discriminación son percepciones de las mismas personas, por lo que su asociación puede reflejar una retroalimentación.
 
 -   Los signos esperados son hipótesis y no hallazgos establecidos. La literatura sobre visitas y victimización estudia sobre todo la mala conducta, las agresiones y la reincidencia, no la sensación de inseguridad, y las fuentes revisadas no incluyen estudios del sistema penitenciario ecuatoriano.
-
